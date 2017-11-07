@@ -9,6 +9,32 @@ transportation planning agencies that wanted to build a shared, open, platform
 that could be easily adapted to their individual needs, but would share a
 robust, efficient, and well-maintained common core.
 
+## Loosest Coupling
+
+Initial work to loosely couple ActivitySim and UrbanSim for integrated modeling
+
+### PHASE I:
+Getting long-term choice models from ActivitySim to run in sequence with UrbanSim. These models include **auto ownership**, **school location choice** and **workplace location choice**.
+
+#### TO DO
+- [x] script to merge households tables
+- [x] script to update `asim.persons` table, i.e. drop persons with households not included in updated `asim.households` table
+- [x] get ActivitySim to run on `usim.households`-derived data
+- [ ] script to merge ActivitySim and UrbanSim outputs
+- [ ] automate the sequential execution of UrbanSim and ActivitySim long-term choice models
+- [ ] update `land_use/taz_data` and `skims/accessibility` data in **mtc_aim.h5** datastore to reflect changes after UrbanSim run
+  - `land_use/taz_data` seems to have its closest UrbanSim analog in the **taz_summaries_XXXX.csv** UrbanSim outputs, but some of the headers are different.
+  - `skims/accessibility` appear to be static Pandana accessibility queries at the TAZ level. Do these actually need updating if we aren't making changes to the network?
+- [ ] update skims.omx to reflect changes after UrbanSim run
+
+### PHASE II:
+Sequential execution of UrbanSim, long-term ActivitySim models, and daily travel ActivitySim models to generate OD demand data
+
+#### TO DO
+- [ ] Script to generated demand data
+  - How do we deal with time?
+
+
 ## Documentation
 
 https://udst.github.io/activitysim
