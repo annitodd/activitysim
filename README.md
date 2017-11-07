@@ -31,7 +31,7 @@ Getting long-term choice models from ActivitySim to run in sequence with UrbanSi
 Sequential execution of UrbanSim, long-term ActivitySim models, and daily travel ActivitySim models to generate OD demand data
 
 #### TO DO
-- [ ] Script to generated demand data
+- [ ] Script to take ActivitySim output and generate demand data for zone-based OD pairs
   - How do we deal with time?
 
 
