@@ -22,7 +22,7 @@ Getting long-term choice models from ActivitySim to run in sequence with UrbanSi
 - [x] get ActivitySim to run on `usim.households`-derived data
 - [ ] script to merge ActivitySim and UrbanSim outputs
 - [ ] automate the sequential execution of UrbanSim and ActivitySim long-term choice models
-- [ ] update `land_use/taz_data` and `skims/accessibility` data in **mtc_aim.h5** datastore to reflect changes after UrbanSim run
+- [ ] update `land_use/taz_data` and `skims/accessibility` data in **mtc_asim.h5** datastore to reflect changes after UrbanSim run
   - `land_use/taz_data` seems to have its closest UrbanSim analog in the **taz_summaries_XXXX.csv** UrbanSim outputs, but some of the headers are different.
   - `skims/accessibility` appear to be static Pandana accessibility queries at the TAZ level. Do these actually need updating if we aren't making changes to the network?
 - [ ] update skims.omx to reflect changes after UrbanSim run
