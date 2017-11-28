@@ -25,7 +25,7 @@ _MODELS = [
     'school_location_sample',
     'school_location_logsums',
     'school_location_simulate',
-    'workplace_location_sample',
+    'workplace_location_sample', # ~3 hours
     'workplace_location_logsums',
     'workplace_location_simulate',
     'auto_ownership_simulate',
