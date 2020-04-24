@@ -1,9 +1,6 @@
 # ActivitySim
 # See full license in LICENSE.txt.
 
-from __future__ import (absolute_import, division, print_function, )
-from future.standard_library import install_aliases
-install_aliases()  # noqa: E402
 from builtins import next
 from builtins import range
 
@@ -464,9 +461,11 @@ def trace_targets(df, slicer=None):
     else:
 
         if column is None:
+            # Index.isin returns boolean array
             targets = df.index.isin(target_ids)
         else:
-            targets = df[column].isin(target_ids)
+            # Column.isin returns boolean Series
+            targets = df[column].isin(target_ids).to_numpy()
 
     return targets
 

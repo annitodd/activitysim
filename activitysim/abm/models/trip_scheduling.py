@@ -1,9 +1,5 @@
 # ActivitySim
 # See full license in LICENSE.txt.
-
-from __future__ import (absolute_import, division, print_function, )
-from future.standard_library import install_aliases
-install_aliases()  # noqa: E402
 from builtins import range
 
 import logging
@@ -323,7 +319,7 @@ def schedule_trips_in_leg(
     trips = trips.sort_index()
     trips['next_trip_id'] = np.roll(trips.index, -1 if outbound else 1)
     is_final = (trips.trip_num == trips.trip_count) if outbound else (trips.trip_num == 1)
-    trips.next_trip_id = trips.next_trip_id.where(is_final, NO_TRIP_ID)
+    trips.next_trip_id = trips.next_trip_id.where(~is_final, NO_TRIP_ID)
 
     # iterate over outbound trips in ascending trip_num order, skipping the initial trip
     # iterate over inbound trips in descending trip_num order, skipping the finial trip

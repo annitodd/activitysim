@@ -184,8 +184,8 @@ Trip modes
 ~~~~~~~~~~
 
 The trip modes defined in the example model are below. The modes include auto by
-occupancy and toll/non-toll choice, walk and bike, and walk and drive access to five different
-transit line-haul modes.
+occupancy and toll/non-toll choice, walk and bike, walk and drive access to five different
+transit line-haul modes, and ride hail with taxi, single TNC (Transportation Network Company), and shared TNC.
 
   1. Auto - SOV (Free)
   2. Auto - SOV (Pay)
@@ -205,6 +205,9 @@ transit line-haul modes.
   16. Drive to Express Bus
   17. Drive to Bus Rapid Transit
   18. Drive to Heavy Rail
+  19. Taxi
+  20. Single TNC
+  21. Shared TNC
 
 Sub-models
 ~~~~~~~~~~
@@ -255,9 +258,9 @@ Folder and File Setup
 The example has the following root folder/file setup:
 
   * configs - settings, expressions files, etc.
+  * configs_mp - override settings for the multiprocess configuration
   * data - input data such as land use, synthetic population files, and skims
   * output - outputs folder
-  * simulation.py - main script to run the model
 
 Inputs
 ~~~~~~
@@ -496,6 +499,9 @@ columns indicates the number of non-mandatory tours by purpose.  The current set
 +------------------------------------------------+--------------------------------------------------------------------+
 |  :ref:`trip_cbd_parking`                       |  **NOT YET IMPLEMENTED**                                           |
 +------------------------------------------------+--------------------------------------------------------------------+
+|  :ref:`write_trip_matrices`                    |  - write_trip_matrices.yaml                                        |
+|                                                |  - write_trip_matrices_annotate_trips_preprocessor.csv             |
++------------------------------------------------+--------------------------------------------------------------------+
 
 .. index:: chunk_size
 .. _chunk_size:
@@ -564,6 +570,7 @@ The ``models`` setting contains the specification of the data pipeline model ste
     - trip_mode_choice
     - write_data_dictionary
     - track_skim_usage
+    - write_trip_matrices
     - write_tables
 
 These model steps must be registered orca steps, as noted below.  If you provide a ``resume_after``
@@ -581,26 +588,63 @@ The model is run by calling the :func:`activitysim.core.pipeline.run` method.
 
   pipeline.run(models=_MODELS, resume_after=resume_after)
 
-Running the Example
+.. _example_run :
+
+Running the MTC Example
 -------------------
 
 To run the example, do the following:
 
-* Open a command line window in the ``example`` folder
 * Activate the correct conda environment if needed
-* Run ``python simulation.py`` to run the data pipeline (i.e. model steps)
+* View the list of available examples
+
+::
+
+  activitysim create --list
+
+* Create a local copy of an example folder
+
+::
+
+  activitysim create --example example_mtc --destination my_test_example
+
+* Run the example
+
+::
+
+  activitysim run --working_dir my_test_example
+
+or
+
+::
+
+  activitysim run -c my_test_example/configs -d my_test_example/data -o my_test_example/output
+
 * ActivitySim should log some information and write outputs to the ``output`` folder.
 
 The example should complete within a couple minutes since it is running a small sample of households.
+
+.. note::
+
+  A customizable run script for power users can be found in the `Github repo <https://github.com/ActivitySim/activitysim/tree/master/scripts>`__.
+  This script takes many of the same arguments as the ``activitysim run`` command, including paths to
+  ``--config``, ``--data``, and ``--output`` directories. It looks for these folders in the current
+  working directory by default.
+
+  ::
+
+    python simulation.py
 
 Multiprocessing
 ~~~~~~~~~~~~~~~
 
 The model system is parallelized via :ref:`multiprocessing`.  To setup and run the :ref:`example` using
-multiprocessing, follow the same steps as above, but use the configuration in the ``example_mp`` folder:
+multiprocessing, follow the same steps as the above :ref:`example_run`, but use the ``-m`` flag to
+toggle multiprocessing:
 
-* Open a command prompt in the ``example_mp`` folder.  The data does not need to be copied into the folder since the mp setup inherits from the example single-processed setup.
-* Run ``python simulation.py``.
+::
+
+  activitysim run --working_dir my_test_example -m
 
 The multiprocessing example also writes outputs to the ``output`` folder.
 
@@ -707,6 +751,10 @@ The example ``simulation.py`` run model script also writes the final tables to C
 the :func:`activitysim.core.pipeline.get_table` method via the ``write_tables`` step.
 This method returns a pandas DataFrame, which is then written to a CSV file by the ``write_tables`` step.
 
+The ``write_trip_matrices`` step processes the trips table to create open matrix (OMX) trip matrices for
+assignment.  The matrices are configured and coded according to the expressions in the model step
+trip annotation file.  See :ref:`write_trip_matrices` for more information.
+
 ActivitySim also writes log and trace files to the ``outputs`` folder.  The activitysim.log file,
 which is the overall log file is always produced.  If tracing is specified, then trace files are
 output as well.
@@ -730,3 +778,42 @@ file:
 
 With the set of output CSV files, the user can trace ActivitySim calculations in order to ensure they are correct and/or to
 help debug data and/or logic errors.
+
+.. _writing_logsums :
+
+Writing Logsums
+~~~~~~~~~~~~~~~
+
+The tour and trip destination and mode choice models calculate logsums but do not persist them by default.  
+Mode and destination choice logsums are essential for re-estimating these models and can therefore be 
+saved to the pipeline if desired.  To save the tour and trip destination and mode choice models, include 
+the following optional settings in the model settings file.  The data is saved to the pipeline for later use.
+
+::
+
+  # in workplace_location.yaml for example
+  DEST_CHOICE_LOGSUM_COLUMN_NAME: workplace_location_logsum
+  DEST_CHOICE_SAMPLE_TABLE_NAME: workplace_location_sample
+  
+  # in tour_mode_choice.yaml for example
+  MODE_CHOICE_LOGSUM_COLUMN_NAME: mode_choice_logsum
+
+The `DEST_CHOICE_SAMPLE_TABLE_NAME` contains the fields in the table below.  Writing out the 
+destination choice sample table, which includes the mode choice logsum for each sampled 
+alternative destination, adds significant size to the pipeline.  Therefore, this feature should
+only be activated when writing logsums for a small set of households for model estimation.
+
++-----------------------------------+---------------------------------------+
+| Field                             | Description                           |
++===================================+=======================================+ 
+| chooser_id                        | chooser id such as person or tour id  |
++-----------------------------------+---------------------------------------+
+| alt_dest                          | destination alternative id            |
++-----------------------------------+---------------------------------------+
+| prob                              | alternative probability               |
++-----------------------------------+---------------------------------------+
+| pick_count                        | sampling with replacement pick count  |
++-----------------------------------+---------------------------------------+
+| mode_choice_logsum                | mode choice logsum                    |
++-----------------------------------+---------------------------------------+
+

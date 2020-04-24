@@ -1,12 +1,5 @@
 # ActivitySim
 # See full license in LICENSE.txt.
-
-from __future__ import (absolute_import, division, print_function, )
-from future.standard_library import install_aliases
-install_aliases()  # noqa: E402
-
-from future.utils import iteritems
-
 import logging
 import time
 import multiprocessing
@@ -280,28 +273,30 @@ class ShadowPriceCalculator(object):
 
         return global_modeled_size_df
 
-    def set_choices(self, choices_df):
+    def set_choices(self, choices, segment_ids):
         """
         aggregate individual location choices to modeled_size by zone and segment
 
         Parameters
         ----------
-        choices_df : pandas.DataFrame
-            dataframe with disaggregate location choices and at least two columns:
-                segment_id : segment id tag for this individual
-                dest_choice : zone id of location choice
+        choices : pandas.Series
+            zone id of location choice indexed by person_id
+        segment_ids : pandas.Series
+            segment id tag for this individual indexed by person_id
+
         Returns
         -------
         updates self.modeled_size
         """
 
-        assert 'dest_choice' in choices_df
-
         modeled_size = pd.DataFrame(index=self.desired_size.index)
-        for c in self.desired_size:
+        for seg_name in self.desired_size:
+
             segment_choices = \
-                choices_df[choices_df['segment_id'] == self.segment_ids[c]]
-            modeled_size[c] = segment_choices.groupby('dest_choice').size()
+                choices[(segment_ids == self.segment_ids[seg_name])]
+
+            modeled_size[seg_name] = segment_choices.value_counts()
+
         modeled_size = modeled_size.fillna(0).astype(int)
 
         if self.num_processes == 1:
@@ -636,7 +631,7 @@ def buffers_for_shadow_pricing(shadow_pricing_info):
     block_shapes = shadow_pricing_info['block_shapes']
 
     data_buffers = {}
-    for block_key, block_shape in iteritems(block_shapes):
+    for block_key, block_shape in block_shapes.items():
 
         # buffer_size must be int (or p2.7 long), not np.int64
         buffer_size = int(np.prod(block_shape))
@@ -785,7 +780,7 @@ def add_size_tables():
     # shadow_pricing_models is dict of {<model_selector>: <model_name>}
     # since these are scaled to model size, they have to be created while single-process
 
-    for model_selector, model_name in iteritems(shadow_pricing_models):
+    for model_selector, model_name in shadow_pricing_models.items():
 
         model_settings = config.read_model_settings(model_name)
 

@@ -1,13 +1,7 @@
 # ActivitySim
 # See full license in LICENSE.txt.
 
-from __future__ import (absolute_import, division, print_function, )
-from future.standard_library import install_aliases
-install_aliases()  # noqa: E402
 from builtins import range
-
-from future.utils import listvalues
-
 
 import sys
 import os
@@ -50,7 +44,6 @@ def uniquify_spec_index(spec):
     for expr in spec.index:
         dict[assign.uniquify_key(dict, expr, template="{} # ({})")] = expr
 
-    # bug
     prev_index_name = spec.index.name
     spec.index = list(dict.keys())
     spec.index.name = prev_index_name
@@ -348,7 +341,7 @@ def set_skim_wrapper_targets(df, skims):
     elif isinstance(skims, dict):
         # it it is a dict, then check for known types, ignore anything we don't recognize as a skim
         # (this allows putting skim column names in same dict as skims for use in locals_dicts)
-        for skim in listvalues(skims):
+        for skim in list(skims.values()):
             if isinstance(skim, SkimDictWrapper) or isinstance(skim, SkimStackWrapper):
                 skim.set_df(df)
     else:
@@ -514,7 +507,7 @@ def compute_base_probabilities(nested_probabilities, nests, spec):
 
 
 def eval_mnl(choosers, spec, locals_d, custom_chooser,
-             trace_label=None, trace_choice_name=None):
+             want_logsums=False, trace_label=None, trace_choice_name=None):
     """
     Run a simulation for when the model spec does not involve alternative
     specific data, e.g. there are no interactions with alternative
@@ -552,6 +545,9 @@ def eval_mnl(choosers, spec, locals_d, custom_chooser,
         Index will be that of `choosers`, values will match the columns
         of `spec`.
     """
+
+    # FIXME - not implemented because not currently needed
+    assert not want_logsums
 
     trace_label = tracing.extend_trace_label(trace_label, 'eval_mnl')
     have_trace_targets = tracing.has_trace_targets(choosers)
@@ -596,7 +592,7 @@ def eval_mnl(choosers, spec, locals_d, custom_chooser,
 
 
 def eval_nl(choosers, spec, nest_spec, locals_d, custom_chooser,
-            trace_label=None, trace_choice_name=None):
+            want_logsums=False, trace_label=None, trace_choice_name=None):
     """
     Run a nested-logit simulation for when the model spec does not involve alternative
     specific data, e.g. there are no interactions with alternative
@@ -660,6 +656,11 @@ def eval_nl(choosers, spec, nest_spec, locals_d, custom_chooser,
         compute_nested_probabilities(nested_exp_utilities, nest_spec, trace_label=trace_label)
     chunk.log_df(trace_label, "nested_probabilities", nested_probabilities)
 
+    if want_logsums:
+        # logsum of nest root
+        logsums = pd.Series(np.log(nested_exp_utilities.root), index=choosers.index)
+        chunk.log_df(trace_label, "logsums", logsums)
+
     del nested_exp_utilities
     chunk.log_df(trace_label, 'nested_exp_utilities', None)
 
@@ -707,12 +708,20 @@ def eval_nl(choosers, spec, nest_spec, locals_d, custom_chooser,
                          columns=[None, trace_choice_name])
         tracing.trace_df(rands, '%s.rands' % trace_label,
                          columns=[None, 'rand'])
+        if want_logsums:
+            tracing.trace_df(logsums, '%s.logsums' % trace_label,
+                             columns=[None, 'logsum'])
+
+    if want_logsums:
+        choices = choices.to_frame('choice')
+        choices['logsum'] = logsums
 
     return choices
 
 
 def _simple_simulate(choosers, spec, nest_spec, skims=None, locals_d=None,
                      custom_chooser=None,
+                     want_logsums=False,
                      trace_label=None, trace_choice_name=None,
                      ):
     """
@@ -761,9 +770,11 @@ def _simple_simulate(choosers, spec, nest_spec, skims=None, locals_d=None,
 
     if nest_spec is None:
         choices = eval_mnl(choosers, spec, locals_d, custom_chooser,
+                           want_logsums=want_logsums,
                            trace_label=trace_label, trace_choice_name=trace_choice_name)
     else:
         choices = eval_nl(choosers, spec, nest_spec, locals_d,  custom_chooser,
+                          want_logsums=want_logsums,
                           trace_label=trace_label, trace_choice_name=trace_choice_name)
 
     return choices
@@ -807,6 +818,7 @@ def simple_simulate_rpc(chunk_size, choosers, spec, nest_spec, trace_label):
 
 def simple_simulate(choosers, spec, nest_spec, skims=None, locals_d=None,
                     chunk_size=0, custom_chooser=None,
+                    want_logsums=False,
                     trace_label=None, trace_choice_name=None):
     """
     Run an MNL or NL simulation for when the model spec does not involve alternative
@@ -834,10 +846,12 @@ def simple_simulate(choosers, spec, nest_spec, skims=None, locals_d=None,
 
         choices = _simple_simulate(
             chooser_chunk, spec, nest_spec,
-            skims, locals_d,
-            custom_chooser,
-            chunk_trace_label,
-            trace_choice_name)
+            skims=skims,
+            locals_d=locals_d,
+            custom_chooser=custom_chooser,
+            want_logsums=want_logsums,
+            trace_label=chunk_trace_label,
+            trace_choice_name=trace_choice_name)
 
         chunk.log_close(chunk_trace_label)
 

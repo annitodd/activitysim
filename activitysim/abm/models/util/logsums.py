@@ -1,9 +1,5 @@
 # ActivitySim
 # See full license in LICENSE.txt.
-from __future__ import (absolute_import, division, print_function, )
-from future.standard_library import install_aliases
-install_aliases()  # noqa: E402
-
 import logging
 
 from activitysim.core import simulate
@@ -53,7 +49,7 @@ def compute_logsums(choosers,
                     tour_purpose,
                     logsum_settings, model_settings,
                     skim_dict, skim_stack,
-                    chunk_size, trace_hh_id, trace_label):
+                    chunk_size, trace_label):
     """
 
     Parameters

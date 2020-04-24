@@ -1,14 +1,8 @@
 # ActivitySim
 # See full license in LICENSE.txt.
-
-from __future__ import (absolute_import, division, print_function, )
-from future.standard_library import install_aliases
-install_aliases()  # noqa: E402
 from builtins import next
 from builtins import map
 from builtins import object
-
-from future.utils import iteritems
 
 import os
 import logging
@@ -98,7 +92,7 @@ def close_on_exit(file, name):
 
 
 def close_open_files():
-    for name, file in iteritems(_PIPELINE.open_files):
+    for name, file in _PIPELINE.open_files.items():
         print("Closing %s" % name)
         file.close()
     _PIPELINE.open_files.clear()
@@ -329,7 +323,7 @@ def checkpointed_tables():
     Return a list of the names of all checkpointed tables
     """
 
-    return [name for name, checkpoint_name in iteritems(_PIPELINE.last_checkpoint)
+    return [name for name, checkpoint_name in _PIPELINE.last_checkpoint.items()
             if checkpoint_name and name not in NON_TABLE_COLUMNS]
 
 
@@ -734,6 +728,10 @@ def extend_table(table_name, df, axis=0):
         table_df = orca.get_table(table_name).to_frame()
 
         if axis == 0:
+
+            # if len(table_df.index.intersection(df.index)) > 0:
+            #     print(table_df.index.intersection(df.index))
+
             # don't expect indexes to overlap
             assert len(table_df.index.intersection(df.index)) == 0
             missing_df_str_columns = [c for c in table_df.columns
@@ -786,3 +784,7 @@ def drop_table(table_name):
         logger.debug("drop_table removing table %s from last_checkpoint" % table_name)
 
         _PIPELINE.last_checkpoint[table_name] = ''
+
+
+def is_table(table_name):
+    return orca.is_table(table_name)

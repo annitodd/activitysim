@@ -1,5 +1,9 @@
 from collections import OrderedDict
+<<<<<<< HEAD
 from future.utils import iteritems
+=======
+
+>>>>>>> origin/develop
 
 import numpy as np
 import pytest
@@ -55,7 +59,11 @@ def test_multiply_large_numbers(skim_info, num_of_matrices, matrix_dimension):
     omx_shape = skim_info['omx_shape']
     blocks = skim_info['blocks']
 
+<<<<<<< HEAD
     for block_name, block_size in iteritems(blocks):
+=======
+    for block_name, block_size in blocks.items():
+>>>>>>> origin/develop
         # If overflow, this number will go negative
         assert int(skims.multiply_large_numbers(omx_shape) * block_size) == \
                num_of_matrices * matrix_dimension ** 2

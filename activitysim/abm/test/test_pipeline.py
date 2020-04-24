@@ -1,15 +1,15 @@
 # ActivitySim
 # See full license in LICENSE.txt.
-
-from __future__ import (absolute_import, division, print_function, )
-from future.standard_library import install_aliases
-install_aliases()  # noqa: E402
-
 import os
 import logging
+import pkg_resources
+
+import openmatrix as omx
+import numpy as np
+import numpy.testing as npt
 
 import pandas as pd
-import pandas.util.testing as pdt
+import pandas.testing as pdt
 import pytest
 import yaml
 
@@ -21,6 +21,7 @@ from activitysim.core import config
 
 # set the max households for all tests (this is to limit memory use on travis)
 HOUSEHOLDS_SAMPLE_SIZE = 100
+HOUSEHOLDS_SAMPLE_RATE = 0.02  # HOUSEHOLDS_SAMPLE_RATE / 5000 households
 
 # household with mandatory, non mandatory, atwork_subtours, and joint tours
 HH_ID = 257341
@@ -32,15 +33,22 @@ HH_ID = 257341
 SKIP_FULL_RUN = False
 
 
-def setup_dirs(configs_dir):
+def example_path(dirname):
+    resource = os.path.join('examples', 'example_mtc', dirname)
+    return pkg_resources.resource_filename('activitysim', resource)
 
-    inject.add_injectable("configs_dir", configs_dir)
+
+def setup_dirs(configs_dir, data_dir=None):
+
+    inject.add_injectable('configs_dir', configs_dir)
 
     output_dir = os.path.join(os.path.dirname(__file__), 'output')
-    inject.add_injectable("output_dir", output_dir)
+    inject.add_injectable('output_dir', output_dir)
 
-    data_dir = os.path.join(os.path.dirname(__file__), 'data')
-    inject.add_injectable("data_dir", data_dir)
+    if not data_dir:
+        data_dir = example_path('data')
+
+    inject.add_injectable('data_dir', data_dir)
 
     inject.clear_cache()
 
@@ -49,6 +57,7 @@ def setup_dirs(configs_dir):
     tracing.delete_output_files('csv')
     tracing.delete_output_files('txt')
     tracing.delete_output_files('yaml')
+    tracing.delete_output_files('omx')
 
 
 def teardown_function(func):
@@ -81,8 +90,7 @@ def inject_settings(configs_dir, **kwargs):
 
 def test_rng_access():
 
-    configs_dir = os.path.join(os.path.dirname(__file__), 'configs')
-
+    configs_dir = example_path('configs')
     setup_dirs(configs_dir)
 
     inject.add_injectable('rng_base_seed', 0)
@@ -153,10 +161,21 @@ def regress_mini_mtf():
     pdt.assert_series_equal(mtf_choice.reindex(per_ids), expected_choice)
 
 
+def regress_mini_location_choice_logsums():
+
+    persons = pipeline.get_table("persons")
+
+    # DEST_CHOICE_LOGSUM_COLUMN_NAME is specified in school_location.yaml and should be assigned
+    assert 'school_taz_logsum' in persons
+    assert not persons.school_taz_logsum.isnull().all()
+
+    # DEST_CHOICE_LOGSUM_COLUMN_NAME is NOT specified in workplace_location.yaml
+    assert 'workplace_taz_logsum' not in persons
+
+
 def test_mini_pipeline_run():
 
-    configs_dir = os.path.join(os.path.dirname(__file__), 'configs')
-
+    configs_dir = example_path('configs')
     setup_dirs(configs_dir)
 
     inject_settings(configs_dir,
@@ -181,6 +200,7 @@ def test_mini_pipeline_run():
     pipeline.run_model('mandatory_tour_frequency')
 
     regress_mini_mtf()
+    regress_mini_location_choice_logsums()
 
     # try to get a non-existant table
     with pytest.raises(RuntimeError) as excinfo:
@@ -191,6 +211,10 @@ def test_mini_pipeline_run():
     with pytest.raises(RuntimeError) as excinfo:
         pipeline.get_table("households", checkpoint_name="bogus")
     assert "not in checkpoints" in str(excinfo.value)
+
+    # should create optional workplace_location_sample table
+    workplace_location_sample_df = pipeline.get_table("workplace_location_sample")
+    assert 'mode_choice_logsum' in workplace_location_sample_df
 
     pipeline.close_pipeline()
     inject.clear_cache()
@@ -203,8 +227,7 @@ def test_mini_pipeline_run2():
     # exactly the same results as for test_mini_pipeline_run
     # when we restart pipeline
 
-    configs_dir = os.path.join(os.path.dirname(__file__), 'configs')
-
+    configs_dir = example_path('configs')
     setup_dirs(configs_dir)
 
     inject_settings(configs_dir, households_sample_size=HOUSEHOLDS_SAMPLE_SIZE)
@@ -240,8 +263,8 @@ def test_mini_pipeline_run2():
     hh_ids = pipeline.get_table("households").head(num_hh_ids).index.values
     hh_ids = pd.DataFrame({'household_id': hh_ids})
 
-    data_dir = inject.get_injectable('data_dir')
-    hh_ids.to_csv(os.path.join(data_dir, 'override_hh_ids.csv'), index=False, header=True)
+    hh_ids_path = config.data_file_path('override_hh_ids.csv')
+    hh_ids.to_csv(hh_ids_path, index=False, header=True)
 
     pipeline.close_pipeline()
     inject.clear_cache()
@@ -252,7 +275,7 @@ def test_mini_pipeline_run3():
 
     # test that hh_ids setting overrides household sampling
 
-    configs_dir = os.path.join(os.path.dirname(__file__), 'configs')
+    configs_dir = example_path('configs')
     setup_dirs(configs_dir)
     inject_settings(configs_dir, hh_ids='override_hh_ids.csv')
 
@@ -275,8 +298,7 @@ def full_run(resume_after=None, chunk_size=0,
              households_sample_size=HOUSEHOLDS_SAMPLE_SIZE,
              trace_hh_id=None, trace_od=None, check_for_variability=None):
 
-    configs_dir = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'example', 'configs')
-
+    configs_dir = example_path('configs')
     setup_dirs(configs_dir)
 
     settings = inject_settings(
@@ -285,6 +307,7 @@ def full_run(resume_after=None, chunk_size=0,
         chunk_size=chunk_size,
         trace_hh_id=trace_hh_id,
         trace_od=trace_od,
+        testing_fail_trip_destination=False,
         check_for_variability=check_for_variability,
         use_shadow_pricing=False)  # shadow pricing breaks replicability when sample_size varies
 
@@ -300,9 +323,8 @@ def full_run(resume_after=None, chunk_size=0,
 
 def get_trace_csv(file_name):
 
-    output_dir = os.path.join(os.path.dirname(__file__), 'output')
-
-    df = pd.read_csv(os.path.join(output_dir, file_name))
+    file_name = config.output_file_path(file_name)
+    df = pd.read_csv(file_name)
 
     #        label    value_1    value_2    value_3    value_4
     # 0    tour_id        38         201         39         40
@@ -319,7 +341,7 @@ def get_trace_csv(file_name):
     return df
 
 
-EXPECT_TOUR_COUNT = 205
+EXPECT_TOUR_COUNT = 201
 
 
 def regress_tour_modes(tours_df):
@@ -356,19 +378,19 @@ def regress_tour_modes(tours_df):
         'othdiscr',
         'work',
         'work',
-        'maint',
+        'business',
         'work',
-        'eatout',
-        ]
+        'othmaint'
+    ]
 
     EXPECT_MODES = [
         'SHARED3FREE',
         'WALK',
-        'DRIVEALONEFREE',
+        'SHARED3FREE',
         'WALK',
-        'WALK',
-        'WALK',
-        ]
+        'WALK_LOC',
+        'WALK'
+    ]
 
     assert len(tours_df) == len(EXPECT_PERSON_IDS)
     assert (tours_df.person_id.values == EXPECT_PERSON_IDS).all()
@@ -397,14 +419,37 @@ def regress():
     assert tours_df.shape[0] > 0
     assert not tours_df.tour_mode.isnull().any()
 
+    # optional logsum column was added to all tours except mandatory
+    assert 'destination_logsum' in tours_df
+    assert (tours_df.destination_logsum.isnull() == (tours_df.tour_category == 'mandatory')).all()
+
+    # mode choice logsum calculated for all tours
+    assert 'mode_choice_logsum' in tours_df
+    assert not tours_df.mode_choice_logsum.isnull().any()
+
     trips_df = pipeline.get_table('trips')
     assert trips_df.shape[0] > 0
     assert not trips_df.purpose.isnull().any()
     assert not trips_df.depart.isnull().any()
     assert not trips_df.trip_mode.isnull().any()
 
+    # mode_choice_logsum calculated for all trips
+    assert not trips_df.mode_choice_logsum.isnull().any()
+
     # should be at least two tours per trip
     assert trips_df.shape[0] >= 2*tours_df.shape[0]
+
+    # write_trip_matrices
+    trip_matrices_file = config.output_file_path('trips_md.omx')
+    assert os.path.exists(trip_matrices_file)
+    trip_matrices = omx.open_file(trip_matrices_file)
+    assert trip_matrices.shape() == (25, 25)
+
+    assert 'WALK_MD' in trip_matrices.list_matrices()
+    walk_trips = np.array(trip_matrices['WALK_MD'])
+    assert walk_trips.dtype == np.dtype('float64')
+
+    trip_matrices.close()
 
 
 def test_full_run1():
@@ -490,6 +535,7 @@ def test_full_run5_singleton():
 
 if __name__ == "__main__":
 
+    from activitysim import abm  # register injectables
     print("running test_full_run1")
     test_full_run1()
     # teardown_function(None)
