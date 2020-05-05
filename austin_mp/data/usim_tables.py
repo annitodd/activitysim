@@ -34,7 +34,6 @@ print('python version: ',python_version())
 
 
 #UrbanSim Results
-
 hdf = pd.HDFStore('data/model_data.h5')
 households = hdf['/households']
 persons = hdf['/persons']
@@ -755,6 +754,10 @@ def persons_table(persons):
     names_dict = {'member_id': 'PNUM'}
     df = persons.to_frame().rename(columns = names_dict)
     df = df[~df.TAZ.isnull()]
+    df.reset_index(inplace = True)
+    df = df.sort_values(['household_id', 'PNUM'])
+    df['person_id'] = range(1, len(df)+1)
+    df.set_index('person_id', inplace = True)
     df.to_csv('data/persons.csv')
 
 

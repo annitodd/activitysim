@@ -23,7 +23,7 @@ skims_file: skims.omx
 # create_input_store: True
 
 # number of households to simulate
-households_sample_size:  50
+households_sample_size:  10000
 # simulate all households
 # households_sample_size: 0
 
