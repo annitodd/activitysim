@@ -86,15 +86,12 @@ def assign_taz(df, gdf):
     df.reset_index(inplace = True)
     df.drop_duplicates(subset = [index_name], keep = 'first', inplace = True) 
     df.set_index(index_name, inplace = True)
-    print('First join complete')
     
     #Check if there is any assigined object
     if df.index_right.isnull().sum()>0:
-        print('there are some null values')
     
         #Buffer unassigned ids until they reach a hexbin. 
         null_values = df[df.index_right.isnull()].drop(columns = ['index_right','area'])
-        print('number of null values: ', null_values.shape[0])
 
         result_list = []
         for index, value in null_values.iterrows():
@@ -743,7 +740,11 @@ def skims_omx(skims):
                         skims[name] = mx
     skims.close()
 
+@orca.step()
+def zones_table(zones):
+    zones.to_frame().to_file('data/h3_hexbis.shp')
 
-orca.run(['households_table', 'persons_table', 'land_use_table', 'skims_omx'])
+
+orca.run(['households_table', 'persons_table', 'land_use_table', 'skims_omx','zones_table' ])
 
 hdf.close()
