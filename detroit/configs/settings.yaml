@@ -3,12 +3,12 @@ inherit_settings: True
 
 beam_skims_url: https://beam-outputs.s3.amazonaws.com/output/austin/austin-prod-200k-skims-with-h3-index-final__2020-04-18_09-44-24_wga/ITERS/it.0/0.skimsOD.UrbanSim.Full.csv.gz
 
-create_skims_from_beam: True
+create_skims_from_beam: False
 usim_zone_geoms: h3
 # usim_zone_shapefile:
 
 create_inputs_from_usim_data: True
-usim_data_store: model_data.h5
+usim_data_store: model_data_full.h5
 
 
 # raise error if any sub-process fails without waiting for others to complete
