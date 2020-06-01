@@ -685,7 +685,7 @@ def TERMINAL():
 
 @orca.column('zones')
 def COUNTY():
-    return 1  # Assuming 1 all San Francisco County
+    return 0  # Assuming no county
 
 
 # ** 3. Define Orca Steps **
