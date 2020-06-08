@@ -1,6 +1,6 @@
 Description,Expression,cars0,cars1,cars2,cars3,cars4
-2 Adults (age 16+),num_drivers==2,,0.42,3.0773,3.1962,2.6616
-3 Adults (age 16+),num_drivers==3,,0.3,3.5401,5.5131,5.208
+2 Adults (age 16+),num_drivers==2,,-0.826,3.385,3.152,2.904
+3 Adults (age 16+),num_drivers==3,,-2.216,3.480,4.650,4.988
 4+ Adults (age 16+),num_drivers>3,,2.0107,6.3662,8.5148,9.5807
 Persons age 16-17,num_children_16_to_17,,0.32,-0.881,-1.7313,-1.7313
 Persons age 18-24,num_college_age,,-0.4087,-1.0095,-1.0107,-1.0107
@@ -15,7 +15,7 @@ Presence of children age 5-17,(num_children_5_to_15+num_children_16_to_17)>0,,0.
 "Density index in excess of 10, if 0 workers",@(df.num_workers==0)*(df.density_index-10).clip(0),,-0.0152,-0.1106,-0.1766,-0.1766
 "Density index up to 10, if 1+ workers","@(df.num_workers>0)*df.density_index.clip(0, 10)",,0,-0.2028,-0.3654,-0.3654
 "Density index in excess of 10, if 1+ workers",@(df.num_workers>0)*(df.density_index-10).clip(0),,-0.0152,-0.1106,-0.1766,-0.1766
-Constants,@1,,3.48,1.66,-0.81,-3.25
+Constants,@1,,4.372,1.551,-0.430,-2.654
 "Retail accessibility (0.66*PK + 0.34*OP) by auto, if 0 workers",(num_workers==0)*(0.66*auPkRetail+0.34*auOpRetail),,0.0626,0.0626,0.0626,0.0626
 "Retail accessibility (0.66*PK + 0.34*OP) by auto, if 1+ workers",(num_workers>0)*(0.66*auPkRetail+0.34*auOpRetail),,0.1646,0.1646,0.1646,0.1646
 "Retail accessibility (0.66*PK + 0.34*OP) by transit, if 0 workers",(num_workers==0)*(0.66*trPkRetail+0.34*trOpRetail),,-0.3053,-0.3053,-0.3053,-0.3053
