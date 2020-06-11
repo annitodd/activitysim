@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import geopandas as gpd
 import orca
-from shapely.geometry import Polygon
+from shapely.geometry import Polygon, Point
 from h3 import h3
 from urbansim.utils import misc
 import requests
@@ -32,52 +32,126 @@ def get_zone_geoms_from_h3(h3_ids):
 def assign_taz(df, gdf):
     '''
     Assigns the gdf index (TAZ ID) for each index in df
-    Input: 
+    Input:
     - df columns names x, and y. The index is the ID of the object(blocks, school, college)
     - gdf: Geopandas DataFrame with TAZ as index, geometry and area value. 
     Output:
     A series with df index and corresponding gdf id
     '''
 
-    df = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.x, df.y), crs = "EPSG:4326")
+    df = gpd.GeoDataFrame(
+        df, geometry=gpd.points_from_xy(df.x, df.y), crs="EPSG:4326")
     gdf.geometry.crs = "EPSG:4326"
-    
+
     assert df.geometry.crs == gdf.geometry.crs
 
-    # Spatial join 
-    df = gpd.sjoin(df, gdf, how = 'left', op = 'intersects')
+    # Spatial join
+    df = gpd.sjoin(df, gdf, how='left', op='intersects')
 
-    #Drop duplicates and keep the one with the smallest H3 area
+    # Drop duplicates and keep the one with the smallest H3 area
     df = df.sort_values('area')
     index_name = df.index.name
-    df.reset_index(inplace = True)
-    df.drop_duplicates(subset = [index_name], keep = 'first', inplace = True) 
-    df.set_index(index_name, inplace = True)
-    
-    #Check if there is any assigined object
-    if df.index_right.isnull().sum()>0:
-    
-        #Buffer unassigned ids until they reach a hexbin. 
-        null_values = df[df.index_right.isnull()].drop(columns = ['index_right','area'])
+    df.reset_index(inplace=True)
+    df.drop_duplicates(subset=[index_name], keep='first', inplace=True)
+    df.set_index(index_name, inplace=True)
 
-        result_list = []
-        for index, value in null_values.iterrows():
-            buff_size = 0.0001
-            matched = False
-            geo_value = gpd.GeoDataFrame(value).T
-            geo_value.crs = "EPSG:4326"
-            while matched == False:
-                geo_value.geometry = geo_value.geometry.buffer(buff_size)
-                result = gpd.sjoin(geo_value, gdf, how = 'left', op = 'intersects')
-                matched = ~result.index_right.isnull()[0]
-                buff_size = buff_size + 0.0001
-            result_list.append(result.iloc[0:1])
+    # Check if there is any unassigined object
+    if df.index_right.isnull().sum() > 0:
 
-        null_values = pd.concat(result_list)
+        # if zones are h3-based, use the properties of h3
+        # geometries to fix unassigned geometries
+        if config.setting('usim_zone_geoms') == 'h3':
 
-        # Concatenate newly assigned values to the main values table 
-        df = df.dropna()
-        df = pd.concat([df, null_values], axis = 0)
+            # h3 zones
+            h3_zone_ids = inject.get_injectable('h3_zone_ids')
+
+            # min res of all h3 geoms
+            min_res = min(gdf['h3_res'])
+
+            unassigned = df[pd.isnull(df['index_right'])]
+            for i, row in tqdm(unassigned.iterrows(), total=len(unassigned)):
+
+                # find max res where the h3 geom containing the unassigned
+                # point has no children in the TAZs
+                current_res = min_res
+                containers = {}
+                while True:
+                    child_res = current_res + 1
+                    h3_id = h3.geo_to_h3(row['y'], row['x'], current_res)
+                    containers[current_res] = h3_id
+                    children = h3.h3_to_children(h3_id, child_res)
+                    all_children[child_res] = children
+                    if any([child in h3_zone_ids for child in children]):
+                        current_res += 1
+                        continue
+                    else:
+                        break
+
+                # go back up one resolution level and get the
+                # parent geom containing the point
+                match_res = current_res
+                parent = containers[match_res - 1]
+
+                while True:
+
+                    # get the children of the parent geom
+                    children = h3.h3_to_children(parent, match_res)
+
+                    # assign the point to the nearest child geom
+                    match_pool = pd.DataFrame.from_dict(
+                        {child: h3.h3_to_geo(child) for child in children},
+                        orient='index', columns=["lat", "lon"])
+                    match_pool_gdf = gpd.GeoDataFrame(
+                        match_pool, geometry=gpd.points_from_xy(
+                            match_pool.lon, match_pool.lat),
+                        crs='EPSG:4326')
+                    match_pool_gdf = match_pool_gdf.to_crs('EPSG:2768')
+                    unassigned_geom = Point(row['x'], row['y'])
+                    unassigned_gs = gpd.GeoSeries(
+                        [unassigned_geom], crs='EPSG:4326')
+                    unassigned_gs = unassigned_gs.to_crs('EPSG:2768')
+                    match_pool_gdf['dist'] = match_pool_gdf.geometry.apply(
+                        lambda x: unassigned_gs.distance(x))
+                    final_h3_id = match_pool_gdf['dist'].idxmin()
+                    final_match = gdf[gdf['h3_id'] == final_h3_id]
+
+                    # if the closest geom at the current match level
+                    # is not in the set of input TAZs, try matching on
+                    # a higher resolution child of that same geom
+                    if len(final_match) == 0:
+                        parent = final_h3_id
+                        match_res += 1
+                    else:
+                        break
+
+                final_taz = final_match.index.values[0]
+                df.loc[i, 'index_right'] = final_taz
+                df.loc[i, 'h3_id'] = final_h3_id
+
+        # otherwise just do it the brute force way
+        else:
+            
+            # Buffer unassigned ids until they reach a hexbin. 
+            null_values = df[df.index_right.isnull()].drop(columns=['index_right', 'area'])
+
+            result_list = []
+            for index, value in null_values.iterrows():
+                buff_size = 0.0001
+                matched = False
+                geo_value = gpd.GeoDataFrame(value).T
+                geo_value.crs = "EPSG:4326"
+                while matched == False:
+                    geo_value.geometry = geo_value.geometry.buffer(buff_size)
+                    result = gpd.sjoin(geo_value, gdf, how = 'left', op = 'intersects')
+                    matched = ~result.index_right.isnull()[0]
+                    buff_size = buff_size + 0.0001
+                result_list.append(result.iloc[0:1])
+
+            null_values = pd.concat(result_list)
+
+            # Concatenate newly assigned values to the main values table 
+            df = df.dropna()
+            df = pd.concat([df, null_values], axis = 0)
 
         return df.index_right
     
@@ -121,6 +195,7 @@ def zones():
         h3_zones.columns = ['h3_id', 'geometry']
         h3_zones['area'] = h3_zones.geometry.area
         h3_zones['TAZ'] = list(range(1, len(h3_zone_ids) + 1))
+        h3_zones['h3_res'] = h3_zones['h3_id'].apply(h3.h3_get_resolution)
         return h3_zones.set_index('TAZ')
 
 
@@ -188,7 +263,7 @@ def colleges(blocks):
 @orca.column('blocks', cache=True)
 def TAZ(blocks, zones):
     blocks_df = blocks.to_frame(columns = ['x', 'y'])
-    h3_gpd =  zones.to_frame(columns = ['geometry', 'area'])
+    h3_gpd =  zones.to_frame(columns = ['geometry', 'area', 'h3_id', 'h3_res'])
     return assign_taz(blocks_df, h3_gpd)
 
 
@@ -233,55 +308,60 @@ def CI_employment(jobs, blocks):
 
 @orca.column('schools', cache = True)
 def TAZ(schools, zones):
-    h3_gpd =  zones.to_frame(columns = ['geometry', 'area'])
-    school_gpd = orca.get_table('schools').to_frame(columns = ['x', 'y'])
+    h3_gpd =  zones.to_frame(columns = ['geometry', 'area', 'h3_id', 'h3_res'])
+    school_gpd = schools.to_frame(columns = ['x', 'y'])
     return assign_taz(school_gpd, h3_gpd)
+
 
 # Colleges Variables
 
 @orca.column('colleges')
 def full_time_enrollment():
     base_url = 'https://educationdata.urban.org/api/v1/{t}/{so}/{e}/{y}/{l}/?{f}&{s}&{r}&{cl}&{ds}&{fips}'
-    levels = ['undergraduate','graduate']
-
+    levels = ['undergraduate', 'graduate']
+    state_fips = config.setting('state_fips')
     enroll_list = []
-    for level in levels: 
-        base_url = base_url.format(t='college-university', so='ipeds', e='fall-enrollment', 
-                                   y='2015', l = level,f='ftpt=1', s = 'sex=99', 
-                                   r = 'race=99' , cl = 'class_level=99',ds = 'degree_seeking=99',
-                                   fips = 'fips=48')
+    for level in levels:
+        level_url = base_url.format(
+            t='college-university', so='ipeds', e='fall-enrollment',
+            y='2015', l=level, f='ftpt=1', s='sex=99',
+            r='race=99', cl='class_level=99', ds='degree_seeking=99',
+            fips='fips={0}'.format(state_fips))
 
-        enroll_result = requests.get(base_url)
+        enroll_result = requests.get(level_url)
         enroll = pd.DataFrame(enroll_result.json()['results'])
-        enroll = enroll[['unitid', 'enrollment_fall']].rename(columns = {'enrollment_fall':level})
-        enroll.set_index('unitid', inplace = True)
+        enroll = enroll[['unitid', 'enrollment_fall']].rename(
+            columns={'enrollment_fall': level})
+        enroll.set_index('unitid', inplace=True)
         enroll_list.append(enroll)
 
-    full_time = pd.concat(enroll_list, axis = 1)
+    full_time = pd.concat(enroll_list, axis=1)
     full_time['full_time'] = full_time['undergraduate'] + full_time['graduate']
     s = full_time.full_time
     return s
 
 
 @orca.column('colleges')
-def part_time_enrollment():
+def part_time_enrollment(colleges):
     base_url = 'https://educationdata.urban.org/api/v1/{t}/{so}/{e}/{y}/{l}/?{f}&{s}&{r}&{cl}&{ds}&{fips}'
-    levels = ['undergraduate','graduate']
-
+    levels = ['undergraduate', 'graduate']
+    state_fips = config.setting('state_fips')
     enroll_list = []
-    for level in levels: 
-        base_url = base_url.format(t='college-university', so='ipeds', e='fall-enrollment', 
-                                   y='2015', l = level,f='ftpt=2', s = 'sex=99', 
-                                   r = 'race=99' , cl = 'class_level=99',ds = 'degree_seeking=99',
-                                   fips = 'fips=48')
+    for level in levels:
+        level_url = base_url.format(
+            t='college-university', so='ipeds', e='fall-enrollment',
+            y='2015', l=level, f='ftpt=2', s='sex=99',
+            r='race=99', cl='class_level=99', ds='degree_seeking=99',
+            fips='fips={0}'.format(state_fips))
 
-        enroll_result = requests.get(base_url)
+        enroll_result = requests.get(level_url)
         enroll = pd.DataFrame(enroll_result.json()['results'])
-        enroll = enroll[['unitid', 'enrollment_fall']].rename(columns = {'enrollment_fall':level})
-        enroll.set_index('unitid', inplace = True)
+        enroll = enroll[['unitid', 'enrollment_fall']].rename(
+            columns={'enrollment_fall': level})
+        enroll.set_index('unitid', inplace=True)
         enroll_list.append(enroll)
 
-    part_time = pd.concat(enroll_list, axis = 1)
+    part_time = pd.concat(enroll_list, axis=1)
     part_time['part_time'] = part_time['undergraduate'] + part_time['graduate']
     s = part_time.part_time
     return s
@@ -290,7 +370,7 @@ def part_time_enrollment():
 @orca.column('colleges', cache = True)
 def TAZ(colleges, zones):
     colleges_df = colleges.to_frame(columns = ['x', 'y'])
-    h3_gpd =  zones.to_frame(columns = ['geometry', 'area'])
+    h3_gpd =  zones.to_frame(columns = ['geometry', 'area', 'h3_id', 'h3_res'])
     return assign_taz(colleges_df, h3_gpd)
 
 
@@ -703,7 +783,7 @@ def load_usim_data(data_dir, settings):
     blocks = hdf['/blocks']
     jobs = hdf['/jobs']
     # mpo_taz = hdf['/mpo_taz']
-    
+
     hdf.close()
 
     # add home x,y coords to persons table
@@ -723,7 +803,8 @@ def load_usim_data(data_dir, settings):
     orca.add_table('usim_persons', persons)
     orca.add_table('blocks', blocks)
     orca.add_table('jobs', jobs)
-    
+
+
 # Export households tables
 @inject.step()
 def create_inputs_from_usim_data(data_dir):
