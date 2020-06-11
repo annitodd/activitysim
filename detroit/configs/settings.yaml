@@ -49,20 +49,35 @@ use_shadow_pricing: False
 
 
 ## - example sample
+<<<<<<< HEAD
 households_sample_size: 100000
 chunk_size: 5000000000
 num_processes: 24
 stagger: 0
+=======
+households_sample_size: 0
+chunk_size: 400000000
+num_processes: 24
+stagger: 2
+>>>>>>> 5cc3865694873e3061eedc10cb220cceb2ef0470
 
 
 # - tracing
 trace_hh_id: 
 trace_od:
+<<<<<<< HEAD
 # trace_hh_id: 195809
 #trace_od: [5, 11]
 
 # to resume after last successful checkpoint, specify resume_after: _
 # resume_after: _
+=======
+#trace_hh_id: 1482966
+#trace_od: [5, 11]
+
+# to resume after last successful checkpoint, specify resume_after: _
+# resume_after: trip_mode_choice
+>>>>>>> 5cc3865694873e3061eedc10cb220cceb2ef0470
 
 models:
   ### mp_initialize step
@@ -72,7 +87,11 @@ models:
   ### mp_households step
   - school_location
   - workplace_location
+<<<<<<< HEAD
   # - auto_ownership_simulate
+=======
+  - auto_ownership_simulate
+>>>>>>> 5cc3865694873e3061eedc10cb220cceb2ef0470
   - free_parking
   - cdap_simulate
   - mandatory_tour_frequency
@@ -106,6 +125,12 @@ multiprocess_steps:
     begin: initialize_landuse
   - name: mp_households
     begin: school_location
+<<<<<<< HEAD
+=======
+    #num_processes: 9
+    #stagger: 30
+    #chunk_size: 1000000000
+>>>>>>> 5cc3865694873e3061eedc10cb220cceb2ef0470
     slice:
       tables:
         - households
