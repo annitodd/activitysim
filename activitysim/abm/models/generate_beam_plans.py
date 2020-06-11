@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import itertools
 import random
 from shapely import wkt
 from shapely.geometry import Point, MultiPoint
@@ -10,6 +11,45 @@ from activitysim.core import pipeline
 from activitysim.core import inject
 
 logger = logging.getLogger('activitysim')
+
+
+def expand_trips_table(trips, tours):
+
+    # add related fields, including joint trip participant ids
+    trips["tour_participants"] = trips.tour_id.map(
+        tours.number_of_participants)
+    trips["tour_category"] = trips.tour_id.map(tours.tour_category)
+    trips["parent_tour_id"] = trips.tour_id.map(
+        tours.index.to_series()).map(tours.parent_tour_id)
+    trips["tour_start"] = trips.tour_id.map(tours.start)
+    trips["tour_end"] = trips.tour_id.map(tours.end)
+    trips["parent_tour_start"] = trips.parent_tour_id.map(tours.start)
+    trips["parent_tour_end"] = trips.parent_tour_id.map(tours.end)
+    trips["inbound"] = ~trips.outbound
+
+    # create additional trips records for other persons on joint trips
+    tour_person_ids = jtp.groupby("tour_id").apply(lambda x: pd.Series(
+        {"person_ids": " ".join(x["person_id"].astype("str"))}))
+    trips = trips.join(tour_person_ids, "tour_id")
+    trips["person_ids"] = trips["person_ids"].fillna("")
+    trips.person_ids = trips.person_ids.where(
+        trips.person_ids != "", trips.person_id)
+    trips["person_ids"] = trips["person_ids"].astype(str)
+
+    person_ids = [*map(lambda x: x.split(" "), trips.person_ids.tolist())]
+    person_ids = list(itertools.chain.from_iterable(person_ids))
+
+    trips_expanded = trips.loc[np.repeat(trips.index, trips['tour_participants'])]
+    trips_expanded.person_id = person_ids
+
+    trips_expanded["trip_id"] = trips_expanded.index
+    trips_expanded["trip_id"] = trips_expanded["trip_id"].astype('complex128') #for larger ids
+
+    while trips_expanded["trip_id"].duplicated().any():
+      trips_expanded["trip_id"] = trips_expanded["trip_id"].where(~trips_expanded["trip_id"].duplicated(), trips_expanded["trip_id"] + 0.1)
+
+    trips_expanded = trips_expanded.sort_values(['person_id','tour_start','tour_id','inbound','trip_num'])
+
 
 
 def random_points_in_polygon(number, polygon):
@@ -116,6 +156,8 @@ def generate_beam_plans():
 
     # Importing ActivitySim results
     trips = pipeline.get_table('trips')
+    tours = pipeline.get_table('tours')
+    jtp = pipeline.get_table('joint_tour_participants')
     persons = pipeline.get_table('persons')
     zones = pipeline.get_table('land_use')
 
