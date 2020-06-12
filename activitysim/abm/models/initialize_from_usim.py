@@ -120,6 +120,28 @@ def get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs):
 
 
 def get_taz_from_points(df, zones_gdf, local_crs):
+
+    base_url = (
+        'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/'
+        'Tracts_Blocks/MapServer/12/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
+        '&f=geojson')
+    url = base_url.format(state_fips, county_fips)
+    county_gdf = gpd.read_file(base_url)
+    return county_gdf
+
+
+def get_block_geoms(blocks):
+    county_codes = orca.get_injectable('county_codes')
+    state_fips = config.setting('state_fips')
+    all_block_geoms = []
+    for county in county_codes:
+        county_gdf = get_county_block_geoms(state_fips, county)
+        all_block_geoms.append(county_gdf)
+    all_blocks_gdf = gpd.GeoDataFrame(pd.concat(all_block_geoms))
+    return all_blocks_gdf
+
+
+def assign_taz(df, gdf):
     '''
     Assigns the gdf index (TAZ ID) for each index in df
     Input:
@@ -170,6 +192,7 @@ def county_codes(blocks):
     county_codes = blocks.index.str.slice(2, 5).unique().values
     return county_codes
 
+<<<<<<< HEAD
 
 @orca.injectable()
 def state_fips():
@@ -252,10 +275,9 @@ def zones(block_geoms, local_crs):
             block_bounds = block_geoms.to_frame().to_crs(local_crs).unary_union
             zones = zones.to_crs(local_crs)
             zones['geometry'] = zones['geometry'].intersection(block_bounds)
-            
+
             # convert back to epsg:4326 for storage in memory
             zones = zones.to_crs('EPSG:4326')
-
 
         except KeyError:
             raise RuntimeError(
@@ -453,6 +475,7 @@ def full_time_enrollment(state_fips):
             columns={'enrollment_fall': level})
         enroll.set_index('unitid', inplace=True)
         enroll_list.append(enroll)
+        time.sleep(5)
 
     full_time = pd.concat(enroll_list, axis=1)
     full_time['full_time'] = full_time['undergraduate'] + full_time['graduate']
@@ -478,6 +501,7 @@ def part_time_enrollment(state_fips):
             columns={'enrollment_fall': level})
         enroll.set_index('unitid', inplace=True)
         enroll_list.append(enroll)
+        time.sleep(5)
 
     part_time = pd.concat(enroll_list, axis=1)
     part_time['part_time'] = part_time['undergraduate'] + part_time['graduate']
@@ -886,10 +910,17 @@ def load_usim_data(data_dir, settings):
     del persons_w_res_blk
     del persons_w_xy
 
+<<<<<<< HEAD
     orca.add_table('usim_households', households, cache=True)
     orca.add_table('usim_persons', persons, cache=True)
     orca.add_table('blocks', blocks, cache=True)
     orca.add_table('jobs', jobs, cache=True)
+=======
+    orca.add_table('usim_households', households)
+    orca.add_table('usim_persons', persons)
+    orca.add_table('blocks', blocks, cache=True)
+    orca.add_table('jobs', jobs)
+>>>>>>> detroit now runs
 
 
 # Export households tables

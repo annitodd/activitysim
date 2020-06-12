@@ -196,8 +196,6 @@ def get_trip_coords(trips, zones, persons, size=500):
         rand_point_zones[zone] = points
 
     # Assign semi-random (within zone) coords to trips
-    # TO DO: random sampling should really only be done for outbound
-    # trips and return trips should use the coords already chosen
     df = trips[['origin']].reset_index().drop_duplicates('trip_id')
     origins = []
     for i, row in enumerate(df.itertuples(), 0):
@@ -269,7 +267,6 @@ def generate_beam_plans():
     zones.geometry = zones.geometry.buffer(0)
 
     # augment trips table with attrs we need to generate plans
-    # trips = sort_trips_in_time(trips)
     trips = get_trip_coords(trips, zones, persons)
     trips['departure_time'] = generate_departure_times(trips, tours)
 
@@ -327,6 +324,8 @@ def generate_beam_plans():
     final_plans = final_plans[[
         'trip_id', 'person_id', 'PlanElementIndex', 'ActivityElement',
         'ActivityType', 'x', 'y', 'departure_time']]
+
+    final_plans['trip_id'] = final_plans['trip_id'].shift()
 
     # save back to pipeline
     pipeline.replace_table("beam_plans", final_plans)
