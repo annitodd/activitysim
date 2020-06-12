@@ -5,12 +5,15 @@ import matplotlib.pyplot as plt
 import geopandas as gpd
 import orca
 from shapely.geometry import Polygon, Point
+from geopy.distance import vincenty
 from h3 import h3
 from urbansim.utils import misc
 import requests
 import openmatrix as omx
 from shapely import wkt
 import logging
+from tqdm import tqdm
+import time
 
 from activitysim.core import config
 from activitysim.core import inject
@@ -29,6 +32,27 @@ def get_zone_geoms_from_h3(h3_ids):
     return polygon_shapes
 
 
+def get_county_block_geoms(state_fips, county_fips):
+    base_url = (
+        'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/'
+        'Tracts_Blocks/MapServer/12/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
+        '&f=geojson')
+    url = base_url.format(state_fips, county_fips)
+    county_gdf = gpd.read_file(base_url)
+    return county_gdf
+
+
+def get_block_geoms(blocks):
+    county_codes = orca.get_injectable('county_codes')
+    state_fips = config.setting('state_fips')
+    all_block_geoms = []
+    for county in county_codes:
+        county_gdf = get_county_block_geoms(state_fips, county)
+        all_block_geoms.append(county_gdf)
+    all_blocks_gdf = gpd.GeoDataFrame(pd.concat(all_block_geoms))
+    return all_blocks_gdf
+
+
 def assign_taz(df, gdf):
     '''
     Assigns the gdf index (TAZ ID) for each index in df
@@ -38,7 +62,7 @@ def assign_taz(df, gdf):
     Output:
     A series with df index and corresponding gdf id
     '''
-
+    logger.info("Assigning TAZs to {0}".format(df.index.name))
     df = gpd.GeoDataFrame(
         df, geometry=gpd.points_from_xy(df.x, df.y), crs="EPSG:4326")
     gdf.geometry.crs = "EPSG:4326"
@@ -69,6 +93,10 @@ def assign_taz(df, gdf):
             min_res = min(gdf['h3_res'])
 
             unassigned = df[pd.isnull(df['index_right'])]
+            logger.info(
+                "{0} {1}'s had no explicit spatial match."
+                " Assigning to nearest TAZ.".format(
+                    len(unassigned), df.index.name))
             for i, row in tqdm(unassigned.iterrows(), total=len(unassigned)):
 
                 # find max res where the h3 geom containing the unassigned
@@ -80,14 +108,13 @@ def assign_taz(df, gdf):
                     h3_id = h3.geo_to_h3(row['y'], row['x'], current_res)
                     containers[current_res] = h3_id
                     children = h3.h3_to_children(h3_id, child_res)
-                    all_children[child_res] = children
                     if any([child in h3_zone_ids for child in children]):
                         current_res += 1
                         continue
                     else:
                         break
 
-                # go back up one resolution level and get the
+                # go back up one resolution level and get theree
                 # parent geom containing the point
                 match_res = current_res
                 parent = containers[match_res - 1]
@@ -96,6 +123,9 @@ def assign_taz(df, gdf):
 
                     # get the children of the parent geom
                     children = h3.h3_to_children(parent, match_res)
+
+                    # TODO: speed this section up by just using vincenty
+                    # or haversin distance to avoid all the crs conversions
 
                     # assign the point to the nearest child geom
                     match_pool = pd.DataFrame.from_dict(
@@ -160,6 +190,10 @@ def assign_taz(df, gdf):
 
 
 # ** 1. CREATE NEW TABLES **
+@orca.injectable()
+def county_codes(blocks):
+    county_codes = blocks.index.str.slice(0, 5).unique()
+    return county_codes
 
 # Zones
 @orca.table('zones', cache=True)
@@ -201,12 +235,10 @@ def zones():
 
 # Schools
 @orca.table(cache=True)
-def schools(blocks):
+def schools(blocks, county_codes):
 
     base_url = 'https://educationdata.urban.org/api/v1/' + \
         '{topic}/{source}/{endpoint}/{year}/?{filters}'
-
-    county_codes = blocks.index.str.slice(0, 5).unique()
 
     school_tables = []
     for county in county_codes:
@@ -218,22 +250,23 @@ def schools(blocks):
         enroll_result = requests.get(enroll_url)
         enroll = pd.DataFrame(enroll_result.json()['results'])
         school_tables.append(enroll)
+        time.sleep(5)
 
     enrollment = pd.concat(school_tables, axis=0)
     enrollment = enrollment[[
         'ncessch', 'county_code', 'latitude',
         'longitude', 'enrollment']].set_index('ncessch')
-    enrollment.rename(columns = {'longitude':'x', 'latitude':'y'}, inplace = True)
+    enrollment.rename(
+        columns={'longitude': 'x', 'latitude': 'y'}, inplace=True)
     return enrollment.dropna()
 
 
 # Colleges
 @orca.table(cache=True)
-def colleges(blocks):
+def colleges(blocks, county_codes):
 
     base_url = 'https://educationdata.urban.org/api/v1/' + \
         '{topic}/{source}/{endpoint}/{year}/?{filters}'
-    county_codes = blocks.index.str.slice(0, 5).unique()
 
     colleges_list = []
     for county in county_codes:
@@ -245,6 +278,7 @@ def colleges(blocks):
         college_result = requests.get(college_url)
         college = pd.DataFrame(college_result.json()['results'])
         colleges_list.append(college)
+        time.sleep(5)
 
     colleges = pd.concat(colleges_list)
     colleges = colleges[[
@@ -334,6 +368,7 @@ def full_time_enrollment():
             columns={'enrollment_fall': level})
         enroll.set_index('unitid', inplace=True)
         enroll_list.append(enroll)
+        time.sleep(5)
 
     full_time = pd.concat(enroll_list, axis=1)
     full_time['full_time'] = full_time['undergraduate'] + full_time['graduate']
@@ -360,6 +395,7 @@ def part_time_enrollment(colleges):
             columns={'enrollment_fall': level})
         enroll.set_index('unitid', inplace=True)
         enroll_list.append(enroll)
+        time.sleep(5)
 
     part_time = pd.concat(enroll_list, axis=1)
     part_time['part_time'] = part_time['undergraduate'] + part_time['graduate']
@@ -801,7 +837,7 @@ def load_usim_data(data_dir, settings):
 
     orca.add_table('usim_households', households)
     orca.add_table('usim_persons', persons)
-    orca.add_table('blocks', blocks)
+    orca.add_table('blocks', blocks, cache=True)
     orca.add_table('jobs', jobs)
 
 
