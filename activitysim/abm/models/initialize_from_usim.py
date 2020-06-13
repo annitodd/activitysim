@@ -36,10 +36,18 @@ def get_county_block_geoms(state_fips, county_fips):
     base_url = (
         'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/'
         'Tracts_Blocks/MapServer/12/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
-        '&f=geojson')
+        '&outFields=GEOID%2CSTATE%2CCOUNTY%2CTRACT%2CBLKGRP%2CBLOCK%2CCENTLAT'
+        '%2CCENTLON&outSR=%7B"wkid"+%3A+4326%7D&f=pjson')
     url = base_url.format(state_fips, county_fips)
-    county_gdf = gpd.read_file(base_url)
-    return county_gdf
+    result = requests.get(url)
+    features = result.json()['features']
+    df = pd.DataFrame()
+    for feature in features:
+        tmp = pd.DataFrame([feature['attributes']])
+        tmp['geometry'] = Polygon(feature['geometry']['rings'][0])
+        df = pd.concat((df, tmp))
+    gdf = gpd.GeoDataFrame(df)
+    return gdf
 
 
 def get_block_geoms(blocks):
@@ -50,7 +58,13 @@ def get_block_geoms(blocks):
         county_gdf = get_county_block_geoms(state_fips, county)
         all_block_geoms.append(county_gdf)
     all_blocks_gdf = gpd.GeoDataFrame(pd.concat(all_block_geoms))
+    assert len(all_blocks_gdf) == len(blocks)
     return all_blocks_gdf
+
+
+def assign_blocks_to_h3_zones(blocks, zones):
+    zones = zones.to_frame(columns=['geometry', 'area', 'h3_id', 'h3_res'])
+
 
 
 def assign_taz(df, gdf):
@@ -192,7 +206,7 @@ def assign_taz(df, gdf):
 # ** 1. CREATE NEW TABLES **
 @orca.injectable()
 def county_codes(blocks):
-    county_codes = blocks.index.str.slice(0, 5).unique()
+    county_codes = blocks.index.str.slice(2, 5).unique()
     return county_codes
 
 # Zones
@@ -242,7 +256,8 @@ def schools(blocks, county_codes):
 
     school_tables = []
     for county in county_codes:
-        enroll_filters = 'county_code={0}'.format(county)
+        county_fips = str(config.setting('state_fips')) + str(county)
+        enroll_filters = 'county_code={0}'.format(county_fips)
         enroll_url = base_url.format(
             topic='schools', source='ccd', endpoint='directory',
             year='2015', filters=enroll_filters)
@@ -270,7 +285,8 @@ def colleges(blocks, county_codes):
 
     colleges_list = []
     for county in county_codes:
-        college_filters = 'county_fips={0}'.format(county)
+        county_fips = str(config.setting('state_fips')) + str(county)
+        college_filters = 'county_fips={0}'.format(county_fips)
         college_url = base_url.format(
             topic='college-university', source='ipeds', endpoint='directory',
             year='2015', filters=college_filters)
