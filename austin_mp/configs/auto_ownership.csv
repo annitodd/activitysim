@@ -1,25 +1,25 @@
-Description,Expression,cars0,cars1,cars2,cars3,cars4
-2 Adults (age 16+),num_drivers==2,,-0.826,3.385,3.152,2.904
-3 Adults (age 16+),num_drivers==3,,-2.216,3.480,4.650,4.988
-4+ Adults (age 16+),num_drivers>3,,2.0107,6.3662,8.5148,9.5807
-Persons age 16-17,num_children_16_to_17,,0.32,-0.881,-1.7313,-1.7313
-Persons age 18-24,num_college_age,,-0.4087,-1.0095,-1.0107,-1.0107
-Persons age 35-34,num_young_adults,,0.88,-0.4849,-0.8596,-0.8596
-Presence of children age 0-4,num_young_children>0,,0.3669,0.7627,0.7627,0.7627
-Presence of children age 5-17,(num_children_5_to_15+num_children_16_to_17)>0,,0.0158,0.2936,0.4769,0.4769
-"Number of workers, capped at 3",@df.num_workers.clip(upper=3),,0,0.2936,0.6389,0.8797
-"Piecewise Linear household income, $0-30k","@df.income_in_thousands.clip(0, 30)",,0.0383,0.054,0.0559,0.0619
-"Piecewise Linear household income, $30-75k","@(df.income_in_thousands-30).clip(0, 45)",,0,0.0083,0.011,0.0147
-"Piecewise Linear household income, $75k+, capped at $125k","@(df.income_in_thousands-75).clip(0, 50)",,0,0.0083,0.011,0.0147
-"Density index up to 10, if 0 workers","@(df.num_workers==0)*df.density_index.clip(0, 10)",,0,-0.2028,-0.3654,-0.3654
-"Density index in excess of 10, if 0 workers",@(df.num_workers==0)*(df.density_index-10).clip(0),,-0.0152,-0.1106,-0.1766,-0.1766
-"Density index up to 10, if 1+ workers","@(df.num_workers>0)*df.density_index.clip(0, 10)",,0,-0.2028,-0.3654,-0.3654
-"Density index in excess of 10, if 1+ workers",@(df.num_workers>0)*(df.density_index-10).clip(0),,-0.0152,-0.1106,-0.1766,-0.1766
-Constants,@1,,4.372,1.551,-0.430,-2.654
-"Retail accessibility (0.66*PK + 0.34*OP) by auto, if 0 workers",(num_workers==0)*(0.66*auPkRetail+0.34*auOpRetail),,0.0626,0.0626,0.0626,0.0626
-"Retail accessibility (0.66*PK + 0.34*OP) by auto, if 1+ workers",(num_workers>0)*(0.66*auPkRetail+0.34*auOpRetail),,0.1646,0.1646,0.1646,0.1646
-"Retail accessibility (0.66*PK + 0.34*OP) by transit, if 0 workers",(num_workers==0)*(0.66*trPkRetail+0.34*trOpRetail),,-0.3053,-0.3053,-0.3053,-0.3053
-"Retail accessibility (0.66*PK + 0.34*OP) by transit, if 1+ workers",(num_workers>0)*(0.66*trPkRetail+0.34*trOpRetail),,-0.5117,-0.5117,-0.5117,-0.5117
-"Retail accessibility by non-motorized, if 0 workers",(num_workers==0)*nmRetail,,-0.03,-0.03,-0.03,-0.03
-"Retail accessibility by non-motorized, if 1+ workers",(num_workers>0)*nmRetail,,-0.03,-0.03,-0.03,-0.03
-Auto time savings per worker to work,"@np.where(df.num_workers > 0, df.hh_work_auto_savings_ratio / df.num_workers, 0)",,0.4707,0.6142,0.5705,0.7693
+,Unnamed: 0,Unnamed: 0.1,Unnamed: 0.1.1,Unnamed: 0.1.1.1,Unnamed: 0.1.1.1.1,Description,Expression,cars0,cars1,cars2,cars3,cars4
+0,,,,,,2 Adults (age 16+),num_drivers==2,,-0.7689999999999999,3.268,3.284,2.9
+1,1.0,1.0,1.0,1.0,1.0,3 Adults (age 16+),num_drivers==3,,-2.027,3.5919999999999996,4.69,5.196
+2,2.0,2.0,2.0,2.0,2.0,4+ Adults (age 16+),num_drivers>3,,2.0107,6.3662,8.5148,9.5807
+3,3.0,3.0,3.0,3.0,3.0,Persons age 16-17,num_children_16_to_17,,0.32,-0.8809999999999999,-1.7313,-1.7313
+4,4.0,4.0,4.0,4.0,4.0,Persons age 18-24,num_college_age,,-0.4087,-1.0095,-1.0107,-1.0107
+5,5.0,5.0,5.0,5.0,5.0,Persons age 35-34,num_young_adults,,0.88,-0.4849,-0.8596,-0.8596
+6,6.0,6.0,6.0,6.0,6.0,Presence of children age 0-4,num_young_children>0,,0.3669,0.7627,0.7627,0.7627
+7,7.0,7.0,7.0,7.0,7.0,Presence of children age 5-17,(num_children_5_to_15+num_children_16_to_17)>0,,0.0158,0.2936,0.4769,0.4769
+8,8.0,8.0,8.0,8.0,8.0,"Number of workers, capped at 3",@df.num_workers.clip(upper=3),,,0.2936,0.6389,0.8797
+9,9.0,9.0,9.0,9.0,9.0,"Piecewise Linear household income, $0-30k","@df.income_in_thousands.clip(0, 30)",,0.0383,0.054000000000000006,0.0559,0.0619
+10,10.0,10.0,10.0,10.0,10.0,"Piecewise Linear household income, $30-75k","@(df.income_in_thousands-30).clip(0, 45)",,,0.0083,0.011,0.0147
+11,11.0,11.0,11.0,11.0,11.0,"Piecewise Linear household income, $75k+, capped at $125k","@(df.income_in_thousands-75).clip(0, 50)",,,0.0083,0.011,0.0147
+12,12.0,12.0,12.0,12.0,12.0,"Density index up to 10, if 0 workers","@(df.num_workers==0)*df.density_index.clip(0, 10)",,,-0.2028,-0.3654,-0.3654
+13,13.0,13.0,13.0,13.0,13.0,"Density index in excess of 10, if 0 workers",@(df.num_workers==0)*(df.density_index-10).clip(0),,-0.0152,-0.1106,-0.1766,-0.1766
+14,14.0,14.0,14.0,14.0,14.0,"Density index up to 10, if 1+ workers","@(df.num_workers>0)*df.density_index.clip(0, 10)",,,-0.2028,-0.3654,-0.3654
+15,15.0,15.0,15.0,15.0,15.0,"Density index in excess of 10, if 1+ workers",@(df.num_workers>0)*(df.density_index-10).clip(0),,-0.0152,-0.1106,-0.1766,-0.1766
+16,16.0,16.0,16.0,16.0,16.0,Constants,@1,,4.462,1.794,-0.33799999999999997,-2.582
+17,17.0,17.0,17.0,17.0,17.0,"Retail accessibility (0.66*PK + 0.34*OP) by auto, if 0 workers",(num_workers==0)*(0.66*auPkRetail+0.34*auOpRetail),,0.0626,0.0626,0.0626,0.0626
+18,18.0,18.0,18.0,18.0,18.0,"Retail accessibility (0.66*PK + 0.34*OP) by auto, if 1+ workers",(num_workers>0)*(0.66*auPkRetail+0.34*auOpRetail),,0.1646,0.1646,0.1646,0.1646
+19,19.0,19.0,19.0,19.0,19.0,"Retail accessibility (0.66*PK + 0.34*OP) by transit, if 0 workers",(num_workers==0)*(0.66*trPkRetail+0.34*trOpRetail),,-0.3053,-0.3053,-0.3053,-0.3053
+20,20.0,20.0,20.0,20.0,20.0,"Retail accessibility (0.66*PK + 0.34*OP) by transit, if 1+ workers",(num_workers>0)*(0.66*trPkRetail+0.34*trOpRetail),,-0.5117,-0.5117,-0.5117,-0.5117
+21,21.0,21.0,21.0,21.0,21.0,"Retail accessibility by non-motorized, if 0 workers",(num_workers==0)*nmRetail,,-0.03,-0.03,-0.03,-0.03
+22,22.0,22.0,22.0,22.0,22.0,"Retail accessibility by non-motorized, if 1+ workers",(num_workers>0)*nmRetail,,-0.03,-0.03,-0.03,-0.03
+23,23.0,23.0,23.0,23.0,23.0,Auto time savings per worker to work,"@np.where(df.num_workers > 0, df.hh_work_auto_savings_ratio / df.num_workers, 0)",,0.4707,0.6142,0.5705,0.7693
