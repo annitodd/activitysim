@@ -84,7 +84,7 @@ def add_step(name, func):
     return orca.add_step(name, func)
 
 
-def add_table(table_name, table, replace=False):
+def add_table(table_name, table, replace=False):#JDC change not needed. 
     """
     Add new table and raise assertion error if the table already exists.
     Silently replace if replace=True.
