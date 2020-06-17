@@ -1,16 +1,18 @@
 
 inherit_settings: True
-state_fips: 26
 
+# geographic settings
+state_fips: 26
+local_crs: EPSG:3078
+
+# skims
+create_skims_from_beam: True
 beam_skims_url: https://beam-outputs.s3.amazonaws.com/output/detroit/detroit-200k__2020-05-29_22-09-51_mgd/ITERS/it.10/10.skimsOD.UrbanSim.Full.csv.gz
 
-create_skims_from_beam: True
-usim_zone_geoms: h3
-# usim_zone_shapefile:
-
+# urbansim data
 create_inputs_from_usim_data: True
 usim_data_store: model_data_full.h5
-
+usim_zone_geoms: h3
 
 # raise error if any sub-process fails without waiting for others to complete
 fail_fast: True
