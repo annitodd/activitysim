@@ -2,7 +2,7 @@ COEFFS: tour_mode_choice_coeffs_v2.csv
 CONSTANTS:
   bikeSpeed: 12.0
   bikeThresh: 6.0
-  costPerMile: 18.29
+  costPerMile: 1.829
   costShareSr2: 1.75
   costShareSr3: 2.5
   indivTour: 1.0
@@ -53,7 +53,7 @@ NESTS:
   - alternatives:
     - WALK
     - BIKE
-    coefficient: 1.72
+    coefficient: 0.9
     name: NONMOTORIZED
   - alternatives:
     - alternatives:
@@ -70,9 +70,9 @@ NESTS:
       - DRIVE_EXP
       - DRIVE_HVY
       - DRIVE_COM
-      coefficient: 1.5
+      coefficient: 0.5
       name: DRIVEACCESS
-    coefficient: 0.5
+    coefficient: 0.6
     name: TRANSIT
   coefficient: 1.0
   name: root

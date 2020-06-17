@@ -765,6 +765,11 @@ def create_inputs_from_usim_data(data_dir):
         lu_df = zones.to_frame()
         lu_df.to_csv(os.path.join(data_dir, 'land_use.csv'))
         del lu_df
+        
+        #Creates blocks table
+        blocks = orca.get_table('blocks').to_frame()
+        blocks.to_csv(os.path.join(data_dir, 'blocks.csv'))
+        
 
     else:
         logger.info("Found existing input tables, no need to re-create.")
