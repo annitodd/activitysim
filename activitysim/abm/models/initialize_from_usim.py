@@ -33,6 +33,7 @@ def get_zone_geoms_from_h3(h3_ids):
 
 
 def get_county_block_geoms(state_fips, county_fips):
+
     base_url = (
         'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/'
         'Tracts_Blocks/MapServer/12/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
@@ -41,173 +42,155 @@ def get_county_block_geoms(state_fips, county_fips):
     url = base_url.format(state_fips, county_fips)
     result = requests.get(url)
     features = result.json()['features']
-    df = pd.DataFrame()
-    for feature in features:
-        tmp = pd.DataFrame([feature['attributes']])
-        tmp['geometry'] = Polygon(feature['geometry']['rings'][0])
-        df = pd.concat((df, tmp))
-    gdf = gpd.GeoDataFrame(df)
-    return gdf
+    if len(features) >= 100000:
+        raise RuntimeError("too many blocks in county to query at once!")
+    else:
+        df = pd.DataFrame()
+        for feature in features:
+            tmp = pd.DataFrame([feature['attributes']])
+            tmp['geometry'] = Polygon(
+                feature['geometry']['rings'][0],
+                feature['geometry']['rings'][1:])
+            df = pd.concat((df, tmp))
+        gdf = gpd.GeoDataFrame(df, crs="EPSG:4326")
+        return gdf
 
 
-def get_block_geoms(blocks):
-    county_codes = orca.get_injectable('county_codes')
-    state_fips = config.setting('state_fips')
-    all_block_geoms = []
-    for county in county_codes:
-        county_gdf = get_county_block_geoms(state_fips, county)
-        all_block_geoms.append(county_gdf)
-    all_blocks_gdf = gpd.GeoDataFrame(pd.concat(all_block_geoms))
-    assert len(all_blocks_gdf) == len(blocks)
-    return all_blocks_gdf
+def get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs):
+
+    # convert to meter-based proj
+    zones_gdf = zones_gdf.to_crs(local_crs)
+    blocks_gdf = blocks_gdf.to_crs(local_crs)
+
+    # intersect block and zone geometries
+    intx = gpd.overlay(blocks_gdf, zones_gdf.reset_index(), how='intersection')
+
+    # assign zone ID's to blocks based on area of intersection
+    intx['intx_area'] = intx['geometry'].area
+    intx = intx.sort_values(['GEOID', 'intx_area'], ascending=False)
+    intx = intx.drop_duplicates('GEOID', keep='first')
+
+    blocks_gdf = blocks_gdf.set_index('GEOID')
+    blocks_gdf['TAZ'] = intx.set_index('GEOID').reindex(
+        blocks_gdf.index)['TAZ']
+
+    # assign zone ID's to remaining blocks based on shortest
+    # distance between block and zone centroids
+    unassigned_mask = pd.isnull(blocks_gdf['TAZ'])
+
+    if any(unassigned_mask):
+
+        blocks_gdf['geometry'] = blocks_gdf['geometry'].centroid
+        zones_gdf['geometry'] = zones_gdf['geometry'].centroid
+
+        all_dists = blocks_gdf.loc[unassigned_mask, 'geometry'].apply(
+            lambda x: zones_gdf['geometry'].distance(x))
+
+        blocks_gdf.loc[unassigned_mask, 'TAZ'] = all_dists.idxmin(
+            axis=1).values
+
+    return blocks_gdf
 
 
-def assign_blocks_to_h3_zones(blocks, zones):
-    zones = zones.to_frame(columns=['geometry', 'area', 'h3_id', 'h3_res'])
-
-
-
-def assign_taz(df, gdf):
+def get_taz_from_points(df, zones_gdf, local_crs):
     '''
     Assigns the gdf index (TAZ ID) for each index in df
     Input:
-    - df columns names x, and y. The index is the ID of the object(blocks, school, college)
-    - gdf: Geopandas DataFrame with TAZ as index, geometry and area value. 
+    - df columns names x, and y. The index is the ID of the point feature.
+    - zones_gdf: GeoPandas GeoDataFrame with TAZ as index, geometry, area.
+
     Output:
-    A series with df index and corresponding gdf id
+        A series with df index and corresponding gdf id
     '''
     logger.info("Assigning TAZs to {0}".format(df.index.name))
     df = gpd.GeoDataFrame(
         df, geometry=gpd.points_from_xy(df.x, df.y), crs="EPSG:4326")
-    gdf.geometry.crs = "EPSG:4326"
+    zones_gdf.geometry.crs = "EPSG:4326"
 
-    assert df.geometry.crs == gdf.geometry.crs
+    # convert to meters-based local crs
+    df = df.to_crs(local_crs)
+    zones_gdf = zones_gdf.to_crs(local_crs)
 
     # Spatial join
-    df = gpd.sjoin(df, gdf, how='left', op='intersects')
+    intx = gpd.sjoin(
+        df.reset_index(), zones_gdf.reset_index(), how='left', op='intersects')
 
     # Drop duplicates and keep the one with the smallest H3 area
-    df = df.sort_values('area')
-    index_name = df.index.name
-    df.reset_index(inplace=True)
-    df.drop_duplicates(subset=[index_name], keep='first', inplace=True)
-    df.set_index(index_name, inplace=True)
+    intx['intx_area'] = intx['geometry'].area
+    intx = intx.sort_values('intx_area')
+    intx.drop_duplicates(subset=[df.index.name], keep='first', inplace=True)
+    intx.set_index(df.index.name, inplace=True)
+    df['TAZ'] = intx['TAZ'].reindex(df.index)
 
     # Check if there is any unassigined object
-    if df.index_right.isnull().sum() > 0:
+    unassigned_mask = pd.isnull(df['TAZ'])
+    if any(unassigned_mask):
 
-        # if zones are h3-based, use the properties of h3
-        # geometries to fix unassigned geometries
-        if config.setting('usim_zone_geoms') == 'h3':
+        zones_gdf['geometry'] = zones_gdf['geometry'].centroid
+        all_dists = df.loc[unassigned_mask, 'geometry'].apply(
+            lambda x: zones_gdf['geometry'].distance(x))
 
-            # h3 zones
-            h3_zone_ids = inject.get_injectable('h3_zone_ids')
+        df.loc[unassigned_mask, 'TAZ'] = all_dists.idxmin(
+            axis=1).values
 
-            # min res of all h3 geoms
-            min_res = min(gdf['h3_res'])
+    return df['TAZ']
 
-            unassigned = df[pd.isnull(df['index_right'])]
-            logger.info(
-                "{0} {1}'s had no explicit spatial match."
-                " Assigning to nearest TAZ.".format(
-                    len(unassigned), df.index.name))
-            for i, row in tqdm(unassigned.iterrows(), total=len(unassigned)):
 
-                # find max res where the h3 geom containing the unassigned
-                # point has no children in the TAZs
-                current_res = min_res
-                containers = {}
-                while True:
-                    child_res = current_res + 1
-                    h3_id = h3.geo_to_h3(row['y'], row['x'], current_res)
-                    containers[current_res] = h3_id
-                    children = h3.h3_to_children(h3_id, child_res)
-                    if any([child in h3_zone_ids for child in children]):
-                        current_res += 1
-                        continue
-                    else:
-                        break
+# ** define injectables we'll use over and over **
 
-                # go back up one resolution level and get theree
-                # parent geom containing the point
-                match_res = current_res
-                parent = containers[match_res - 1]
+@orca.injectable()
+def county_codes(blocks):
+    county_codes = blocks.index.str.slice(2, 5).unique().values
+    return county_codes
 
-                while True:
 
-                    # get the children of the parent geom
-                    children = h3.h3_to_children(parent, match_res)
+@orca.injectable()
+def state_fips():
+    return config.setting('state_fips')
 
-                    # TODO: speed this section up by just using vincenty
-                    # or haversin distance to avoid all the crs conversions
 
-                    # assign the point to the nearest child geom
-                    match_pool = pd.DataFrame.from_dict(
-                        {child: h3.h3_to_geo(child) for child in children},
-                        orient='index', columns=["lat", "lon"])
-                    match_pool_gdf = gpd.GeoDataFrame(
-                        match_pool, geometry=gpd.points_from_xy(
-                            match_pool.lon, match_pool.lat),
-                        crs='EPSG:4326')
-                    match_pool_gdf = match_pool_gdf.to_crs('EPSG:2768')
-                    unassigned_geom = Point(row['x'], row['y'])
-                    unassigned_gs = gpd.GeoSeries(
-                        [unassigned_geom], crs='EPSG:4326')
-                    unassigned_gs = unassigned_gs.to_crs('EPSG:2768')
-                    match_pool_gdf['dist'] = match_pool_gdf.geometry.apply(
-                        lambda x: unassigned_gs.distance(x))
-                    final_h3_id = match_pool_gdf['dist'].idxmin()
-                    final_match = gdf[gdf['h3_id'] == final_h3_id]
+@orca.injectable()
+def data_dir():
+    return inject.get_injectable('data_dir')
 
-                    # if the closest geom at the current match level
-                    # is not in the set of input TAZs, try matching on
-                    # a higher resolution child of that same geom
-                    if len(final_match) == 0:
-                        parent = final_h3_id
-                        match_res += 1
-                    else:
-                        break
 
-                final_taz = final_match.index.values[0]
-                df.loc[i, 'index_right'] = final_taz
-                df.loc[i, 'h3_id'] = final_h3_id
-
-        # otherwise just do it the brute force way
-        else:
-            
-            # Buffer unassigned ids until they reach a hexbin. 
-            null_values = df[df.index_right.isnull()].drop(columns=['index_right', 'area'])
-
-            result_list = []
-            for index, value in null_values.iterrows():
-                buff_size = 0.0001
-                matched = False
-                geo_value = gpd.GeoDataFrame(value).T
-                geo_value.crs = "EPSG:4326"
-                while matched == False:
-                    geo_value.geometry = geo_value.geometry.buffer(buff_size)
-                    result = gpd.sjoin(geo_value, gdf, how = 'left', op = 'intersects')
-                    matched = ~result.index_right.isnull()[0]
-                    buff_size = buff_size + 0.0001
-                result_list.append(result.iloc[0:1])
-
-            null_values = pd.concat(result_list)
-
-            # Concatenate newly assigned values to the main values table 
-            df = df.dropna()
-            df = pd.concat([df, null_values], axis = 0)
-
-        return df.index_right
-    
-    else:
-        return df.index_right
+@orca.injectable()
+def local_crs():
+    return config.setting('local_crs')
 
 
 # ** 1. CREATE NEW TABLES **
-@orca.injectable()
-def county_codes(blocks):
-    county_codes = blocks.index.str.slice(2, 5).unique()
-    return county_codes
+@orca.table(cache=True)
+def block_geoms(data_dir, state_fips, county_codes):
+
+    all_block_geoms = []
+
+    if os.path.exists(os.path.join(data_dir, "blocks.shp")):
+
+        logger.info("Loading block geoms from disk!")
+        blocks_gdf = gpd.read_file(os.path.join(data_dir, "blocks.shp"))
+
+    else:
+
+        logger.info("Downloading block geoms from Census TIGERweb API!")
+
+        # get block geoms from census tigerweb API
+        for county in tqdm(
+                county_codes, total=len(county_codes),
+                desc='Getting block geoms for {0} counties'.format(
+                    len(county_codes))):
+            county_gdf = get_county_block_geoms(state_fips, county)
+            all_block_geoms.append(county_gdf)
+
+        blocks_gdf = gpd.GeoDataFrame(
+            pd.concat(all_block_geoms), crs="EPSG:4326")
+
+        # save to disk
+        logger.info("Saving block geoms to disk!")
+        blocks_gdf.to_file(os.path.join(data_dir, "blocks.shp"))
+
+    return blocks_gdf
+
 
 # Zones
 @orca.table('zones', cache=True)
@@ -218,45 +201,46 @@ def zones():
     """
     usim_zone_geoms = config.setting('usim_zone_geoms')
 
-    if usim_zone_geoms == 'shp':
-        fname = config.setting('usim_zone_shapefile')
-        if fname is None:
-            raise RuntimeError(
-                "Trying to create intermediate zones table from shapefile "
-                "but 'usim_zone_shapefile' not specified in settings.yaml")
+    if ".shp" in usim_zone_geoms:
+        fname = usim_zone_geoms
         filepath = config.data_file_path(fname)
         zones = gpd.read_file(filepath, crs="EPSG:4326")
-        zones['area'] = zones.geometry.area
         zones.reset_index(inplace=True, drop=True)
         zones.index.name = 'TAZ'
 
     elif usim_zone_geoms == 'h3':
+
         try:
             h3_zone_ids = inject.get_injectable('h3_zone_ids')
+            zone_geoms = get_zone_geoms_from_h3(h3_zone_ids)
+            zones = gpd.GeoDataFrame(
+                h3_zone_ids, geometry=zone_geoms, crs="EPSG:4326")
+            zones.columns = ['h3_id', 'geometry']
+            zones['TAZ'] = list(range(1, len(h3_zone_ids) + 1))
+            zones = zones.set_index('TAZ')
+
         except KeyError:
             raise RuntimeError(
                 "Trying to create intermediate zones table from h3 IDs "
                 "but the 'h3_zone_ids' injectable is not defined")
-        zone_geoms = get_zone_geoms_from_h3(h3_zone_ids)
-        h3_zones = gpd.GeoDataFrame(
-            h3_zone_ids, geometry=zone_geoms, crs="EPSG:4326")
-        h3_zones.columns = ['h3_id', 'geometry']
-        h3_zones['area'] = h3_zones.geometry.area
-        h3_zones['TAZ'] = list(range(1, len(h3_zone_ids) + 1))
-        h3_zones['h3_res'] = h3_zones['h3_id'].apply(h3.h3_get_resolution)
-        return h3_zones.set_index('TAZ')
+
+    else:
+        raise RuntimeError(
+            "Zone geometries incorrectly specified in settings.yaml")
+
+    return zones
 
 
 # Schools
 @orca.table(cache=True)
-def schools(blocks, county_codes):
+def schools(state_fips, county_codes):
 
     base_url = 'https://educationdata.urban.org/api/v1/' + \
         '{topic}/{source}/{endpoint}/{year}/?{filters}'
 
     school_tables = []
     for county in county_codes:
-        county_fips = str(config.setting('state_fips')) + str(county)
+        county_fips = str(state_fips) + str(county)
         enroll_filters = 'county_code={0}'.format(county_fips)
         enroll_url = base_url.format(
             topic='schools', source='ccd', endpoint='directory',
@@ -278,14 +262,14 @@ def schools(blocks, county_codes):
 
 # Colleges
 @orca.table(cache=True)
-def colleges(blocks, county_codes):
+def colleges(state_fips, county_codes):
 
     base_url = 'https://educationdata.urban.org/api/v1/' + \
         '{topic}/{source}/{endpoint}/{year}/?{filters}'
 
     colleges_list = []
     for county in county_codes:
-        county_fips = str(config.setting('state_fips')) + str(county)
+        county_fips = str(state_fips) + str(county)
         college_filters = 'county_fips={0}'.format(county_fips)
         college_url = base_url.format(
             topic='college-university', source='ipeds', endpoint='directory',
@@ -303,30 +287,69 @@ def colleges(blocks, county_codes):
     return colleges
 
 
+# ** 2. ASSIGN TAZ's to GEOMS **
+@orca.column('blocks', cache=True)
+def TAZ(data_dir, block_geoms, zones, local_crs):
+
+    zones_gdf = zones.to_frame(columns=['geometry'])
+    zones_gdf.crs = 'EPSG:4326'
+
+    blocks_gdf = block_geoms.to_frame()
+    blocks_gdf.crs = 'EPSG:4326'
+
+    # assign TAZs to blocks
+    blocks_gdf = get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs)
+
+    return blocks_gdf['TAZ']
+
+
+@orca.column('schools', cache=True)
+def TAZ(schools, zones, local_crs):
+    zones_gdf = zones.to_frame(columns=['geometry', 'h3_id'])
+    schools_df = schools.to_frame(columns=['x', 'y'])
+    schools.index.name = 'school_id'
+    return get_taz_from_points(schools_df, zones_gdf, local_crs)
+
+
+@orca.column('colleges', cache=True)
+def TAZ(colleges, zones, local_crs):
+    colleges_df = colleges.to_frame(columns=['x', 'y'])
+    colleges_df.index.name = 'college_id'
+    zones_gdf = zones.to_frame(columns=['geometry', 'h3_id'])
+    return get_taz_from_points(colleges_df, zones_gdf, local_crs)
+
+
+@orca.column('usim_households')
+def TAZ(blocks, usim_households):
+    return misc.reindex(blocks.TAZ, usim_households.block_id)
+
+
+@orca.column('usim_persons')
+def TAZ(usim_households, usim_persons):
+    return misc.reindex(usim_households.TAZ, usim_persons.household_id)
+
+
+@orca.column('jobs')
+def TAZ(blocks, jobs):
+    return misc.reindex(blocks.TAZ, jobs.block_id)
+
+
 # ** 2. CREATE NEW VARIABLES/COLUMNS **
 
 # Block Variables
 
-# NOTE: AREAS OF BLOCKS BASED ON RESIDENTS AND EMPLOYEES PER BLOCK.
-# PROPER LAND USE DATA SHOULD BE PROCURED FROM THE MPO
-
-@orca.column('blocks', cache=True)
-def TAZ(blocks, zones):
-    blocks_df = blocks.to_frame(columns = ['x', 'y'])
-    h3_gpd =  zones.to_frame(columns = ['geometry', 'area', 'h3_id', 'h3_res'])
-    return assign_taz(blocks_df, h3_gpd)
-
-
 @orca.column('blocks')
 def TOTEMP(blocks, jobs):
-
-    return jobs.to_frame().groupby('block_id')['TAZ'].count().reindex(blocks.index).fillna(0)
+    jobs_df = jobs.to_frame(columns=['block_id', 'sector_id'])
+    return jobs_df.groupby('block_id')['sector_id'].count().reindex(
+        blocks.index).fillna(0)
 
 
 @orca.column('blocks')
 def TOTPOP(blocks, usim_households):
-    hh = usim_households.to_frame()
-    return hh.groupby('block_id')['persons'].sum().reindex(blocks.index).fillna(0)
+    hh = usim_households.to_frame(columns=['block_id', 'persons'])
+    return hh.groupby('block_id')['persons'].sum().reindex(
+        blocks.index).fillna(0)
 
 
 @orca.column('blocks')
@@ -336,7 +359,6 @@ def TOTACRE(blocks):
 
 @orca.column('blocks')
 def area_type_metric(blocks):
-
     # we calculate the metric at the block level because h3 zones are so variable
     # in size, so this size-dependent metric is very susceptible to the
     # modifiable areal unit problem. Since blocks are 
@@ -345,31 +367,21 @@ def area_type_metric(blocks):
 
 @orca.column('blocks')
 def CI_employment(jobs, blocks):
-    job = jobs.to_frame()
+    job = jobs.to_frame(columns=['sector_id', 'block_id'])
     job = job[job.sector_id.isin([11, 3133, 42, 4445, 4849, 52, 54, 7172])]
     s = job.groupby('block_id')['sector_id'].count()
 
     # to avoid division by zero best to have a relative greater number,
     # so that dividing by this number results in a small value
-    return s.reindex(blocks.index).fillna(0.01) 
-
-
-# School Variables
-
-@orca.column('schools', cache = True)
-def TAZ(schools, zones):
-    h3_gpd =  zones.to_frame(columns = ['geometry', 'area', 'h3_id', 'h3_res'])
-    school_gpd = schools.to_frame(columns = ['x', 'y'])
-    return assign_taz(school_gpd, h3_gpd)
+    return s.reindex(blocks.index).fillna(0.01)
 
 
 # Colleges Variables
 
 @orca.column('colleges')
-def full_time_enrollment():
+def full_time_enrollment(state_fips):
     base_url = 'https://educationdata.urban.org/api/v1/{t}/{so}/{e}/{y}/{l}/?{f}&{s}&{r}&{cl}&{ds}&{fips}'
     levels = ['undergraduate', 'graduate']
-    state_fips = config.setting('state_fips')
     enroll_list = []
     for level in levels:
         level_url = base_url.format(
@@ -384,7 +396,6 @@ def full_time_enrollment():
             columns={'enrollment_fall': level})
         enroll.set_index('unitid', inplace=True)
         enroll_list.append(enroll)
-        time.sleep(5)
 
     full_time = pd.concat(enroll_list, axis=1)
     full_time['full_time'] = full_time['undergraduate'] + full_time['graduate']
@@ -393,10 +404,9 @@ def full_time_enrollment():
 
 
 @orca.column('colleges')
-def part_time_enrollment(colleges):
+def part_time_enrollment(state_fips):
     base_url = 'https://educationdata.urban.org/api/v1/{t}/{so}/{e}/{y}/{l}/?{f}&{s}&{r}&{cl}&{ds}&{fips}'
     levels = ['undergraduate', 'graduate']
-    state_fips = config.setting('state_fips')
     enroll_list = []
     for level in levels:
         level_url = base_url.format(
@@ -411,7 +421,6 @@ def part_time_enrollment(colleges):
             columns={'enrollment_fall': level})
         enroll.set_index('unitid', inplace=True)
         enroll_list.append(enroll)
-        time.sleep(5)
 
     part_time = pd.concat(enroll_list, axis=1)
     part_time['part_time'] = part_time['undergraduate'] + part_time['graduate']
@@ -419,19 +428,7 @@ def part_time_enrollment(colleges):
     return s
 
 
-@orca.column('colleges', cache = True)
-def TAZ(colleges, zones):
-    colleges_df = colleges.to_frame(columns = ['x', 'y'])
-    h3_gpd =  zones.to_frame(columns = ['geometry', 'area', 'h3_id', 'h3_res'])
-    return assign_taz(colleges_df, h3_gpd)
-
-
 # Households Variables
-
-@orca.column('usim_households')
-def TAZ(blocks, usim_households):
-    return misc.reindex(blocks.TAZ, usim_households.block_id)
-
 
 @orca.column('usim_households')
 def HHT(usim_households):
@@ -440,11 +437,6 @@ def HHT(usim_households):
 
 
 # Persons Variables
-
-@orca.column('usim_persons')
-def TAZ(usim_households, usim_persons):
-    return misc.reindex(usim_households.TAZ, usim_persons.household_id)
-
 
 @orca.column('usim_persons')
 def ptype(usim_persons):
@@ -503,12 +495,7 @@ def pstudent(usim_persons):
     return pstudent_1
 
 
-# Jobs Variables
-
-@orca.column('jobs')
-def TAZ(blocks, jobs):
-    return misc.reindex(blocks.TAZ, jobs.block_id)
-
+# Zones variables
 
 @orca.column('zones', cache=True)
 def TOTHH(usim_households, zones):
@@ -524,13 +511,14 @@ def HHPOP(usim_persons, zones):
 
 @orca.column('zones', cache=True)
 def EMPRES(usim_households, zones):
-    s = usim_households.to_frame().groupby('TAZ')['workers'].sum()
+    s = usim_households.to_frame(
+        columns=['TAZ', 'workers']).groupby('TAZ')['workers'].sum()
     return s.reindex(zones.index).fillna(0)
 
 
 @orca.column('zones', cache=True)
 def HHINCQ1(usim_households, zones):
-    df = usim_households.to_frame()
+    df = usim_households.to_frame(columns=['income', 'TAZ'])
     df = df[df.income < 30000]
     s = df.groupby('TAZ')['income'].count()
     return s.reindex(zones.index).fillna(0)
@@ -538,7 +526,7 @@ def HHINCQ1(usim_households, zones):
 
 @orca.column('zones', cache=True)
 def HHINCQ2(usim_households, zones):
-    df = usim_households.to_frame()
+    df = usim_households.to_frame(columns=['income', 'TAZ'])
     df = df[df.income.between(30000, 59999)]
     s = df.groupby('TAZ')['income'].count()
     return s.reindex(zones.index).fillna(0)
@@ -546,7 +534,7 @@ def HHINCQ2(usim_households, zones):
 
 @orca.column('zones', cache=True)
 def HHINCQ3(usim_households, zones):
-    df = usim_households.to_frame()
+    df = usim_households.to_frame(columns=['income', 'TAZ'])
     df = df[df.income .between(60000, 99999)]
     s = df.groupby('TAZ')['income'].count()
     return s.reindex(zones.index).fillna(0)
@@ -554,7 +542,7 @@ def HHINCQ3(usim_households, zones):
 
 @orca.column('zones', cache=True)
 def HHINCQ4(usim_households, zones):
-    df = usim_households.to_frame()
+    df = usim_households.to_frame(columns=['income', 'TAZ'])
     df = df[df.income >= 100000]
     s = df.groupby('TAZ')['income'].count()
     return s.reindex(zones.index).fillna(0)
@@ -562,7 +550,7 @@ def HHINCQ4(usim_households, zones):
 
 @orca.column('zones', cache=True)
 def AGE0004(usim_persons, zones):
-    df = usim_persons.to_frame()
+    df = usim_persons.to_frame(columns=['TAZ', 'age'])
     df = df[df.age.between(0, 4)]
     s = df.groupby('TAZ')['age'].count()
     return s.reindex(zones.index).fillna(0)
@@ -570,7 +558,7 @@ def AGE0004(usim_persons, zones):
 
 @orca.column('zones', cache=True)
 def AGE0519(usim_persons, zones):
-    df = usim_persons.to_frame()
+    df = usim_persons.to_frame(columns=['TAZ', 'age'])
     df = df[df.age.between(5, 19)]
     s = df.groupby('TAZ')['age'].count()
     return s.reindex(zones.index).fillna(0)
@@ -578,7 +566,7 @@ def AGE0519(usim_persons, zones):
 
 @orca.column('zones', cache=True)
 def AGE2044(usim_persons, zones):
-    df = usim_persons.to_frame()
+    df = usim_persons.to_frame(columns=['TAZ', 'age'])
     df = df[df.age.between(20, 44)]
     s = df.groupby('TAZ')['age'].count()
     return s.reindex(zones.index).fillna(0)
@@ -586,7 +574,7 @@ def AGE2044(usim_persons, zones):
 
 @orca.column('zones', cache=True)
 def AGE4564(usim_persons, zones):
-    df = usim_persons.to_frame()
+    df = usim_persons.to_frame(columns=['TAZ', 'age'])
     df = df[df.age.between(45, 64)]
     s = df.groupby('TAZ')['age'].count()
     return s.reindex(zones.index).fillna(0)
@@ -594,7 +582,7 @@ def AGE4564(usim_persons, zones):
 
 @orca.column('zones', cache=True)
 def AGE65P(usim_persons, zones):
-    df = usim_persons.to_frame()
+    df = usim_persons.to_frame(columns=['TAZ', 'age'])
     df = df[df.age >= 65]
     s = df.groupby('TAZ')['age'].count()
     return s.reindex(zones.index).fillna(0)
@@ -602,7 +590,7 @@ def AGE65P(usim_persons, zones):
 
 @orca.column('zones', cache=True)
 def AGE62P(usim_persons, zones):
-    df = usim_persons.to_frame()
+    df = usim_persons.to_frame(columns=['TAZ', 'age'])
     df = df[df.age >= 62]
     s = df.groupby('TAZ')['age'].count()
     return s.reindex(zones.index).fillna(0)
@@ -621,7 +609,7 @@ def TOTEMP(jobs, zones):
 
 @orca.column('zones', cache=True)
 def RETEMPN(jobs, zones):
-    df = jobs.to_frame()
+    df = jobs.to_frame(columns=['sector_id', 'TAZ'])
 
     # difference is here (44, 45 vs 4445)
     # sector ids don't match
@@ -632,7 +620,7 @@ def RETEMPN(jobs, zones):
 
 @orca.column('zones', cache=True)
 def FPSEMPN(jobs, zones):
-    df = jobs.to_frame()
+    df = jobs.to_frame(columns=['sector_id', 'TAZ'])
     df = df[df.sector_id.isin([52, 54])]
     s = df.groupby('TAZ')['sector_id'].count()
     return s.reindex(zones.index).fillna(0)
@@ -640,7 +628,7 @@ def FPSEMPN(jobs, zones):
 
 @orca.column('zones', cache=True)
 def HEREMPN(jobs, zones):
-    df = jobs.to_frame()
+    df = jobs.to_frame(columns=['sector_id', 'TAZ'])
     df = df[df.sector_id.isin([61, 62, 71])]
     s = df.groupby('TAZ')['sector_id'].count()
     return s.reindex(zones.index).fillna(0)
@@ -648,7 +636,7 @@ def HEREMPN(jobs, zones):
 
 @orca.column('zones', cache=True)
 def AGREMPN(jobs, zones):
-    df = jobs.to_frame()
+    df = jobs.to_frame(columns=['sector_id', 'TAZ'])
     df = df[df.sector_id.isin([11])]
     s = df.groupby('TAZ')['sector_id'].count()
     return s.reindex(zones.index).fillna(0)
@@ -656,7 +644,7 @@ def AGREMPN(jobs, zones):
 
 @orca.column('zones', cache=True)
 def MWTEMPN(jobs, zones):
-    df = jobs.to_frame()
+    df = jobs.to_frame(columns=['sector_id', 'TAZ'])
 
     # sector ids don't match
     df = df[df.sector_id.isin([42, 3133, 32, 4849])]
@@ -666,7 +654,7 @@ def MWTEMPN(jobs, zones):
 
 @orca.column('zones', cache=True)
 def OTHEMPN(jobs, zones):
-    df = jobs.to_frame()
+    df = jobs.to_frame(columns=['sector_id', 'TAZ'])
 
     # sector ids don't match
     df = df[~df.sector_id.isin([
@@ -676,33 +664,24 @@ def OTHEMPN(jobs, zones):
 
 
 @orca.column('zones', cache=True)
-def TOTACRE(zones):
+def TOTACRE(zones, local_crs):
+
+    zones_gdf = zones.to_frame(columns=['geometry'])
 
     # project to meter-based crs
-    g = zones.geometry.to_crs({'init': 'epsg:2768'})
-    
+    g = zones_gdf.to_crs(local_crs)
+
+    g['area'] = g['geometry'].area
+
     # square meters to acres
-    area_polygons = g.area / 4046.86
+    area_polygons = g['area'] / 4046.86
     return area_polygons
-
-
-# @orca.column('zones', cache=True)
-# def RESACRE(blocks, zones):
-#     df = blocks.to_frame()
-#     s = df.groupby('TAZ')['RESACRE'].sum()
-#     return s.reindex(zones.index).fillna(0)
-
-
-# @orca.column('zones', cache=True)
-# def CIACRE(blocks, zones):
-#     df = blocks.to_frame()
-#     s = df.groupby('TAZ')['CIACRE'].sum()
-#     return s.reindex(zones.index).fillna(0)
 
 
 @orca.column('zones', cache=True)
 def HSENROLL(schools, zones):
-    s = schools.to_frame().groupby('TAZ')['enrollment'].sum()
+    s = schools.to_frame(columns=['TAZ', 'enrollment']).groupby(
+        'TAZ')['enrollment'].sum()
     return s.reindex(zones.index).fillna(0)
 
 
@@ -711,8 +690,6 @@ def TOPOLOGY():
     # assumes everything is flat
     return 1
 
-
-# Zones variables
 
 @orca.column('zones')
 def employment_density(zones):
@@ -737,8 +714,9 @@ def hq1_density(zones):
 @orca.column('zones')
 def PRKCST(zones):
     params = pd.Series(
-        [-1.92168743,  4.89511403,  4.2772001 ,  0.65784643],
-        index=['pop_density', 'hh_density', 'hq1_density', 'employment_density'])
+        [-1.92168743, 4.89511403, 4.2772001, 0.65784643], index=[
+            'pop_density', 'hh_density', 'hq1_density',
+            'employment_density'])
 
     cols = zones.to_frame(columns=[
         'employment_density', 'pop_density', 'hh_density', 'hq1_density'])
@@ -750,7 +728,7 @@ def PRKCST(zones):
 @orca.column('zones')
 def OPRKCST(zones):
     params = pd.Series(
-        [-6.17833544, 17.55155703,  2.0786466 ], 
+        [-6.17833544, 17.55155703, 2.0786466],
         index=['pop_density', 'hh_density', 'employment_density'])
 
     cols = zones.to_frame(
@@ -762,13 +740,15 @@ def OPRKCST(zones):
 
 @orca.column('zones')  # College enrollment
 def COLLFTE(colleges, zones):
-    s = colleges.to_frame().groupby('TAZ')['full_time_enrollment'].sum()
+    s = colleges.to_frame(columns=['TAZ', 'full_time_enrollment']).groupby(
+        'TAZ')['full_time_enrollment'].sum()
     return s.reindex(zones.index).fillna(0)
 
 
 @orca.column('zones')  # College enrollment
 def COLLPTE(colleges, zones):
-    s = colleges.to_frame().groupby('TAZ')['part_time_enrollment'].sum()
+    s = colleges.to_frame(columns=['TAZ', 'part_time_enrollment']).groupby(
+        'TAZ')['part_time_enrollment'].sum()
     return s.reindex(zones.index).fillna(0)
 
 
@@ -786,9 +766,12 @@ def area_type_metric(blocks, zones):
     # it is probably a good idea to visually assess the accuracy of the
     # metric when implementing in a new region.
 
-    blocks_df = blocks.to_frame(columns=['TAZ', 'TOTPOP', 'TOTEMP', 'area_type_metric'])
-    blocks_df['weight'] = np.round(np.sqrt(blocks_df['TOTPOP'] + blocks_df['TOTEMP']))
-    blocks_weighted = blocks_df.loc[blocks_df.index.repeat(blocks_df['weight'])]
+    blocks_df = blocks.to_frame(
+        columns=['TAZ', 'TOTPOP', 'TOTEMP', 'area_type_metric'])
+    blocks_df['weight'] = np.round(
+        np.sqrt(blocks_df['TOTPOP'] + blocks_df['TOTEMP']))
+    blocks_weighted = blocks_df.loc[
+        blocks_df.index.repeat(blocks_df['weight'])]
     area_type_avg = blocks_weighted.groupby('TAZ')['area_type_metric'].mean()
     return area_type_avg.reindex(zones.index).fillna(0)
 
@@ -801,8 +784,7 @@ def area_type(zones):
         zones['area_type_metric'],
         [0, 6, 30, 55, 100, 300, float("inf")],
         labels=['5', '4', '3', '2', '1', '0'],
-        include_lowest=True
-    ).astype(str) 
+        include_lowest=True).astype(str)
     return area_types
 
 
@@ -834,7 +816,6 @@ def load_usim_data(data_dir, settings):
     persons = hdf['/persons']
     blocks = hdf['/blocks']
     jobs = hdf['/jobs']
-    # mpo_taz = hdf['/mpo_taz']
 
     hdf.close()
 
@@ -851,10 +832,10 @@ def load_usim_data(data_dir, settings):
     del persons_w_res_blk
     del persons_w_xy
 
-    orca.add_table('usim_households', households)
-    orca.add_table('usim_persons', persons)
+    orca.add_table('usim_households', households, cache=True)
+    orca.add_table('usim_persons', persons, cache=True)
     orca.add_table('blocks', blocks, cache=True)
-    orca.add_table('jobs', jobs)
+    orca.add_table('jobs', jobs, cache=True)
 
 
 # Export households tables
@@ -866,7 +847,7 @@ def create_inputs_from_usim_data(data_dir):
     land_use_table = os.path.exists(os.path.join(data_dir, "land_use.csv"))
 
     # if the input tables don't exist yet, create them from urbansim data
-    if not persons_table & households_table & land_use_table:
+    if not (persons_table & households_table & land_use_table):
         logger.info("Creating inputs from UrbanSim data")
 
         # create households input table
@@ -876,8 +857,8 @@ def create_inputs_from_usim_data(data_dir):
             'cars': 'VEHICL',
             'member_id': 'PNUM'}
 
-        usim_households = orca.get_table('usim_households')
-        hh_df = usim_households.to_frame().rename(columns=hh_names_dict)
+        usim_households = orca.get_table('usim_households').to_frame()
+        hh_df = usim_households.rename(columns=hh_names_dict)
         hh_df = hh_df[~hh_df.TAZ.isnull()]
         hh_df.to_csv(os.path.join(data_dir, 'households.csv'))
         del hh_df
@@ -894,8 +875,7 @@ def create_inputs_from_usim_data(data_dir):
         del p_df
 
         # create land use input table
-        zones = orca.get_table('zones')
-        lu_df = zones.to_frame()
+        lu_df = orca.get_table('zones').to_frame()
         lu_df.to_csv(os.path.join(data_dir, 'land_use.csv'))
         del lu_df
 
