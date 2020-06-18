@@ -58,7 +58,11 @@ def get_county_block_geoms(state_fips, county_fips):
 
 def get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs):
 
+    # df to store GEOID to TAZ results
     block_to_taz_results = pd.DataFrame()
+
+    # ignore empty geoms
+    zones_gdf = zones_gdf[~zones_gdf['geometry'].is_empty]
 
     # convert to meter-based proj
     zones_gdf = zones_gdf.to_crs(local_crs)
@@ -206,7 +210,7 @@ def block_geoms(data_dir, state_fips, county_codes):
             all_block_geoms.append(county_gdf)
 
         blocks_gdf = gpd.GeoDataFrame(
-            pd.concat(all_block_geoms), crs="EPSG:4326")
+            pd.concat(all_block_geoms, ignore_index=True), crs="EPSG:4326")
 
         # save to disk
         logger.info("Saving block geoms to disk!")
@@ -217,7 +221,7 @@ def block_geoms(data_dir, state_fips, county_codes):
 
 # Zones
 @orca.table('zones', cache=True)
-def zones(block_geoms):
+def zones(block_geoms, local_crs):
     """
     if loading zones from shapefile, coordinates must be
     referenced to WGS84 (EPSG:4326) projection.
@@ -243,9 +247,15 @@ def zones(block_geoms):
             zones['TAZ'] = list(range(1, len(h3_zone_ids) + 1))
             zones = zones.set_index('TAZ')
 
-            # if using h3 zones, must clip geoms to block bounds
-            block_bounds = block_geoms.to_frame().unary_union
+            # if using h3 zones, must clip geoms to block bounds using
+            # local CRS
+            block_bounds = block_geoms.to_frame().to_crs(local_crs).unary_union
+            zones = zones.to_crs(local_crs)
             zones['geometry'] = zones['geometry'].intersection(block_bounds)
+            
+            # convert back to epsg:4326 for storage in memory
+            zones = zones.to_crs('EPSG:4326')
+
 
         except KeyError:
             raise RuntimeError(
@@ -378,23 +388,26 @@ def new_block_id(jobs, blocks, block_geoms, local_crs):
     jobs_df['square_meters_land'] = blocks_df.reindex(
         jobs_df['block_id'])['square_meters_land'].values
     jobs_w_no_land = jobs_df[jobs_df['square_meters_land'] == 0]
+
     blocks_to_reassign = jobs_w_no_land['block_id'].unique()
-    blocks_gdf = block_geoms.to_frame().set_index('GEOID')
-    blocks_gdf['square_meters_land'] = blocks['square_meters_land'].reindex(
-        blocks_gdf.index)
-    blocks_gdf = blocks_gdf.to_crs(local_crs)
 
-    for block_id in tqdm(
-            blocks_to_reassign,
-            desc="Redistributing jobs from blocks with no land area:"):
+    if len(blocks_to_reassign) > 0:
+        blocks_gdf = block_geoms.to_frame().set_index('GEOID')
+        blocks_gdf['square_meters_land'] = blocks['square_meters_land'].reindex(
+            blocks_gdf.index)
+        blocks_gdf = blocks_gdf.to_crs(local_crs)
 
-        candidate_mask = (
-            blocks_gdf.index.values != block_id) & (
-            blocks_gdf['square_meters_land'] > 0)
-        new_block_id = blocks_gdf[candidate_mask].distance(
-            blocks_gdf.loc[block_id, 'geometry']).idxmin()
+        for block_id in tqdm(
+                blocks_to_reassign,
+                desc="Redistributing jobs from blocks with no land area:"):
 
-        jobs_df.loc[jobs_df['block_id'] == block_id, 'block_id'] = new_block_id
+            candidate_mask = (
+                blocks_gdf.index.values != block_id) & (
+                blocks_gdf['square_meters_land'] > 0)
+            new_block_id = blocks_gdf[candidate_mask].distance(
+                blocks_gdf.loc[block_id, 'geometry']).idxmin()
+
+            jobs_df.loc[jobs_df['block_id'] == block_id, 'block_id'] = new_block_id
 
     return jobs_df['block_id']
 
