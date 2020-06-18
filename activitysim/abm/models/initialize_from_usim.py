@@ -58,25 +58,44 @@ def get_county_block_geoms(state_fips, county_fips):
 
 def get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs):
 
+    block_to_taz_results = pd.DataFrame()
+
     # convert to meter-based proj
     zones_gdf = zones_gdf.to_crs(local_crs)
     blocks_gdf = blocks_gdf.to_crs(local_crs)
 
-    # intersect block and zone geometries
-    intx = gpd.overlay(blocks_gdf, zones_gdf.reset_index(), how='intersection')
+    zones_gdf['zone_area'] = zones_gdf.geometry.area
 
-    # assign zone ID's to blocks based on area of intersection
+    # assign blocks to zone with a spatial within query
+    within = gpd.sjoin(
+        blocks_gdf, zones_gdf.reset_index(), how='inner', op='within')
+
+    # when a block falls within multiple (overlapping) zones,
+    # assign it to the zone with the smallest area
+    within = within.sort_values(['GEOID', 'zone_area'])
+    within = within.drop_duplicates('GEOID', keep='first')
+
+    # add to results df
+    block_to_taz_results = pd.concat((
+        block_to_taz_results, within[['GEOID', 'TAZ']]))
+
+    # assign remaining blocks based on a spatial intersection
+    unassigned_mask = ~blocks_gdf['GEOID'].isin(block_to_taz_results['GEOID'])
+    intx = gpd.overlay(
+        blocks_gdf[unassigned_mask], zones_gdf.reset_index(),
+        how='intersection')
+
+    # assign zone ID's to blocks based on max area of intersection
     intx['intx_area'] = intx['geometry'].area
     intx = intx.sort_values(['GEOID', 'intx_area'], ascending=False)
     intx = intx.drop_duplicates('GEOID', keep='first')
 
-    blocks_gdf = blocks_gdf.set_index('GEOID')
-    blocks_gdf['TAZ'] = intx.set_index('GEOID').reindex(
-        blocks_gdf.index)['TAZ']
+    # add to results df
+    block_to_taz_results = pd.concat((block_to_taz_results, intx[['GEOID', 'TAZ']]))
 
     # assign zone ID's to remaining blocks based on shortest
     # distance between block and zone centroids
-    unassigned_mask = pd.isnull(blocks_gdf['TAZ'])
+    unassigned_mask = ~blocks_gdf['GEOID'].isin(block_to_taz_results['GEOID'])
 
     if any(unassigned_mask):
 
@@ -86,10 +105,14 @@ def get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs):
         all_dists = blocks_gdf.loc[unassigned_mask, 'geometry'].apply(
             lambda x: zones_gdf['geometry'].distance(x))
 
-        blocks_gdf.loc[unassigned_mask, 'TAZ'] = all_dists.idxmin(
-            axis=1).values
+        nearest = all_dists.idxmin(axis=1).reset_index()
+        nearest.columns = ['blocks_idx', 'TAZ']
+        nearest.set_index('blocks_idx', inplace=True)
+        nearest['GEOID'] = blocks_gdf.reindex(nearest.index)['GEOID']
 
-    return blocks_gdf
+        block_to_taz_results = pd.concat((block_to_taz_results, nearest[['GEOID', 'TAZ']]))
+
+    return block_to_taz_results.set_index('GEOID')['TAZ']
 
 
 def get_taz_from_points(df, zones_gdf, local_crs):
@@ -194,7 +217,7 @@ def block_geoms(data_dir, state_fips, county_codes):
 
 # Zones
 @orca.table('zones', cache=True)
-def zones():
+def zones(block_geoms):
     """
     if loading zones from shapefile, coordinates must be
     referenced to WGS84 (EPSG:4326) projection.
@@ -211,6 +234,7 @@ def zones():
     elif usim_zone_geoms == 'h3':
 
         try:
+
             h3_zone_ids = inject.get_injectable('h3_zone_ids')
             zone_geoms = get_zone_geoms_from_h3(h3_zone_ids)
             zones = gpd.GeoDataFrame(
@@ -218,6 +242,10 @@ def zones():
             zones.columns = ['h3_id', 'geometry']
             zones['TAZ'] = list(range(1, len(h3_zone_ids) + 1))
             zones = zones.set_index('TAZ')
+
+            # if using h3 zones, must clip geoms to block bounds
+            block_bounds = block_geoms.to_frame().unary_union
+            zones['geometry'] = zones['geometry'].intersection(block_bounds)
 
         except KeyError:
             raise RuntimeError(
@@ -298,16 +326,16 @@ def TAZ(data_dir, block_geoms, zones, local_crs):
     blocks_gdf.crs = 'EPSG:4326'
 
     # assign TAZs to blocks
-    blocks_gdf = get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs)
+    blocks_to_taz = get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs)
 
-    return blocks_gdf['TAZ']
+    return blocks_to_taz
 
 
 @orca.column('schools', cache=True)
 def TAZ(schools, zones, local_crs):
     zones_gdf = zones.to_frame(columns=['geometry', 'h3_id'])
     schools_df = schools.to_frame(columns=['x', 'y'])
-    schools.index.name = 'school_id'
+    schools_df.index.name = 'school_id'
     return get_taz_from_points(schools_df, zones_gdf, local_crs)
 
 
@@ -331,17 +359,52 @@ def TAZ(usim_households, usim_persons):
 
 @orca.column('jobs')
 def TAZ(blocks, jobs):
-    return misc.reindex(blocks.TAZ, jobs.block_id)
+    return misc.reindex(blocks.TAZ, jobs.new_block_id)
 
 
-# ** 2. CREATE NEW VARIABLES/COLUMNS **
+# ** 3. CREATE NEW VARIABLES/COLUMNS **
+
+# Jobs Variables
+
+@orca.column('jobs', cache=True)
+def new_block_id(jobs, blocks, block_geoms, local_crs):
+    """
+    Reassign any jobs from blocks with zero land area
+    to closest block with land area
+    """
+
+    jobs_df = jobs.to_frame(columns=['block_id'])
+    blocks_df = blocks.to_frame(columns=['square_meters_land'])
+    jobs_df['square_meters_land'] = blocks_df.reindex(
+        jobs_df['block_id'])['square_meters_land'].values
+    jobs_w_no_land = jobs_df[jobs_df['square_meters_land'] == 0]
+    blocks_to_reassign = jobs_w_no_land['block_id'].unique()
+    blocks_gdf = block_geoms.to_frame().set_index('GEOID')
+    blocks_gdf['square_meters_land'] = blocks['square_meters_land'].reindex(
+        blocks_gdf.index)
+    blocks_gdf = blocks_gdf.to_crs(local_crs)
+
+    for block_id in tqdm(
+            blocks_to_reassign,
+            desc="Redistributing jobs from blocks with no land area:"):
+
+        candidate_mask = (
+            blocks_gdf.index.values != block_id) & (
+            blocks_gdf['square_meters_land'] > 0)
+        new_block_id = blocks_gdf[candidate_mask].distance(
+            blocks_gdf.loc[block_id, 'geometry']).idxmin()
+
+        jobs_df.loc[jobs_df['block_id'] == block_id, 'block_id'] = new_block_id
+
+    return jobs_df['block_id']
+
 
 # Block Variables
 
 @orca.column('blocks')
 def TOTEMP(blocks, jobs):
-    jobs_df = jobs.to_frame(columns=['block_id', 'sector_id'])
-    return jobs_df.groupby('block_id')['sector_id'].count().reindex(
+    jobs_df = jobs.to_frame(columns=['new_block_id', 'sector_id'])
+    return jobs_df.groupby('new_block_id')['sector_id'].count().reindex(
         blocks.index).fillna(0)
 
 
@@ -359,21 +422,15 @@ def TOTACRE(blocks):
 
 @orca.column('blocks')
 def area_type_metric(blocks):
-    # we calculate the metric at the block level because h3 zones are so variable
-    # in size, so this size-dependent metric is very susceptible to the
-    # modifiable areal unit problem. Since blocks are 
-    return ((1 * blocks['TOTPOP']) + (2.5 * blocks['TOTEMP'])) / blocks['TOTACRE']
+    """
+    we calculate the metric at the block level because h3 zones are so
+    variable in size, so this size-dependent metric is very susceptible
+    to the modifiable areal unit problem.
+    """
 
-
-@orca.column('blocks')
-def CI_employment(jobs, blocks):
-    job = jobs.to_frame(columns=['sector_id', 'block_id'])
-    job = job[job.sector_id.isin([11, 3133, 42, 4445, 4849, 52, 54, 7172])]
-    s = job.groupby('block_id')['sector_id'].count()
-
-    # to avoid division by zero best to have a relative greater number,
-    # so that dividing by this number results in a small value
-    return s.reindex(blocks.index).fillna(0.01)
+    metric_vals = (
+        (1 * blocks['TOTPOP']) + (2.5 * blocks['TOTEMP'])) / blocks['TOTACRE']
+    return metric_vals.fillna(0)
 
 
 # Colleges Variables
@@ -664,18 +721,23 @@ def OTHEMPN(jobs, zones):
 
 
 @orca.column('zones', cache=True)
-def TOTACRE(zones, local_crs):
+def TOTACRE(blocks, zones, local_crs):
 
-    zones_gdf = zones.to_frame(columns=['geometry'])
+    # aggregate acreage from blocks
+    blocks_df = blocks.to_frame(columns=['TOTACRE', 'TAZ'])
+    s = blocks_df.groupby('TAZ')['TOTACRE'].sum()
 
-    # project to meter-based crs
-    g = zones_gdf.to_crs(local_crs)
+    ## compute actual acreage of zone
+    # zones_gdf = zones.to_frame(columns=['geometry'])
 
-    g['area'] = g['geometry'].area
+    # # project to meter-based crs
+    # g = zones_gdf.to_crs(local_crs)
 
-    # square meters to acres
-    area_polygons = g['area'] / 4046.86
-    return area_polygons
+    # g['area'] = g['geometry'].area
+
+    # # square meters to acres
+    # area_polygons = g['area'] / 4046.86
+    return s.reindex(zones.index).fillna(0)
 
 
 @orca.column('zones', cache=True)
@@ -753,6 +815,18 @@ def COLLPTE(colleges, zones):
 
 
 @orca.column('zones')
+def atm_zone(zones):
+
+    zones_df = zones.to_frame(columns=['HHPOP', 'TOTEMP', 'TOTACRE'])
+
+    metric_vals = (
+        (1 * zones_df['HHPOP']) + (2.5 * zones_df['TOTEMP'])) / zones_df['TOTACRE']
+
+    return metric_vals.fillna(0)
+
+
+
+@orca.column('zones')
 def area_type_metric(blocks, zones):
 
     # because of the MAUP, we have to aggregate the area_type_metric values
@@ -802,7 +876,7 @@ def COUNTY():
     return 1  # Assuming 1 all San Francisco County
 
 
-# ** 3. Define Orca Steps **
+# ** 4. Define Orca Steps **
 
 @inject.step()
 def load_usim_data(data_dir, settings):
