@@ -433,19 +433,6 @@ def TOTACRE(blocks):
     return blocks['square_meters_land'] / 4046.86
 
 
-@orca.column('blocks')
-def area_type_metric(blocks):
-    """
-    we calculate the metric at the block level because h3 zones are so
-    variable in size, so this size-dependent metric is very susceptible
-    to the modifiable areal unit problem.
-    """
-
-    metric_vals = (
-        (1 * blocks['TOTPOP']) + (2.5 * blocks['TOTEMP'])) / blocks['TOTACRE']
-    return metric_vals.fillna(0)
-
-
 # Colleges Variables
 
 @orca.column('colleges')
@@ -740,16 +727,6 @@ def TOTACRE(blocks, zones, local_crs):
     blocks_df = blocks.to_frame(columns=['TOTACRE', 'TAZ'])
     s = blocks_df.groupby('TAZ')['TOTACRE'].sum()
 
-    ## compute actual acreage of zone
-    # zones_gdf = zones.to_frame(columns=['geometry'])
-
-    # # project to meter-based crs
-    # g = zones_gdf.to_crs(local_crs)
-
-    # g['area'] = g['geometry'].area
-
-    # # square meters to acres
-    # area_polygons = g['area'] / 4046.86
     return s.reindex(zones.index).fillna(0)
 
 
@@ -828,7 +805,22 @@ def COLLPTE(colleges, zones):
 
 
 @orca.column('zones')
-def atm_zone(zones):
+def area_type_metric(zones):
+    """
+    Because of the modifiable areal unit problem, it is probably a good
+    idea to visually assess the accuracy of this metric when implementing
+    in a new region. The metric was designed using SF Bay Area data and TAZ
+    geometries. So what is considered "suburban" by SFMTC standard might be
+    "urban" or "urban fringe" in less densesly developed regions, which
+    can impact the results of the auto ownership and mode choice models.
+
+    This issue should eventually resolve itself once we are able to re-
+    estimate these two models for every new region/implementation. In the 
+    meantime, we expect that for regions less dense than the SF Bay Area,
+    the area types classifications will be overly conservative. If anything,
+    this bias results towards higher auto-ownership and larger auto-oriented
+    mode shares. However, we haven't found this to be the case.
+    """
 
     zones_df = zones.to_frame(columns=['HHPOP', 'TOTEMP', 'TOTACRE'])
 
@@ -836,31 +828,6 @@ def atm_zone(zones):
         (1 * zones_df['HHPOP']) + (2.5 * zones_df['TOTEMP'])) / zones_df['TOTACRE']
 
     return metric_vals.fillna(0)
-
-
-
-@orca.column('zones')
-def area_type_metric(blocks, zones):
-
-    # because of the MAUP, we have to aggregate the area_type_metric values
-    # up from the block level to the h3 zone. instead of a simple average,
-    # we us a weighted average of the blocks based on the square root of the
-    # sum of the number of jobs and residents of each block. this method
-    # was found to produce the best results in the Austin metro region compared
-    # to the simple average (underclassified urban areas) and the fully
-    # weighted average (overclassified too many CBDs).
-
-    # it is probably a good idea to visually assess the accuracy of the
-    # metric when implementing in a new region.
-
-    blocks_df = blocks.to_frame(
-        columns=['TAZ', 'TOTPOP', 'TOTEMP', 'area_type_metric'])
-    blocks_df['weight'] = np.round(
-        np.sqrt(blocks_df['TOTPOP'] + blocks_df['TOTEMP']))
-    blocks_weighted = blocks_df.loc[
-        blocks_df.index.repeat(blocks_df['weight'])]
-    area_type_avg = blocks_weighted.groupby('TAZ')['area_type_metric'].mean()
-    return area_type_avg.reindex(zones.index).fillna(0)
 
 
 @orca.column('zones')
