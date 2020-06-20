@@ -186,15 +186,18 @@ def sample_geoseries(geoseries, size, overestimate=2):
 
 def get_trip_coords(trips, zones, persons, size=500):
 
-    # Generates random points within each zone
+    # Generates random points within each zone for zones
+    # that are not empty geometries (i.e. contain no blocks)
     rand_point_zones = {}
-    for zone in zones.TAZ:
+    for zone in zones[~zones['geometry'].is_empty].TAZ:
         size = 500
         polygon = zones[zones.TAZ == zone].geometry
         points = sample_geoseries(polygon, size, overestimate=2)
         rand_point_zones[zone] = points
 
     # Assign semi-random (within zone) coords to trips
+    # TO DO: random sampling should really only be done for outbound
+    # trips and return trips should use the coords already chosen
     df = trips[['origin']].reset_index().drop_duplicates('trip_id')
     origins = []
     for i, row in enumerate(df.itertuples(), 0):
@@ -223,9 +226,12 @@ def get_trip_coords(trips, zones, persons, size=500):
 
 
 def generate_departure_times(trips):
+
+    # TO DO: fractional times must respect the original order of trips!!!!
     df = trips[['person_id', 'depart']].reset_index().drop_duplicates('trip_id')
     df['frac'] = np.random.rand(len(df),)
     df.index.name = 'og_df_idx'
+
     # Making sure trips within the hour are sequential
     ordered = df.sort_values(
         by=['person_id', 'depart', 'frac']).reset_index()
@@ -265,7 +271,7 @@ def generate_beam_plans():
     # logger.info("Adding expanded trips table to pipeline.")
     # pipeline.replace_table("trips_expanded", trips)
 
-    # augment trips table
+    # augment trips table with attrs we need to generate plans
     trips = get_trip_coords(trips, zones, persons)
     trips['departure_time'] = generate_departure_times(trips)
 
