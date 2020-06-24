@@ -50,21 +50,27 @@ use_shadow_pricing: False
 #stagger: 5
 
 
-## - example sample
+## - UrbanSim-input simulation
 households_sample_size: 0
 chunk_size: 5000000000
 num_processes: 24
 stagger: 0
 
+# ## - UrbanSim-input simulation
+# households_sample_size: 100000
+# chunk_size: 0
+# num_processes: 24
+# stagger: 0
+
 
 # - tracing
-trace_hh_id: 
+trace_hh_id: 157469
 trace_od:
 # trace_hh_id: 195809
 #trace_od: [5, 11]
 
 # to resume after last successful checkpoint, specify resume_after: _
-# resume_after: _
+resume_after: _
 
 models:
   ### mp_initialize step
@@ -98,7 +104,7 @@ models:
   - trip_purpose_and_destination
   - trip_scheduling
   - trip_mode_choice
-  ### mp_summarize step
+  ## mp_summarize step
   - generate_beam_plans
   - write_data_dictionary
   - write_tables
@@ -126,3 +132,4 @@ output_tables:
     - tours
     - trips
     - beam_plans
+    - blocks
