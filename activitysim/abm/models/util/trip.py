@@ -24,6 +24,9 @@ def failed_trip_cohorts(trips, failed):
 
     # bad_trips = bad_outbound_trips | bad_inbound_trips
 
+    # now that trips['earliest'] gets reset after outbound trips are scheduled,
+    # it becomes clear that cohorts need to be defined over the entire tour
+    # rather than the tour-leg
     bad_trips = trips.tour_id.isin(trips.tour_id[failed])
 
     return bad_trips

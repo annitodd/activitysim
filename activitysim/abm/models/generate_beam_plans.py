@@ -292,41 +292,41 @@ def generate_beam_plans():
             "{0} of {1} ({2}%) of trips are topologically inconsistent "
             "after assigning departure times.".format(num_false, num_trips, pct_discontinuous_trips))
 
-    # # Adding a new row for each unique person_id
-    # # this row will represent the returning trip
-    # return_trip = pd.DataFrame(
-    #     sorted_trips.groupby('person_id').agg({'x': 'first', 'y': 'first'}),
-    #     index=sorted_trips.person_id.unique())
+    # Adding a new row for each unique person_id
+    # this row will represent the returning trip
+    return_trip = pd.DataFrame(
+        sorted_trips.groupby('person_id').agg({'x': 'first', 'y': 'first'}),
+        index=sorted_trips.person_id.unique())
 
-    # plans = sorted_trips.append(return_trip)
-    # plans.reset_index(inplace=True)
-    # plans.person_id.fillna(plans['index'], inplace=True)
+    plans = sorted_trips.append(return_trip)
+    plans.reset_index(inplace=True)
+    plans.person_id.fillna(plans['index'], inplace=True)
 
-    # # Creating the Plan Element activity Index
-    # # Activities have odd indices and legs (actual trips) will be even
-    # plans['PlanElementIndex'] = plans.groupby('person_id').cumcount() * 2 + 1
-    # plans = plans.sort_values(
-    #     ['person_id', 'departure_time']).reset_index(drop=True)
+    # Creating the Plan Element activity Index
+    # Activities have odd indices and legs (actual trips) will be even
+    plans['PlanElementIndex'] = plans.groupby('person_id').cumcount() * 2 + 1
+    plans = plans.sort_values(
+        ['person_id', 'departure_time']).reset_index(drop=True)
 
-    # # Shifting type one row down
-    # plans['ActivityType'] = plans.groupby(
-    #     'person_id')['purpose'].shift(periods=1).fillna('Home')
-    # plans['ActivityElement'] = 'activity'
+    # Shifting type one row down
+    plans['ActivityType'] = plans.groupby(
+        'person_id')['purpose'].shift(periods=1).fillna('Home')
+    plans['ActivityElement'] = 'activity'
 
-    # # Creating legs (trips between activities)
-    # legs = pd.DataFrame({
-    #     'PlanElementIndex': plans.PlanElementIndex - 1,
-    #     'person_id': plans.person_id})
-    # legs = legs[legs.PlanElementIndex != 0]
+    # Creating legs (trips between activities)
+    legs = pd.DataFrame({
+        'PlanElementIndex': plans.PlanElementIndex - 1,
+        'person_id': plans.person_id})
+    legs = legs[legs.PlanElementIndex != 0]
 
-    # # Adding the legs to the main table
-    # final_plans = plans.append(legs).sort_values(['person_id', 'PlanElementIndex'])
-    # final_plans.ActivityElement.fillna('leg', inplace=True)
+    # Adding the legs to the main table
+    final_plans = plans.append(legs).sort_values(['person_id', 'PlanElementIndex'])
+    final_plans.ActivityElement.fillna('leg', inplace=True)
 
-    # final_plans['trip_id'] = final_plans['trip_id'].shift()
-    # final_plans = final_plans[[
-    #     'trip_id', 'person_id', 'PlanElementIndex', 'ActivityElement',
-    #     'ActivityType', 'x', 'y', 'departure_time']]
+    final_plans['trip_id'] = final_plans['trip_id'].shift()
+    final_plans = final_plans[[
+        'trip_id', 'person_id', 'PlanElementIndex', 'ActivityElement',
+        'ActivityType', 'x', 'y', 'departure_time']]
 
-    # # save back to pipeline
-    # pipeline.replace_table("beam_plans", final_plans)
+    # save back to pipeline
+    pipeline.replace_table("beam_plans", final_plans)
