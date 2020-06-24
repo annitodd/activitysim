@@ -2,7 +2,7 @@ COEFFS: tour_mode_choice_coeffs_v2.csv
 CONSTANTS:
   bikeSpeed: 12.0
   bikeThresh: 6.0
-  costPerMile: 1.829
+  costPerMile: 14.632
   costShareSr2: 1.75
   costShareSr3: 2.5
   indivTour: 1.0
@@ -14,8 +14,8 @@ CONSTANTS:
   upperMD: 15
   upperPM: 19
   waitThresh: 10.0
-  walkSpeed: 3.0
-  walkThresh: 1.5
+  walkSpeed: 3.5
+  walkThresh: 2
 LOGIT_TYPE: NL
 LOGSUM_CHOOSER_COLUMNS:
 - tour_type
@@ -48,7 +48,7 @@ NESTS:
       - SHARED3PAY
       coefficient: 0.35
       name: SHAREDRIDE3
-    coefficient: 0.72
+    coefficient: 0.71
     name: AUTO
   - alternatives:
     - WALK
@@ -72,7 +72,7 @@ NESTS:
       - DRIVE_COM
       coefficient: 0.5
       name: DRIVEACCESS
-    coefficient: 0.6
+    coefficient: 0.5
     name: TRANSIT
   coefficient: 1.0
   name: root

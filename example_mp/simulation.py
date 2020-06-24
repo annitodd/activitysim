@@ -66,8 +66,8 @@ def log_settings(injectables):
 
 if __name__ == '__main__':
 
-    inject.add_injectable('data_dir', '../bay_area_urbansim/data')
-    inject.add_injectable('configs_dir', ['configs', '../bay_area_urbansim/configs'])
+    inject.add_injectable('data_dir', 'data')
+    inject.add_injectable('configs_dir', ['configs', '../example/configs'])
 
     injectables = config.handle_standard_args()
 

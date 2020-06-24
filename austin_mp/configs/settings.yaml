@@ -53,9 +53,15 @@ chunk_size: 5000000000
 num_processes: 24
 stagger: 0
 
+# ## - UrbanSim-input simulation
+# households_sample_size: 100000
+# chunk_size: 0
+# num_processes: 24
+# stagger: 0
+
 
 # - tracing
-trace_hh_id: 393763
+trace_hh_id: 157469
 trace_od:
 # trace_hh_id: 195809
 #trace_od: [5, 11]
