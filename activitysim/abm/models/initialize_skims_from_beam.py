@@ -54,7 +54,7 @@ def raw_beam_skims():
 
 
 # for use in initialize_inputs_from_usim
-@inject.injectable()
+@inject.injectable(cache=True)
 def h3_zone_ids(raw_beam_skims):
     return raw_beam_skims.origTaz.unique()
 
