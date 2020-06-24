@@ -189,7 +189,7 @@ def get_trip_coords(trips, zones, persons, size=500):
     # Generates random points within each zone for zones
     # that are not empty geometries (i.e. contain no blocks)
     rand_point_zones = {}
-    for zone in zones[~zones['geometry'].is_empty].TAZ:
+    for zone in zones[~(zones['geometry'].is_empty | zones['geometry'].isna())].TAZ:
         size = 500
         polygon = zones[zones.TAZ == zone].geometry
         points = sample_geoseries(polygon, size, overestimate=2)
@@ -225,18 +225,26 @@ def get_trip_coords(trips, zones, persons, size=500):
     return trips
 
 
-def generate_departure_times(trips):
+def generate_departure_times(trips, tours):
+
+    trips["inbound"] = ~trips.outbound
+    trips["tour_start"] = trips.tour_id.map(tours.start)
+    trips["tour_end"] = trips.tour_id.map(tours.end)
 
     # TO DO: fractional times must respect the original order of trips!!!!
-    df = trips[['person_id', 'depart']].reset_index().drop_duplicates('trip_id')
+    df = trips[[
+        'person_id', 'depart', 'tour_start', 'tour_end', 'tour_id', 'inbound',
+        'trip_num']].reset_index().drop_duplicates('trip_id')
     df['frac'] = np.random.rand(len(df),)
     df.index.name = 'og_df_idx'
 
     # Making sure trips within the hour are sequential
-    ordered = df.sort_values(
-        by=['person_id', 'depart', 'frac']).reset_index()
-    df2 = df.sort_values(by=['person_id', 'depart']).reset_index()
-    df2['fractional'] = ordered.frac
+    ordered_trips = df.sort_values(by=[
+        'person_id', 'depart', 'frac', 'tour_start', 'tour_end', 'tour_id', 'inbound',
+        'trip_num']).reset_index()
+    df2 = df.sort_values(by=['person_id', 'depart', 'tour_start', 'tour_end', 'tour_id', 'inbound',
+        'trip_num']).reset_index()
+    df2['fractional'] = ordered_trips.frac
 
     # Adding fractional to int hour
     df2['depart'] = np.round(df2['depart'] + df2['fractional'], 3)
@@ -256,66 +264,69 @@ def generate_beam_plans():
     persons = pipeline.get_table('persons')
     zones = pipeline.get_table('land_use')
 
-    # re-cast zones as a geodataframe
-    zones['geometry'] = zones['geometry'].apply(wkt.loads)
-    zones = gpd.GeoDataFrame(zones, geometry='geometry', crs="EPSG:4326")
+    # read zones shapefile
+    zones = gpd.read_file('data/zones.shp')
     zones.geometry = zones.geometry.buffer(0)
-    zones.reset_index(inplace=True)
-
-    # expand trips table
-    # THIS TAKES WAYYYYYY TOO LONG TO DO RIGHT NOW AND
-    # BEAM CANT EVEN DEAL WITH PASSENGER TRIPS AT THE
-    # MOMENT SO WE'RE TURNING IT OFF UNTIL WE CAN FIND
-    # A BETTER SOLUTION
-    # trips = expand_trips_table(trips, tours, jtp)
-    # logger.info("Adding expanded trips table to pipeline.")
-    # pipeline.replace_table("trips_expanded", trips)
 
     # augment trips table with attrs we need to generate plans
+    # trips = sort_trips_in_time(trips)
     trips = get_trip_coords(trips, zones, persons)
-    trips['departure_time'] = generate_departure_times(trips)
+    trips['departure_time'] = generate_departure_times(trips, tours)
 
     # trim trips table
     cols = [
         'person_id', 'departure_time', 'purpose', 'origin',
         'destination', 'trip_mode', 'x', 'y']
-    trips = trips[cols].sort_values(
+    sorted_trips = trips[cols].sort_values(
         ['person_id', 'departure_time']).reset_index()
 
-    # Adding a new row for each unique person_id
-    # this row will represent the returning trip
-    return_trip = pd.DataFrame(
-        trips.groupby('person_id').agg({'x': 'first', 'y': 'first'}),
-        index=trips.person_id.unique())
+    topo_sort_mask = (
+            (sorted_trips['destination'].shift() == sorted_trips['origin']) |
+            (sorted_trips['person_id'].shift() != sorted_trips['person_id']))
+    num_true, num_false = topo_sort_mask.value_counts().values
 
-    trips = trips.append(return_trip)
-    trips.reset_index(inplace=True)
-    trips.person_id.fillna(trips['index'], inplace=True)
+    if num_false > 0:
+        num_trips = len(sorted_trips)
+        pct_discontinuous_trips = np.round((num_false / num_trips) * 100, 1)
+        logger.warning(
+            "{0} of {1} ({2}%) of trips are topologically inconsistent "
+            "after assigning departure times.".format(num_false, num_trips, pct_discontinuous_trips))
 
-    # Creating the Plan Element activity Index
-    # Activities have odd indices and legs (actual trips) will be even
-    trips['PlanElementIndex'] = trips.groupby('person_id').cumcount() * 2 + 1
-    trips = trips.sort_values(
-        ['person_id', 'departure_time']).reset_index(drop=True)
+    # # Adding a new row for each unique person_id
+    # # this row will represent the returning trip
+    # return_trip = pd.DataFrame(
+    #     sorted_trips.groupby('person_id').agg({'x': 'first', 'y': 'first'}),
+    #     index=sorted_trips.person_id.unique())
 
-    # Shifting type one row down
-    trips['ActivityType'] = trips.groupby(
-        'trip_id')['purpose'].shift(periods=1).fillna('Home')
-    trips['ActivityElement'] = 'activity'
+    # plans = sorted_trips.append(return_trip)
+    # plans.reset_index(inplace=True)
+    # plans.person_id.fillna(plans['index'], inplace=True)
 
-    # Creating legs (trips between activities)
-    legs = pd.DataFrame({
-        'PlanElementIndex': trips.PlanElementIndex - 1,
-        'person_id': trips.person_id})
-    legs = legs[legs.PlanElementIndex != 0]
+    # # Creating the Plan Element activity Index
+    # # Activities have odd indices and legs (actual trips) will be even
+    # plans['PlanElementIndex'] = plans.groupby('person_id').cumcount() * 2 + 1
+    # plans = plans.sort_values(
+    #     ['person_id', 'departure_time']).reset_index(drop=True)
 
-    # Adding the legs to the main table
-    trips = trips.append(legs).sort_values(['person_id', 'PlanElementIndex'])
-    trips.ActivityElement.fillna('leg', inplace=True)
+    # # Shifting type one row down
+    # plans['ActivityType'] = plans.groupby(
+    #     'person_id')['purpose'].shift(periods=1).fillna('Home')
+    # plans['ActivityElement'] = 'activity'
 
-    trips['trip_id'] = trips['trip_id'].shift()
+    # # Creating legs (trips between activities)
+    # legs = pd.DataFrame({
+    #     'PlanElementIndex': plans.PlanElementIndex - 1,
+    #     'person_id': plans.person_id})
+    # legs = legs[legs.PlanElementIndex != 0]
 
-    # save back to pipeline
-    pipeline.replace_table("beam_plans", trips[[
-        'trip_id', 'person_id', 'PlanElementIndex', 'ActivityElement',
-        'ActivityType', 'x', 'y', 'departure_time']])
+    # # Adding the legs to the main table
+    # final_plans = plans.append(legs).sort_values(['person_id', 'PlanElementIndex'])
+    # final_plans.ActivityElement.fillna('leg', inplace=True)
+
+    # final_plans['trip_id'] = final_plans['trip_id'].shift()
+    # final_plans = final_plans[[
+    #     'trip_id', 'person_id', 'PlanElementIndex', 'ActivityElement',
+    #     'ActivityType', 'x', 'y', 'departure_time']]
+
+    # # save back to pipeline
+    # pipeline.replace_table("beam_plans", final_plans)
