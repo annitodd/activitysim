@@ -1,6 +1,9 @@
 
 inherit_settings: True
 
+# output
+s3_output: True
+
 # geographic settings
 state_fips: 48
 local_crs: EPSG:32140
@@ -11,6 +14,8 @@ beam_skims_url: https://beam-outputs.s3.amazonaws.com/output/austin/austin-prod-
 
 # urbansim data
 create_inputs_from_usim_data: True
+sim_year: base
+bucket_name: austin-activitysim
 usim_data_store: model_data.h5
 usim_zone_geoms: h3
 
