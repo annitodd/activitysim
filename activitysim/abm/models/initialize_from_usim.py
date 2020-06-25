@@ -14,6 +14,7 @@ from shapely import wkt
 import logging
 from tqdm import tqdm
 import time
+import s3fs
 
 from activitysim.core import config
 from activitysim.core import inject
@@ -192,7 +193,6 @@ def county_codes(blocks):
     county_codes = blocks.index.str.slice(2, 5).unique().values
     return county_codes
 
-<<<<<<< HEAD
 
 @orca.injectable()
 def state_fips():
@@ -244,7 +244,7 @@ def block_geoms(data_dir, state_fips, county_codes):
 
 # Zones
 @orca.table('zones', cache=True)
-def zones(block_geoms, local_crs):
+def zones(block_geoms, local_crs, data_dir):
     """
     if loading zones from shapefile, coordinates must be
     referenced to WGS84 (EPSG:4326) projection.
@@ -888,8 +888,17 @@ def load_usim_data(data_dir, settings):
     Loads UrbanSim outputs into memory as Orca tables. These are then
     manipulated and updated into the format required by ActivitySim.
     """
-    hdf = pd.HDFStore(
-        os.path.join(data_dir, settings['usim_data_store']))
+    data_store_path = os.path.join(data_dir, settings['usim_data_store'])
+
+    if not os.path.exists(data_store_path):
+        logger.info("Loading input data from s3!")
+        remote_s3_path = os.path.join(
+            settings['bucket_name'], "input", settings['sim_year'], settings['usim_data_store'])
+        s3 = s3fs.S3FileSystem()
+        with open(data_store_path, 'w') as f:
+            s3.get(remote_s3_path, f.name)
+
+    hdf = pd.HDFStore(data_store_path)
     households = hdf['/households']
     persons = hdf['/persons']
     blocks = hdf['/blocks']
@@ -910,17 +919,10 @@ def load_usim_data(data_dir, settings):
     del persons_w_res_blk
     del persons_w_xy
 
-<<<<<<< HEAD
     orca.add_table('usim_households', households, cache=True)
     orca.add_table('usim_persons', persons, cache=True)
     orca.add_table('blocks', blocks, cache=True)
     orca.add_table('jobs', jobs, cache=True)
-=======
-    orca.add_table('usim_households', households)
-    orca.add_table('usim_persons', persons)
-    orca.add_table('blocks', blocks, cache=True)
-    orca.add_table('jobs', jobs)
->>>>>>> detroit now runs
 
 
 # Export households tables
