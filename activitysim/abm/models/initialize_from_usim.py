@@ -14,6 +14,7 @@ from shapely import wkt
 import logging
 from tqdm import tqdm
 import time
+import s3fs
 
 from activitysim.core import config
 from activitysim.core import inject
@@ -221,7 +222,7 @@ def block_geoms(data_dir, state_fips, county_codes):
 
 # Zones
 @orca.table('zones', cache=True)
-def zones(block_geoms, local_crs):
+def zones(block_geoms, local_crs, data_dir):
     """
     if loading zones from shapefile, coordinates must be
     referenced to WGS84 (EPSG:4326) projection.
@@ -236,31 +237,42 @@ def zones(block_geoms, local_crs):
         zones.index.name = 'TAZ'
 
     elif usim_zone_geoms == 'h3':
+        
+        # open file from disk if it exists
+        h3_zones_path = os.path.join(data_dir, "zones.shp")
+        if os.path.exists(h3_zones_path):
+            zones = gpd.read_file(h3_zones_path)
 
-        try:
+        # try to create the file from the list of h3 IDs
+        else:
+            try:
 
-            h3_zone_ids = inject.get_injectable('h3_zone_ids')
-            zone_geoms = get_zone_geoms_from_h3(h3_zone_ids)
-            zones = gpd.GeoDataFrame(
-                h3_zone_ids, geometry=zone_geoms, crs="EPSG:4326")
-            zones.columns = ['h3_id', 'geometry']
-            zones['TAZ'] = list(range(1, len(h3_zone_ids) + 1))
-            zones = zones.set_index('TAZ')
+                logger.info("Creating zone geometries from H3 IDs!")
+                h3_zone_ids = inject.get_injectable('h3_zone_ids')
+                zone_geoms = get_zone_geoms_from_h3(h3_zone_ids)
+                zones = gpd.GeoDataFrame(
+                    h3_zone_ids, geometry=zone_geoms, crs="EPSG:4326")
+                zones.columns = ['h3_id', 'geometry']
+                zones['TAZ'] = list(range(1, len(h3_zone_ids) + 1))
+                zones = zones.set_index('TAZ')
 
-            # if using h3 zones, must clip geoms to block bounds using
-            # local CRS
-            block_bounds = block_geoms.to_frame().to_crs(local_crs).unary_union
-            zones = zones.to_crs(local_crs)
-            zones['geometry'] = zones['geometry'].intersection(block_bounds)
-            
-            # convert back to epsg:4326 for storage in memory
-            zones = zones.to_crs('EPSG:4326')
+                # if using h3 zones, must clip geoms to block bounds using
+                # local CRS
+                block_bounds = block_geoms.to_frame().to_crs(local_crs).unary_union
+                zones = zones.to_crs(local_crs)
+                zones['geometry'] = zones['geometry'].intersection(block_bounds)
+                
+                # convert back to epsg:4326 for storage in memory
+                zones = zones.to_crs('EPSG:4326')
 
+                # save to disk
+                logger.info("Saving zone geoms to disk!")
+                zones.to_file(os.path.join(data_dir, "zones.shp"))
 
-        except KeyError:
-            raise RuntimeError(
-                "Trying to create intermediate zones table from h3 IDs "
-                "but the 'h3_zone_ids' injectable is not defined")
+            except KeyError:
+                raise RuntimeError(
+                    "Trying to create intermediate zones table from h3 IDs "
+                    "but the 'h3_zone_ids' injectable is not defined")
 
     else:
         raise RuntimeError(
@@ -864,8 +876,17 @@ def load_usim_data(data_dir, settings):
     Loads UrbanSim outputs into memory as Orca tables. These are then
     manipulated and updated into the format required by ActivitySim.
     """
-    hdf = pd.HDFStore(
-        os.path.join(data_dir, settings['usim_data_store']))
+    data_store_path = os.path.join(data_dir, settings['usim_data_store'])
+
+    if not os.path.exists(data_store_path):
+        logger.info("Loading input data from s3!")
+        remote_s3_path = os.path.join(
+            settings['bucket_name'], "input", settings['sim_year'], settings['usim_data_store'])
+        s3 = s3fs.S3FileSystem()
+        with open(data_store_path, 'w') as f:
+            s3.get(remote_s3_path, f.name)
+
+    hdf = pd.HDFStore(data_store_path)
     households = hdf['/households']
     persons = hdf['/persons']
     blocks = hdf['/blocks']
