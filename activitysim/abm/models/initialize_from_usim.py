@@ -1,16 +1,12 @@
 import os
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import geopandas as gpd
 import orca
-from shapely.geometry import Polygon, Point
-from geopy.distance import vincenty
+from shapely.geometry import Polygon
+from shapely import wkt
 from h3 import h3
 from urbansim.utils import misc
 import requests
-import openmatrix as omx
-from shapely import wkt
 import logging
 from tqdm import tqdm
 import time
@@ -59,6 +55,8 @@ def get_county_block_geoms(state_fips, county_fips):
 
 def get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs):
 
+    logger.info("Assigning blocks to TAZs!")
+
     # df to store GEOID to TAZ results
     block_to_taz_results = pd.DataFrame()
 
@@ -96,7 +94,8 @@ def get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs):
     intx = intx.drop_duplicates('GEOID', keep='first')
 
     # add to results df
-    block_to_taz_results = pd.concat((block_to_taz_results, intx[['GEOID', 'TAZ']]))
+    block_to_taz_results = pd.concat((
+        block_to_taz_results, intx[['GEOID', 'TAZ']]))
 
     # assign zone ID's to remaining blocks based on shortest
     # distance between block and zone centroids
@@ -115,7 +114,8 @@ def get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs):
         nearest.set_index('blocks_idx', inplace=True)
         nearest['GEOID'] = blocks_gdf.reindex(nearest.index)['GEOID']
 
-        block_to_taz_results = pd.concat((block_to_taz_results, nearest[['GEOID', 'TAZ']]))
+        block_to_taz_results = pd.concat((
+            block_to_taz_results, nearest[['GEOID', 'TAZ']]))
 
     return block_to_taz_results.set_index('GEOID')['TAZ']
 
@@ -186,8 +186,63 @@ def assign_taz(df, gdf):
     return df['TAZ']
 
 
-# ** define injectables we'll use over and over **
+def get_full_time_enrollment(state_fips):
+    base_url = (
+        'https://educationdata.urban.org/api/v1/'
+        '{t}/{so}/{e}/{y}/{l}/?{f}&{s}&{r}&{cl}&{ds}&{fips}')
+    levels = ['undergraduate', 'graduate']
+    enroll_list = []
+    for level in levels:
+        level_url = base_url.format(
+            t='college-university', so='ipeds', e='fall-enrollment',
+            y='2015', l=level, f='ftpt=1', s='sex=99',
+            r='race=99', cl='class_level=99', ds='degree_seeking=99',
+            fips='fips={0}'.format(state_fips))
 
+        enroll_result = requests.get(level_url)
+        enroll = pd.DataFrame(enroll_result.json()['results'])
+        enroll = enroll[['unitid', 'enrollment_fall']].rename(
+            columns={'enrollment_fall': level})
+        enroll.set_index('unitid', inplace=True)
+        enroll_list.append(enroll)
+
+    full_time = pd.concat(enroll_list, axis=1)
+    full_time['full_time'] = full_time['undergraduate'] + full_time['graduate']
+    s = full_time.full_time
+    assert s.index.name == 'unitid'
+
+    return s
+
+
+def get_part_time_enrollment(state_fips):
+    base_url = (
+        'https://educationdata.urban.org/api/v1/'
+        '{t}/{so}/{e}/{y}/{l}/?{f}&{s}&{r}&{cl}&{ds}&{fips}')
+    levels = ['undergraduate', 'graduate']
+    enroll_list = []
+    for level in levels:
+        level_url = base_url.format(
+            t='college-university', so='ipeds', e='fall-enrollment',
+            y='2015', l=level, f='ftpt=2', s='sex=99',
+            r='race=99', cl='class_level=99', ds='degree_seeking=99',
+            fips='fips={0}'.format(state_fips))
+
+        enroll_result = requests.get(level_url)
+        enroll = pd.DataFrame(enroll_result.json()['results'])
+        enroll = enroll[['unitid', 'enrollment_fall']].rename(
+            columns={'enrollment_fall': level})
+        enroll.set_index('unitid', inplace=True)
+        enroll_list.append(enroll)
+
+    part_time = pd.concat(enroll_list, axis=1)
+    part_time['part_time'] = part_time['undergraduate'] + part_time['graduate']
+    s = part_time.part_time
+    assert s.index.name == 'unitid'
+
+    return s
+
+
+# ** define injectables we'll use over and over **
 @orca.injectable()
 def county_codes(blocks):
     county_codes = blocks.index.str.slice(2, 5).unique().values
@@ -205,23 +260,123 @@ def data_dir():
 
 
 @orca.injectable()
+def settings():
+    return inject.get_injectable('settings')
+
+
+@orca.injectable()
 def local_crs():
     return config.setting('local_crs')
 
 
+@orca.injectable(cache=True)
+def store(data_dir, settings):
+
+    data_store_path = os.path.join(data_dir, settings['usim_data_store'])
+    if not os.path.exists(data_store_path):
+        logger.info("Downloading UrbanSim data from s3!")
+        remote_s3_path = os.path.join(
+            settings['bucket_name'], "input", settings['sim_year'],
+            settings['usim_data_store'])
+        s3 = s3fs.S3FileSystem()
+        with open(data_store_path, 'w') as f:
+            s3.get(remote_s3_path, f.name)
+
+    logger.info("Loading UrbanSim input data from disk!")
+    store = pd.HDFStore(data_store_path)
+
+    return store
+
+
 # ** 1. CREATE NEW TABLES **
+@orca.table(cache=True)
+def usim_households(store):
+    households = store['/households']
+    return households
+
+
+@orca.table(cache=True)
+def blocks(store):
+    blocks = store['/blocks']
+    return blocks
+
+
+@orca.table(cache=True)
+def usim_persons(store, blocks, usim_households):
+    persons = store['/persons']
+    persons_w_res_blk = pd.merge(
+        persons, usim_households.to_frame(columns=['block_id']),
+        left_on='household_id', right_index=True)
+    persons_w_xy = pd.merge(
+        persons_w_res_blk, blocks.to_frame(columns=['x', 'y']),
+        left_on='block_id', right_index=True)
+    persons['home_x'] = persons_w_xy['x']
+    persons['home_y'] = persons_w_xy['y']
+
+    del persons_w_res_blk
+    del persons_w_xy
+
+    return persons
+
+
+@orca.table(cache=True)
+def jobs(store, blocks, local_crs):
+
+    jobs_df = store['/jobs']
+    jobs_cols = jobs_df.columns
+
+    # make sure jobs are only assigned to blocks with land area > 0
+    # so that employment density distributions don't contain Inf/NaN
+    blocks_df = blocks.to_frame(columns=['square_meters_land'])
+    jobs_df['square_meters_land'] = blocks_df.reindex(
+        jobs_df['block_id'])['square_meters_land'].values
+    jobs_w_no_land = jobs_df[jobs_df['square_meters_land'] == 0]
+    blocks_to_reassign = jobs_w_no_land['block_id'].unique()
+
+    if len(blocks_to_reassign) > 0:
+
+        logger.info("Reassigning jobs out of blocks with no land area!")
+        blocks_gdf = orca.get_table(
+            'block_geoms').to_frame().set_index('GEOID')
+        blocks_gdf['square_meters_land'] = blocks[
+            'square_meters_land'].reindex(blocks_gdf.index)
+        blocks_gdf = blocks_gdf.to_crs(local_crs)
+
+        for block_id in tqdm(
+                blocks_to_reassign,
+                desc="Redistributing jobs from blocks:"):
+
+            candidate_mask = (
+                blocks_gdf.index.values != block_id) & (
+                blocks_gdf['square_meters_land'] > 0)
+            new_block_id = blocks_gdf[candidate_mask].distance(
+                blocks_gdf.loc[block_id, 'geometry']).idxmin()
+
+            jobs_df.loc[
+                jobs_df['block_id'] == block_id, 'block_id'] = new_block_id
+
+        # update data store with new block_id's
+        logger.info(
+            "Storing jobs table with updated block IDs to disk "
+            "in .h5 datastore!")
+        store['jobs'] = jobs_df[jobs_cols]
+
+    else:
+        logger.info("No block IDs to reassign in the jobs table!")
+
+    return jobs_df
+
+
 @orca.table(cache=True)
 def block_geoms(data_dir, state_fips, county_codes):
 
     all_block_geoms = []
 
     if os.path.exists(os.path.join(data_dir, "blocks.shp")):
-
         logger.info("Loading block geoms from disk!")
         blocks_gdf = gpd.read_file(os.path.join(data_dir, "blocks.shp"))
 
     else:
-
         logger.info("Downloading block geoms from Census TIGERweb API!")
 
         # get block geoms from census tigerweb API
@@ -244,14 +399,68 @@ def block_geoms(data_dir, state_fips, county_codes):
 
 # Zones
 @orca.table('zones', cache=True)
-def zones(block_geoms, local_crs, data_dir):
+def zones(store, local_crs, data_dir):
     """
     if loading zones from shapefile, coordinates must be
     referenced to WGS84 (EPSG:4326) projection.
     """
     usim_zone_geoms = config.setting('usim_zone_geoms')
 
-    if ".shp" in usim_zone_geoms:
+    # load from the h5 datastore if its there
+    if '/zone_geoms' in store.keys():
+
+        logger.info("Loading zone geometries from .h5 datastore!")
+        zones = store['zone_geoms']
+        if 'geometry' in zones.columns:
+            zones['geometry'] = zones['geometry'].apply(wkt.loads)
+            zones = gpd.GeoDataFrame(
+                zones, geometry='geometry', crs='EPSG:4326')
+        else:
+            raise KeyError(
+                "Table 'zone_geoms' exists in the .h5 datastore but "
+                "no geometry column was found!")
+
+    # else try to load from list of h3 zone IDs
+    elif usim_zone_geoms == 'h3':
+
+        try:
+
+            logger.info("Creating zone geometries from skim-based H3 IDs!")
+            h3_zone_ids = inject.get_injectable('h3_zone_ids')
+            zone_geoms = get_zone_geoms_from_h3(h3_zone_ids)
+            zones = gpd.GeoDataFrame(
+                h3_zone_ids, geometry=zone_geoms, crs="EPSG:4326")
+            zones.columns = ['h3_id', 'geometry']
+            zones['TAZ'] = list(range(1, len(h3_zone_ids) + 1))
+            zones = zones.set_index('TAZ')
+
+            # if using h3 zones, must clip geoms to block bounds
+            # using local CRS
+            logger.info("Clipping zone geoms to block boundaries!")
+            block_bounds = orca.get_table('block_geoms').to_frame().to_crs(
+                local_crs).unary_union
+            zones = zones.to_crs(local_crs)
+            zones['geometry'] = zones['geometry'].intersection(
+                block_bounds)
+
+            # convert back to epsg:4326 for storage in memory
+            zones = zones.to_crs('EPSG:4326')
+
+            # save zone geoms in .h5 datastore so we don't
+            # have to do this again
+            out_zones = pd.DataFrame(zones.copy())
+            out_zones['geometry'] = out_zones['geometry'].apply(
+                lambda x: x.wkt)
+
+            logger.info("Storing zone geometries to .h5 datastore!")
+            store['zone_geoms'] = out_zones
+
+        except KeyError:
+            raise RuntimeError(
+                "Trying to create intermediate zones table from h3 IDs "
+                "but the 'h3_zone_ids' injectable is not defined")
+
+    elif ".shp" in usim_zone_geoms:
         fname = usim_zone_geoms
         filepath = config.data_file_path(fname)
         zones = gpd.read_file(filepath, crs="EPSG:4326")
@@ -283,7 +492,6 @@ def zones(block_geoms, local_crs, data_dir):
             raise RuntimeError(
                 "Trying to create intermediate zones table from h3 IDs "
                 "but the 'h3_zone_ids' injectable is not defined")
-
     else:
         raise RuntimeError(
             "Zone geometries incorrectly specified in settings.yaml")
@@ -293,75 +501,94 @@ def zones(block_geoms, local_crs, data_dir):
 
 # Schools
 @orca.table(cache=True)
-def schools(state_fips, county_codes):
+def schools(store, state_fips, county_codes):
 
-    base_url = 'https://educationdata.urban.org/api/v1/' + \
-        '{topic}/{source}/{endpoint}/{year}/?{filters}'
+    if '/schools' in store.keys():
+        logger.info("Loading school enrollment data from .h5 datastore!")
+        enrollment = store['schools']
 
-    school_tables = []
-    for county in county_codes:
-        county_fips = str(state_fips) + str(county)
-        enroll_filters = 'county_code={0}'.format(county_fips)
-        enroll_url = base_url.format(
-            topic='schools', source='ccd', endpoint='directory',
-            year='2015', filters=enroll_filters)
+    else:
+        logger.info(
+            "Downloading school enrollment data from educationdata.urban.org!")
+        base_url = 'https://educationdata.urban.org/api/v1/' + \
+            '{topic}/{source}/{endpoint}/{year}/?{filters}'
 
-        enroll_result = requests.get(enroll_url)
-        enroll = pd.DataFrame(enroll_result.json()['results'])
-        school_tables.append(enroll)
-        time.sleep(5)
+        school_tables = []
+        for county in county_codes:
+            county_fips = str(state_fips) + str(county)
+            enroll_filters = 'county_code={0}'.format(county_fips)
+            enroll_url = base_url.format(
+                topic='schools', source='ccd', endpoint='directory',
+                year='2015', filters=enroll_filters)
 
-    enrollment = pd.concat(school_tables, axis=0)
-    enrollment = enrollment[[
-        'ncessch', 'county_code', 'latitude',
-        'longitude', 'enrollment']].set_index('ncessch')
-    enrollment.rename(
-        columns={'longitude': 'x', 'latitude': 'y'}, inplace=True)
+            enroll_result = requests.get(enroll_url)
+            enroll = pd.DataFrame(enroll_result.json()['results'])
+            school_tables.append(enroll)
+            time.sleep(2)
+
+        enrollment = pd.concat(school_tables, axis=0)
+        enrollment = enrollment[[
+            'ncessch', 'county_code', 'latitude',
+            'longitude', 'enrollment']].set_index('ncessch')
+        enrollment.rename(
+            columns={'longitude': 'x', 'latitude': 'y'}, inplace=True)
+
+        logger.info("Saving school enrollment data to .h5 datastore!")
+        store['schools'] = enrollment
+
     return enrollment.dropna()
 
 
 # Colleges
 @orca.table(cache=True)
-def colleges(state_fips, county_codes):
+def colleges(store, state_fips, county_codes):
 
-    base_url = 'https://educationdata.urban.org/api/v1/' + \
-        '{topic}/{source}/{endpoint}/{year}/?{filters}'
+    if '/colleges' in store.keys():
+        logger.info('Loading college data from .h5 datastore!')
+        colleges = store['colleges']
 
-    colleges_list = []
-    for county in county_codes:
-        county_fips = str(state_fips) + str(county)
-        college_filters = 'county_fips={0}'.format(county_fips)
-        college_url = base_url.format(
-            topic='college-university', source='ipeds', endpoint='directory',
-            year='2015', filters=college_filters)
+    else:
+        logger.info("Downloading college data from educationdata.urban.org!")
+        base_url = 'https://educationdata.urban.org/api/v1/' + \
+            '{topic}/{source}/{endpoint}/{year}/?{filters}'
 
-        college_result = requests.get(college_url)
-        college = pd.DataFrame(college_result.json()['results'])
-        colleges_list.append(college)
-        time.sleep(5)
+        colleges_list = []
+        for county in county_codes:
+            county_fips = str(state_fips) + str(county)
+            college_filters = 'county_fips={0}'.format(county_fips)
+            college_url = base_url.format(
+                topic='college-university', source='ipeds',
+                endpoint='directory', year='2015', filters=college_filters)
 
-    colleges = pd.concat(colleges_list)
-    colleges = colleges[[
-        'unitid', 'inst_name', 'longitude', 'latitude']].set_index('unitid')
-    colleges.rename(columns={'longitude': 'x', 'latitude': 'y'}, inplace=True)
+            college_result = requests.get(college_url)
+            college = pd.DataFrame(college_result.json()['results'])
+            colleges_list.append(college)
+            time.sleep(2)
+
+        colleges = pd.concat(colleges_list)
+        colleges = colleges[[
+            'unitid', 'inst_name', 'longitude',
+            'latitude']].set_index('unitid')
+        colleges.rename(
+            columns={'longitude': 'x', 'latitude': 'y'}, inplace=True)
+
+        logger.info(
+            "Downloading college full-time enrollment data from "
+            "educationdata.urban.org!")
+        colleges['full_time_enrollment'] = get_full_time_enrollment(state_fips)
+
+        logger.info(
+            "Downloading college part-time enrollment data from "
+            "educationdata.urban.org!")
+        colleges['part_time_enrollment'] = get_part_time_enrollment(state_fips)
+
+        logger.info("Saving college data to .h5 datastore!")
+        store['colleges'] = colleges
+
     return colleges
 
 
 # ** 2. ASSIGN TAZ's to GEOMS **
-@orca.column('blocks', cache=True)
-def TAZ(data_dir, block_geoms, zones, local_crs):
-
-    zones_gdf = zones.to_frame(columns=['geometry'])
-    zones_gdf.crs = 'EPSG:4326'
-
-    blocks_gdf = block_geoms.to_frame()
-    blocks_gdf.crs = 'EPSG:4326'
-
-    # assign TAZs to blocks
-    blocks_to_taz = get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs)
-
-    return blocks_to_taz
-
 
 @orca.column('schools', cache=True)
 def TAZ(schools, zones, local_crs):
@@ -391,55 +618,17 @@ def TAZ(usim_households, usim_persons):
 
 @orca.column('jobs')
 def TAZ(blocks, jobs):
-    return misc.reindex(blocks.TAZ, jobs.new_block_id)
+    return misc.reindex(blocks.TAZ, jobs.block_id)
 
 
 # ** 3. CREATE NEW VARIABLES/COLUMNS **
-
-# Jobs Variables
-
-@orca.column('jobs', cache=True)
-def new_block_id(jobs, blocks, block_geoms, local_crs):
-    """
-    Reassign any jobs from blocks with zero land area
-    to closest block with land area
-    """
-
-    jobs_df = jobs.to_frame(columns=['block_id'])
-    blocks_df = blocks.to_frame(columns=['square_meters_land'])
-    jobs_df['square_meters_land'] = blocks_df.reindex(
-        jobs_df['block_id'])['square_meters_land'].values
-    jobs_w_no_land = jobs_df[jobs_df['square_meters_land'] == 0]
-
-    blocks_to_reassign = jobs_w_no_land['block_id'].unique()
-
-    if len(blocks_to_reassign) > 0:
-        blocks_gdf = block_geoms.to_frame().set_index('GEOID')
-        blocks_gdf['square_meters_land'] = blocks['square_meters_land'].reindex(
-            blocks_gdf.index)
-        blocks_gdf = blocks_gdf.to_crs(local_crs)
-
-        for block_id in tqdm(
-                blocks_to_reassign,
-                desc="Redistributing jobs from blocks with no land area:"):
-
-            candidate_mask = (
-                blocks_gdf.index.values != block_id) & (
-                blocks_gdf['square_meters_land'] > 0)
-            new_block_id = blocks_gdf[candidate_mask].distance(
-                blocks_gdf.loc[block_id, 'geometry']).idxmin()
-
-            jobs_df.loc[jobs_df['block_id'] == block_id, 'block_id'] = new_block_id
-
-    return jobs_df['block_id']
-
 
 # Block Variables
 
 @orca.column('blocks')
 def TOTEMP(blocks, jobs):
-    jobs_df = jobs.to_frame(columns=['new_block_id', 'sector_id'])
-    return jobs_df.groupby('new_block_id')['sector_id'].count().reindex(
+    jobs_df = jobs.to_frame(columns=['block_id', 'sector_id'])
+    return jobs_df.groupby('block_id')['sector_id'].count().reindex(
         blocks.index).fillna(0)
 
 
@@ -839,7 +1028,7 @@ def area_type_metric(zones):
     can impact the results of the auto ownership and mode choice models.
 
     This issue should eventually resolve itself once we are able to re-
-    estimate these two models for every new region/implementation. In the 
+    estimate these two models for every new region/implementation. In the
     meantime, we expect that for regions less dense than the SF Bay Area,
     the area types classifications will be overly conservative. If anything,
     this bias results towards higher auto-ownership and larger auto-oriented
@@ -848,8 +1037,9 @@ def area_type_metric(zones):
 
     zones_df = zones.to_frame(columns=['HHPOP', 'TOTEMP', 'TOTACRE'])
 
-    metric_vals = (
-        (1 * zones_df['HHPOP']) + (2.5 * zones_df['TOTEMP'])) / zones_df['TOTACRE']
+    metric_vals = ((
+        1 * zones_df['HHPOP']) + (
+        2.5 * zones_df['TOTEMP'])) / zones_df['TOTACRE']
 
     return metric_vals.fillna(0)
 
@@ -881,53 +1071,8 @@ def COUNTY():
 
 
 # ** 4. Define Orca Steps **
-
 @inject.step()
-def load_usim_data(data_dir, settings):
-    """
-    Loads UrbanSim outputs into memory as Orca tables. These are then
-    manipulated and updated into the format required by ActivitySim.
-    """
-    data_store_path = os.path.join(data_dir, settings['usim_data_store'])
-
-    if not os.path.exists(data_store_path):
-        logger.info("Loading input data from s3!")
-        remote_s3_path = os.path.join(
-            settings['bucket_name'], "input", settings['sim_year'], settings['usim_data_store'])
-        s3 = s3fs.S3FileSystem()
-        with open(data_store_path, 'w') as f:
-            s3.get(remote_s3_path, f.name)
-
-    hdf = pd.HDFStore(data_store_path)
-    households = hdf['/households']
-    persons = hdf['/persons']
-    blocks = hdf['/blocks']
-    jobs = hdf['/jobs']
-
-    hdf.close()
-
-    # add home x,y coords to persons table
-    persons_w_res_blk = pd.merge(
-        persons, households[['block_id']],
-        left_on='household_id', right_index=True)
-    persons_w_xy = pd.merge(
-        persons_w_res_blk, blocks[['x', 'y']],
-        left_on='block_id', right_index=True)
-    persons['home_x'] = persons_w_xy['x']
-    persons['home_y'] = persons_w_xy['y']
-
-    del persons_w_res_blk
-    del persons_w_xy
-
-    orca.add_table('usim_households', households, cache=True)
-    orca.add_table('usim_persons', persons, cache=True)
-    orca.add_table('blocks', blocks, cache=True)
-    orca.add_table('jobs', jobs, cache=True)
-
-
-# Export households tables
-@inject.step()
-def create_inputs_from_usim_data(data_dir):
+def create_inputs_from_usim_data(data_dir, settings):
 
     persons_table = os.path.exists(os.path.join(data_dir, "persons.csv"))
     households_table = os.path.exists(os.path.join(data_dir, "households.csv"))
@@ -935,9 +1080,43 @@ def create_inputs_from_usim_data(data_dir):
 
     # if the input tables don't exist yet, create them from urbansim data
     if not (persons_table & households_table & land_use_table):
-        logger.info("Creating inputs from UrbanSim data")
+
+        logger.info("Creating inputs from UrbanSim data!")
+
+        store = orca.get_injectable('store')
+
+        # assign TAZ's to blocks if not already done. we only want to have to
+        # do this once in an simulation workflow. The TAZ ID's will be
+        # preserved in the land_use table
+        if 'TAZ' not in orca.get_table('blocks').local_columns:
+
+            zones_gdf = orca.get_table('zones').to_frame(columns=['geometry'])
+            zones_gdf.crs = 'EPSG:4326'
+
+            blocks_gdf = orca.get_table('block_geoms').to_frame()
+            blocks_gdf.crs = 'EPSG:4326'
+
+            blocks_to_taz = get_taz_from_block_geoms(
+                blocks_gdf, zones_gdf, settings['local_crs'])
+
+            orca.add_column('blocks', 'TAZ', blocks_to_taz)
+
+            # save new column back to disk
+            logger.info(
+                "Storing blocks table with TAZ IDs to disk in .h5 datastore!")
+            blocks = orca.get_table('blocks')
+            blocks_output_cols = blocks.local_columns + ['TAZ']
+            store['blocks'] = blocks.to_frame(columns=blocks_output_cols)
+
+        else:
+
+            logger.info(
+                "Blocks already have TAZ assignments. Make sure the TAZ "
+                "IDs have not changed!")
 
         # create households input table
+        logger.info("Creating households table!")
+
         hh_names_dict = {
             'household_id': 'HHID',
             'persons': 'PERSONS',
@@ -951,6 +1130,7 @@ def create_inputs_from_usim_data(data_dir):
         del hh_df
 
         # create persons input table
+        logger.info("Creating persons table!")
         usim_persons = orca.get_table('usim_persons').to_frame()
         p_names_dict = {'member_id': 'PNUM'}
         p_df = usim_persons.rename(columns=p_names_dict)
@@ -962,6 +1142,7 @@ def create_inputs_from_usim_data(data_dir):
         del p_df
 
         # create land use input table
+        logger.info("Creating land use table!")
         lu_df = orca.get_table('zones').to_frame()
         lu_df.to_csv(os.path.join(data_dir, 'land_use.csv'))
         del lu_df
@@ -970,6 +1151,9 @@ def create_inputs_from_usim_data(data_dir):
         blocks = orca.get_table('blocks').to_frame()
         blocks.to_csv(os.path.join(data_dir, 'blocks.csv'))
         
+
+        # close the datstore
+        store.close()
 
     else:
         logger.info("Found existing input tables, no need to re-create.")
