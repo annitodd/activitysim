@@ -60,7 +60,7 @@ def h3_zone_ids(raw_beam_skims):
 
 
 @inject.step()
-def create_skims_from_beam(raw_beam_skims, data_dir):
+def create_skims_from_beam(raw_beam_skims, data_dir, h3_zone_ids):
     skims_path = os.path.join(data_dir, 'skims.omx')
     skims_exist = os.path.exists(skims_path)
 
@@ -88,16 +88,29 @@ def create_skims_from_beam(raw_beam_skims, data_dir):
 
         skims = omx.open_file(skims_path, 'w')
 
-        
         # break out skims by mode
         auto_df = skims_df[(skims_df['mode'] == 'CAR')]
         active_df = skims_df[(skims_df['mode'] == 'BIKE')]
         transit_df = skims_df[(skims_df['mode'] == 'WALK_TRANSIT')]
+
+        # make sure the order of the rows in the skims table matches the
+        # the order in which the zone IDs are being stored
+        assert np.array_equal(
+            auto_df['origTaz'].values.reshape((num_taz, num_taz))[:, 0],
+            h3_zone_ids)
+        assert np.array_equal(
+            active_df['origTaz'].values.reshape((num_taz, num_taz))[:, 0],
+            h3_zone_ids)
+        assert np.array_equal(
+            transit_df['origTaz'].values.reshape((num_taz, num_taz))[:, 0],
+            h3_zone_ids)
+
         # activitysim estimated its models using transit skims from Cube
         # which store time values as scaled integers (e.g. x100), so their
         # models also divide transit skim values by 100. Since our skims
-        # aren't coming out of Cube, we multiply by 100 to negate the division. 
-        transit_df['generalizedTimeInM'] = transit_df['generalizedTimeInM'] * 100
+        # aren't coming out of Cube, we multiply by 100 to negate the division.
+        transit_df['generalizedTimeInM'] = transit_df[
+            'generalizedTimeInM'] * 100
 
         # Adding car distance skims
         vals = auto_df[beam_asim_hwy_measure_map['DIST']].values
@@ -111,7 +124,7 @@ def create_skims_from_beam(raw_beam_skims, data_dir):
             # TO DO: get separate walk skims from beam so we don't
             # just have to use bike distances for walk distances
             name = 'DIST{0}'.format(mode)
-            
+
             vals = active_df[beam_asim_hwy_measure_map['DIST']].values
             mx = vals.reshape((num_taz, num_taz))
             skims[name] = mx

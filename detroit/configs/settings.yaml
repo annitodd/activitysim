@@ -1,6 +1,9 @@
 
 inherit_settings: True
 
+# output
+s3_output: True
+
 # geographic settings
 state_fips: 26
 local_crs: EPSG:3078
