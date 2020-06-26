@@ -36,6 +36,6 @@ https://activitysim.github.io/activitysim
       - [ ] improve `terminal` time (i.e. walk time to vehicle) imputation
       - [ ] replace county ID dummies
          - should only effect free_parking and auto_ownership models
-- [x] ~~Improve activity_plans.py ~~
+- [x] ~~Improve activity_plans.py~~
    - [x] ~~move to `models/` dir (now **generate_beam_plans.py**)~~
    - [x] ~~preserve home coords from higher res urbansim data~~
