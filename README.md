@@ -19,6 +19,7 @@ https://activitysim.github.io/activitysim
 
 
 ## TO DO:
+
 - [ ] fix tour sequencing errors in plan generation due to trips with shared departure hours
 - [ ] clean up auto_ownership and tour_mode_choice calibration notebooks
 - [ ] merge changes from RSG activitysim fork into ours
@@ -26,7 +27,7 @@ https://activitysim.github.io/activitysim
    - [ ] estimation notebooks
 - [ ] create inputs from urbansim data
    - [x] ~~move to `abm/models/` (now **initialize_from_usim.py**)~~
-   - [x] ~~split out skim conversion to its own .py (now **initialize_skims_from_beam.py**) ~~
+   - [x] ~~split out skim conversion to its own .py (now **initialize_skims_from_beam.py**)~~
    - [ ] replace orca calls with activitysim.core.inject methods
    - [x] ~~recycle zone assignment code for blocks, schools, colleges, etc.~~
    - [x] ~~improve block to hex mapping~~
@@ -38,4 +39,3 @@ https://activitysim.github.io/activitysim
 - [x] ~~Improve activity_plans.py ~~
    - [x] ~~move to `models/` dir (now **generate_beam_plans.py**)~~
    - [x] ~~preserve home coords from higher res urbansim data~~
-
