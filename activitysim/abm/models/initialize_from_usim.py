@@ -121,28 +121,6 @@ def get_taz_from_block_geoms(blocks_gdf, zones_gdf, local_crs):
 
 
 def get_taz_from_points(df, zones_gdf, local_crs):
-
-    base_url = (
-        'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/'
-        'Tracts_Blocks/MapServer/12/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
-        '&f=geojson')
-    url = base_url.format(state_fips, county_fips)
-    county_gdf = gpd.read_file(base_url)
-    return county_gdf
-
-
-def get_block_geoms(blocks):
-    county_codes = orca.get_injectable('county_codes')
-    state_fips = config.setting('state_fips')
-    all_block_geoms = []
-    for county in county_codes:
-        county_gdf = get_county_block_geoms(state_fips, county)
-        all_block_geoms.append(county_gdf)
-    all_blocks_gdf = gpd.GeoDataFrame(pd.concat(all_block_geoms))
-    return all_blocks_gdf
-
-
-def assign_taz(df, gdf):
     '''
     Assigns the gdf index (TAZ ID) for each index in df
     Input:
@@ -467,31 +445,6 @@ def zones(store, local_crs, data_dir):
         zones.reset_index(inplace=True, drop=True)
         zones.index.name = 'TAZ'
 
-    elif usim_zone_geoms == 'h3':
-
-        try:
-
-            h3_zone_ids = inject.get_injectable('h3_zone_ids')
-            zone_geoms = get_zone_geoms_from_h3(h3_zone_ids)
-            zones = gpd.GeoDataFrame(
-                h3_zone_ids, geometry=zone_geoms, crs="EPSG:4326")
-            zones.columns = ['h3_id', 'geometry']
-            zones['TAZ'] = list(range(1, len(h3_zone_ids) + 1))
-            zones = zones.set_index('TAZ')
-
-            # if using h3 zones, must clip geoms to block bounds using
-            # local CRS
-            block_bounds = block_geoms.to_frame().to_crs(local_crs).unary_union
-            zones = zones.to_crs(local_crs)
-            zones['geometry'] = zones['geometry'].intersection(block_bounds)
-
-            # convert back to epsg:4326 for storage in memory
-            zones = zones.to_crs('EPSG:4326')
-
-        except KeyError:
-            raise RuntimeError(
-                "Trying to create intermediate zones table from h3 IDs "
-                "but the 'h3_zone_ids' injectable is not defined")
     else:
         raise RuntimeError(
             "Zone geometries incorrectly specified in settings.yaml")
@@ -642,60 +595,6 @@ def TOTPOP(blocks, usim_households):
 @orca.column('blocks')
 def TOTACRE(blocks):
     return blocks['square_meters_land'] / 4046.86
-
-
-# Colleges Variables
-
-@orca.column('colleges')
-def full_time_enrollment(state_fips):
-    base_url = 'https://educationdata.urban.org/api/v1/{t}/{so}/{e}/{y}/{l}/?{f}&{s}&{r}&{cl}&{ds}&{fips}'
-    levels = ['undergraduate', 'graduate']
-    enroll_list = []
-    for level in levels:
-        level_url = base_url.format(
-            t='college-university', so='ipeds', e='fall-enrollment',
-            y='2015', l=level, f='ftpt=1', s='sex=99',
-            r='race=99', cl='class_level=99', ds='degree_seeking=99',
-            fips='fips={0}'.format(state_fips))
-
-        enroll_result = requests.get(level_url)
-        enroll = pd.DataFrame(enroll_result.json()['results'])
-        enroll = enroll[['unitid', 'enrollment_fall']].rename(
-            columns={'enrollment_fall': level})
-        enroll.set_index('unitid', inplace=True)
-        enroll_list.append(enroll)
-        time.sleep(5)
-
-    full_time = pd.concat(enroll_list, axis=1)
-    full_time['full_time'] = full_time['undergraduate'] + full_time['graduate']
-    s = full_time.full_time
-    return s
-
-
-@orca.column('colleges')
-def part_time_enrollment(state_fips):
-    base_url = 'https://educationdata.urban.org/api/v1/{t}/{so}/{e}/{y}/{l}/?{f}&{s}&{r}&{cl}&{ds}&{fips}'
-    levels = ['undergraduate', 'graduate']
-    enroll_list = []
-    for level in levels:
-        level_url = base_url.format(
-            t='college-university', so='ipeds', e='fall-enrollment',
-            y='2015', l=level, f='ftpt=2', s='sex=99',
-            r='race=99', cl='class_level=99', ds='degree_seeking=99',
-            fips='fips={0}'.format(state_fips))
-
-        enroll_result = requests.get(level_url)
-        enroll = pd.DataFrame(enroll_result.json()['results'])
-        enroll = enroll[['unitid', 'enrollment_fall']].rename(
-            columns={'enrollment_fall': level})
-        enroll.set_index('unitid', inplace=True)
-        enroll_list.append(enroll)
-        time.sleep(5)
-
-    part_time = pd.concat(enroll_list, axis=1)
-    part_time['part_time'] = part_time['undergraduate'] + part_time['graduate']
-    s = part_time.part_time
-    return s
 
 
 # Households Variables
@@ -1067,7 +966,7 @@ def TERMINAL():
 
 @orca.column('zones')
 def COUNTY():
-    return 0  # Assuming no county
+    return 1  # Assuming 1 all San Francisco County
 
 
 # ** 4. Define Orca Steps **
@@ -1146,11 +1045,6 @@ def create_inputs_from_usim_data(data_dir, settings):
         lu_df = orca.get_table('zones').to_frame()
         lu_df.to_csv(os.path.join(data_dir, 'land_use.csv'))
         del lu_df
-        
-        #Creates blocks table
-        blocks = orca.get_table('blocks').to_frame()
-        blocks.to_csv(os.path.join(data_dir, 'blocks.csv'))
-        
 
         # close the datstore
         store.close()

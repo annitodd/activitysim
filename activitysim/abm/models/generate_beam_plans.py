@@ -215,8 +215,6 @@ def generate_beam_plans():
         'PlanElementIndex', 'ActivityElement', 'ActivityType', 'x', 'y',
         'departure_time']]
 
-    final_plans['trip_id'] = final_plans['trip_id'].shift()
-
     # save back to pipeline
     pipeline.replace_table("plans", final_plans)
 

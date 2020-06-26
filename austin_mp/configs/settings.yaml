@@ -137,3 +137,4 @@ output_tables:
     - trips
     - joint_tour_participants
     - plans
+    - plans
