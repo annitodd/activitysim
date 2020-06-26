@@ -71,8 +71,6 @@ stagger: 0
 # - tracing
 trace_hh_id: 157469
 trace_od:
-# trace_hh_id: 195809
-#trace_od: [5, 11]
 
 # to resume after last successful checkpoint, specify resume_after: _
 resume_after: _
@@ -113,6 +111,7 @@ models:
   - generate_beam_plans
   - write_data_dictionary
   - write_tables
+  - write_outputs_to_s3
 
 multiprocess_steps:
   - name: mp_initialize
@@ -136,5 +135,5 @@ output_tables:
     - persons
     - tours
     - trips
-    - beam_plans
-    - blocks
+    - joint_tour_participants
+    - plans

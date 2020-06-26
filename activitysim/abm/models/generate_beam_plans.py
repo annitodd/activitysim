@@ -139,7 +139,7 @@ def generate_beam_plans():
     tours = pipeline.get_table('tours')
     persons = pipeline.get_table('persons')
     households = pipeline.get_table('households')
-    land_use = pipeline.get_table('land_use')
+    land_use = pipeline.get_table('land_use').reset_index()
 
     # re-create zones shapefile
     land_use['geometry'] = land_use['geometry'].apply(wkt.loads)
@@ -223,7 +223,7 @@ def generate_beam_plans():
         households['VEHICL'].sum() / len(households), 2)
     simulated_cars_per_hh = np.round(
         households['auto_ownership'].sum() / len(households), 2)
-    logger.debug("AUTO OWNERSHIP -- input: {0} // output: {1}".format(
+    logger.info("AUTO OWNERSHIP -- input: {0} // output: {1}".format(
         input_cars_per_hh, simulated_cars_per_hh))
 
     trips['number_of_participants'] = trips['tour_id'].map(
@@ -240,8 +240,7 @@ def generate_beam_plans():
     mode_shares = expanded_trips[
         'mode_type'].value_counts() / len(expanded_trips)
     mode_shares = np.round(mode_shares * 100, 1)
-
-    logger.debug(
+    logger.info(
         "MODE SHARES -- drive: {0}% // transit: {1}% // active: {2}%".format(
             mode_shares['drive'], mode_shares['transit'],
             mode_shares['active']))

@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 @inject.step()
 def write_outputs_to_s3(data_dir, settings):
 
-    if settings['s3_ouput'] is False:
+    if settings['s3_output'] is False:
         return
 
     # LOAD ASIM OUTPUTS
