@@ -21,18 +21,21 @@ https://activitysim.github.io/activitysim
 ## TO DO:
 - [ ] fix tour sequencing errors in plan generation due to trips with shared departure hours
 - [ ] clean up auto_ownership and tour_mode_choice calibration notebooks
+- [ ] merge changes from RSG activitysim fork into ours
+   - [ ] ride hail/TNC
+   - [ ] estimation notebooks
 - [ ] create inputs from urbansim data
-   - [x] move to `abm/models/` (now **initialize_from_usim.py**)
-   - [x] split out skim conversion to its own .py (now **initialize_skims_from_beam.py**) 
+   - [x] ~~move to `abm/models/` (now **initialize_from_usim.py**)~~
+   - [x] ~~split out skim conversion to its own .py (now **initialize_skims_from_beam.py**) ~~
    - [ ] replace orca calls with activitysim.core.inject methods
-   - [x] recycle zone assignment code for blocks, schools, colleges, etc.
-   - [x] improve block to hex mapping
+   - [x] ~~recycle zone assignment code for blocks, schools, colleges, etc.~~
+   - [x] ~~improve block to hex mapping~~
    - [ ] improve land use data creation
-      - [x] improve `area_type` imputation (cbd vs. urban core vs. rural, etc.)
+      - [x] ~~improve `area_type` imputation (cbd vs. urban core vs. rural, etc.)~~
       - [ ] improve `terminal` time (i.e. walk time to vehicle) imputation
       - [ ] replace county ID dummies
          - should only effect free_parking and auto_ownership models
-- [x] Improve activity_plans.py 
-   - [x] move to `models/` dir
-   - [x] preserve home coords from higher res urbansim data
+- [x] ~~Improve activity_plans.py ~~
+   - [x] ~~move to `models/` dir (now **generate_beam_plans.py**)~~
+   - [x] ~~preserve home coords from higher res urbansim data~~
 
