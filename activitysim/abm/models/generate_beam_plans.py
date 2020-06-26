@@ -223,8 +223,9 @@ def generate_beam_plans():
         households['VEHICL'].sum() / len(households), 2)
     simulated_cars_per_hh = np.round(
         households['auto_ownership'].sum() / len(households), 2)
-    logger.info("AUTO OWNERSHIP -- input: {0} // output: {1}".format(
-        input_cars_per_hh, simulated_cars_per_hh))
+    logger.info(
+        "AUTO OWNERSHIP -- input: {0} cars/hh // output: {1} cars/hh".format(
+            input_cars_per_hh, simulated_cars_per_hh))
 
     trips['number_of_participants'] = trips['tour_id'].map(
         tours['number_of_participants'])
