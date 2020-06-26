@@ -5,11 +5,13 @@ from shapely import wkt
 from shapely.geometry import Point, MultiPoint
 import geopandas as gpd
 import logging
+import warnings
 
 from activitysim.core import pipeline
 from activitysim.core import inject
 
 logger = logging.getLogger('activitysim')
+warnings.filterwarnings('ignore', 'GeoSeries.isna', UserWarning)
 
 
 def random_points_in_polygon(number, polygon):
