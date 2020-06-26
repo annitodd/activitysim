@@ -69,11 +69,11 @@ stagger: 0
 
 
 # - tracing
-trace_hh_id: 157469
+trace_hh_id:
 trace_od:
 
 # to resume after last successful checkpoint, specify resume_after: _
-resume_after: _
+# resume_after: _
 
 models:
   ### mp_initialize step
@@ -136,5 +136,4 @@ output_tables:
     - tours
     - trips
     - joint_tour_participants
-    - plans
     - plans
