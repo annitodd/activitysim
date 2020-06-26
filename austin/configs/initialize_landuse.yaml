@@ -1,8 +1,0 @@
-
-
-annotate_tables:
-  - tablename: land_use
-    column_map:
-    annotate:
-      SPEC: annotate_landuse
-      DF: land_use

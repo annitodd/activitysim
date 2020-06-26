@@ -565,7 +565,7 @@ def trip_destination(
 
     pipeline.replace_table("trips", trips_df)
 
-    print("trips_df\n", trips_df.shape)
+    # print("trips_df\n", trips_df.shape)
 
     if trace_hh_id:
         tracing.trace_df(trips_df,

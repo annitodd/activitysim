@@ -46,7 +46,7 @@ def run(run_list, injectables=None):
     # data if these files do not already exist in the input data directory
     if config.setting('create_inputs_from_usim_data'):
 
-        pipeline.run(models=['load_usim_data', 'create_inputs_from_usim_data'])
+        pipeline.run(models=['create_inputs_from_usim_data'])
         pipeline.close_pipeline()
 
     if run_list['multiprocess']:
