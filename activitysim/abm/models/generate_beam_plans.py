@@ -223,7 +223,7 @@ def generate_beam_plans():
         households['VEHICL'].sum() / len(households), 2)
     simulated_cars_per_hh = np.round(
         households['auto_ownership'].sum() / len(households), 2)
-    logger.info(
+    logger.warning(
         "AUTO OWNERSHIP -- input: {0} cars/hh // output: {1} cars/hh".format(
             input_cars_per_hh, simulated_cars_per_hh))
 
@@ -241,7 +241,7 @@ def generate_beam_plans():
     mode_shares = expanded_trips[
         'mode_type'].value_counts() / len(expanded_trips)
     mode_shares = np.round(mode_shares * 100, 1)
-    logger.info(
+    logger.warning(
         "MODE SHARES -- drive: {0}% // transit: {1}% // active: {2}%".format(
             mode_shares['drive'], mode_shares['transit'],
             mode_shares['active']))
