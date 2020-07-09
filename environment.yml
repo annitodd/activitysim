@@ -69,7 +69,6 @@ dependencies:
   - jupyter_core=4.6.3=py36h9f0ad1d_1
   - kealib=1.4.13=hec59c27_0
   - krb5=1.16.4=h2fd8d38_0
-  - ld_impl_linux-64=2.34=h53a641e_0
   - libblas=3.8.0=14_openblas
   - libcblas=3.8.0=14_openblas
   - libcurl=7.68.0=hda55be3_0
