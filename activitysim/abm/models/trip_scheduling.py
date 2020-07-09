@@ -123,63 +123,9 @@ def update_tour_earliest(trips, outbound_choices):
     # the max outbound departure time is greater than the current value of "earliest"
     num_inbound = len(trips[~trips['outbound']])
     num_updated = len(trips[(trips['earliest'] < trips['max_outbound_departure']) & (~trips['outbound'])])
-    if 1274747957 in trips.index:
-        info = trips[trips.index == 1274747957]
-        logger.debug("1274747957 -- earliest: {0}, max_outbound_dep: {1}".format(
-            info['earliest'].values[0], info['max_outbound_departure'].values[0]))
+
     logger.info("Updated earliest departure hour for {0} of {1} inbound trips.".format(num_updated, num_inbound))
     trips['earliest'] = trips[['earliest', 'max_outbound_departure']].max(axis=1)
-    if 1274747957 in trips.index:
-        info = trips[trips.index == 1274747957]
-        logger.debug("1274747957 UPDATED -- earliest: {0}, max_outbound_dep: {1}".format(
-            info['earliest'].values[0], info['max_outbound_departure'].values[0]))
-
-
-def update_tour_latest(trips, outbound_choices):
-    """
-    Updates "earliest" column for inbound trips based on
-    the maximum outbound trip departure time of the tour.
-    This is done to ensure inbound trips do not depart
-    before the last outbound trip of a tour. The "earliest"
-    values will be used to clip the choice probabilities to
-    zero for alternatives (hours) that fall before "earliest".
-
-    Parameters
-    ----------
-    trips: pd.DataFrame
-    outbound_choices: pd.Series
-        time periods depart choices, one per trip (except for trips with zero probs)
-
-    Returns
-    -------
-    modifies trips in place
-
-    """
-
-    # append outbound departure times to trips
-    trips['outbound_departure'] = outbound_choices.reindex(trips.index)
-
-    # get max outbound trip departure times for all person-tours
-    max_outbound_person_departures = trips.groupby(['person_id', 'tour_id'])['outbound_departure'].max()
-
-    # append max outbound trip departure times to trips
-    trips['max_outbound_departure'] = list(zip(trips['person_id'], trips['tour_id']))
-    trips['max_outbound_departure'] = trips.max_outbound_departure.map(max_outbound_person_departures)
-
-    # set the trips "earliest" column equal to the max outbound departure time if
-    # the max outbound departure time is greater than the current value of "earliest"
-    num_inbound = len(trips[~trips['outbound']])
-    num_updated = len(trips[(trips['earliest'] < trips['max_outbound_departure']) & (~trips['outbound'])])
-    if 1274747957 in trips.index:
-        info = trips[trips.index == 1274747957]
-        logger.debug("1274747957 -- earliest: {0}, max_outbound_dep: {1}".format(
-            info['earliest'].values[0], info['max_outbound_departure'].values[0]))
-    logger.info("Updated earliest departure hour for {0} of {1} inbound trips.".format(num_updated, num_inbound))
-    trips['earliest'] = trips[['earliest', 'max_outbound_departure']].max(axis=1)
-    if 1274747957 in trips.index:
-        info = trips[trips.index == 1274747957]
-        logger.debug("1274747957 UPDATED -- earliest: {0}, max_outbound_dep: {1}".format(
-            info['earliest'].values[0], info['max_outbound_departure'].values[0]))
 
 
 def clip_probs(trips, probs, model_settings):

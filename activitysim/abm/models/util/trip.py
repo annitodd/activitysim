@@ -14,16 +14,6 @@ logger = logging.getLogger(__name__)
 
 def failed_trip_cohorts(trips, failed):
 
-    # # outbound trips in a tour with a failed outbound trip
-    # bad_outbound_trips = \
-    #     trips.outbound & (trips.tour_id.isin(trips.tour_id[failed & trips.outbound]))
-
-    # # inbound trips in a tour with a failed inbound trip
-    # bad_inbound_trips = \
-    #     ~trips.outbound & (trips.tour_id.isin(trips.tour_id[failed & ~trips.outbound]))
-
-    # bad_trips = bad_outbound_trips | bad_inbound_trips
-
     # now that trips['earliest'] gets reset after outbound trips are scheduled,
     # it becomes clear that cohorts need to be defined over the entire tour
     # rather than the tour-leg

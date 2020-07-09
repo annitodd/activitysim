@@ -2,7 +2,7 @@
 inherit_settings: True
 
 # output
-s3_output: False
+s3_output: True
 
 # geographic settings
 state_fips: 26
