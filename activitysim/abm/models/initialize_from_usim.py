@@ -264,7 +264,7 @@ def store(data_dir, settings):
 
             remote_s3_path = os.path.join(
                 settings['bucket_name'], "input", settings['scenario'],
-                settings['sim_year'], settings['usim_data_store'])
+                str(settings['sim_year']), settings['usim_data_store'])
             if not s3.exists(remote_s3_path):
                 raise KeyError(
                     "No remote model data found using default path. See "
