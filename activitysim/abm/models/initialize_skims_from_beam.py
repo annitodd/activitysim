@@ -34,7 +34,7 @@ beam_asim_transit_measure_map = {
     'DTIM': None,  # drive time
     'DDIST': None,  # drive dist
     'WAUX': None,  # walk other time
-    'WEGR': None,  # walk egress time
+    'WEGR': None,  # walk egress timed
     'WACC': None,  # walk access time
     'IWAIT': None,  # iwait?
     'XWAIT': None,  # transfer wait time
@@ -48,10 +48,11 @@ def raw_beam_skims():
 
     if inject.get_injectable('beam_skims_url', False):
         beam_skims_url = inject.get_injectable('beam_skims_url')
-    else:
 
+    else:
         logger.info(
             "No path to BEAM skims specified at runtime. Trying default URL.")
+
         if config.setting('beam_skims_url', False):
             beam_skims_url = config.setting('beam_skims_url')
         else:
