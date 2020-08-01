@@ -109,7 +109,7 @@ if __name__ == '__main__':
     inject.add_injectable('data_dir', 'data')
     inject.add_injectable('configs_dir', ['configs', 'configs/configs'])
 
-    injectables = config.handle_standard_args()
+    injectables = config.handle_standard_args(parser)
 
     config.filter_warnings()
     tracing.config_logger()
