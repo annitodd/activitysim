@@ -46,8 +46,21 @@ beam_asim_transit_measure_map = {
 @inject.table()
 def raw_beam_skims():
 
+    if inject.get_injectable('beam_skims_url', False):
+        beam_skims_url = inject.get_injectable('beam_skims_url')
+    else:
+
+        logger.info(
+            "No path to BEAM skims specified at runtime. Trying default URL.")
+        if config.setting('beam_skims_url', False):
+            beam_skims_url = config.setting('beam_skims_url')
+        else:
+            raise KeyError(
+                "Couldn't find skims at the default URL either. See "
+                "simulation.py --help or configs/settings.yaml "
+                "for more ideas.")
+
     # load skims from url
-    beam_skims_url = config.setting('beam_skims_url')
     skims = pd.read_csv(beam_skims_url)
 
     return skims

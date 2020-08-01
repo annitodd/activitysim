@@ -6,8 +6,9 @@ from future.standard_library import install_aliases
 install_aliases()  # noqa: E402
 
 import logging
+import argparse
+import os
 
-from activitysim.core import mem
 from activitysim.core import inject
 from activitysim.core import tracing
 from activitysim.core import config
@@ -75,6 +76,35 @@ def log_settings(injectables):
 
 
 if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "-b", "--bucket_name", action="store", help="s3 bucket name")
+    parser.add_argument("-y", "--year", action="store", help="data year")
+    parser.add_argument("-s", "--scenario", action="store", help="scenario")
+    parser.add_argument(
+        "-u", "--skims_url", action="store", help="url of skims .csv")
+
+    args = parser.parse_args()
+
+    if args.skims_url:
+        inject.add_injectable('beam_skims_url', args.skims_url)
+
+    if args.bucket_name:
+
+        bucket = args.bucket_name
+        inject.add_injectable('bucket_name', bucket)
+
+        scenario = args.scenario
+        inject.add_injectable('scenario', scenario)
+
+        year = args.year
+        inject.add_injectable('year', year)
+
+        remote_data_full_path = os.path.join(
+            bucket, 'input', scenario, year, config.setting('usim_data_store'))
+        inject.add_injectable('remote_data_full_path', remote_data_full_path)
 
     inject.add_injectable('data_dir', 'data')
     inject.add_injectable('configs_dir', ['configs', 'configs/configs'])

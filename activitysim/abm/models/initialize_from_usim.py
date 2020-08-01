@@ -253,10 +253,24 @@ def store(data_dir, settings):
     data_store_path = os.path.join(data_dir, settings['usim_data_store'])
     if not os.path.exists(data_store_path):
         logger.info("Downloading UrbanSim data from s3!")
-        remote_s3_path = os.path.join(
-            settings['bucket_name'], "input", settings['sim_year'],
-            settings['usim_data_store'])
         s3 = s3fs.S3FileSystem()
+
+        if inject.get_injectable("remote_data_full_path", False):
+            remote_s3_path = inject.get_injectable("remote_data_full_path")
+        else:
+            logger.info(
+                "No path to remote data specified at runtime. Trying to "
+                "create path from default settings.")
+
+            remote_s3_path = os.path.join(
+                settings['bucket_name'], "input", settings['scenario'],
+                settings['sim_year'], settings['usim_data_store'])
+            if not s3.exists(remote_s3_path):
+                raise KeyError(
+                    "No remote model data found using default path. See "
+                    "simluation.py --help or configs/settings.yaml "
+                    "for more ideas.")
+
         with open(data_store_path, 'w') as f:
             s3.get(remote_s3_path, f.name)
 
