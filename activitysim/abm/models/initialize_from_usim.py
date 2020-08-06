@@ -255,7 +255,7 @@ def store(data_dir, settings):
 
         if not inject.get_injectable('remote_data_full_path'):
             logger.info("Creating remote data path from default parameters.")
-            bucket = inject.get_injectable('bucket', settings['bucket_name'])
+            bucket = inject.get_injectable('bucket_name', settings['bucket_name'])
             scenario = inject.get_injectable('scenario', settings['scenario'])
             year = inject.get_injectable('year', settings['sim_year'])
 
