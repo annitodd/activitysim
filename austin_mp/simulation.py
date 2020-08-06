@@ -85,6 +85,8 @@ if __name__ == '__main__':
     parser.add_argument("-s", "--scenario", action="store", help="scenario")
     parser.add_argument(
         "-u", "--skims_url", action="store", help="url of skims .csv")
+    parser.add_argument(
+        "-d", "--path_to_remote_data", help="url of urbansim .h5 model data")
 
     args = parser.parse_args()
 
@@ -92,19 +94,17 @@ if __name__ == '__main__':
         inject.add_injectable('beam_skims_url', args.skims_url)
 
     if args.bucket_name:
+        inject.add_injectable('bucket_name', args.bucket_name)
 
-        bucket = args.bucket_name
-        inject.add_injectable('bucket_name', bucket)
+    if args.scenario:
+        inject.add_injectable('scenario', args.scenario)
 
-        scenario = args.scenario
-        inject.add_injectable('scenario', scenario)
+    if args.year:
+        inject.add_injectable('year', args.year)
 
-        year = args.year
-        inject.add_injectable('year', year)
-
-        remote_data_full_path = os.path.join(
-            bucket, 'input', scenario, year, config.setting('usim_data_store'))
-        inject.add_injectable('remote_data_full_path', remote_data_full_path)
+    if args.path_to_remote_data:
+        inject.add_injectable(
+            'remote_data_full_path', args.path_to_remote_data)
 
     inject.add_injectable('data_dir', 'data')
     inject.add_injectable('configs_dir', ['configs', 'configs/configs'])

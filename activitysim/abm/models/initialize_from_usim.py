@@ -252,27 +252,31 @@ def store(data_dir, settings):
 
     data_store_path = os.path.join(data_dir, settings['usim_data_store'])
     if not os.path.exists(data_store_path):
+
+        if not inject.get_injectable('remote_data_full_path'):
+            logger.info("Creating remote data path from default parameters.")
+            bucket = inject.get_injectable('bucket', settings['bucket_name'])
+            scenario = inject.get_injectable('scenario', settings['scenario'])
+            year = inject.get_injectable('year', settings['sim_year'])
+
+            remote_data_full_path = os.path.join(
+                bucket, 'input', scenario, year, settings['usim_data_store'])
+
+        else:
+            remote_data_full_path = inject.get_injectable(
+                'remote_data_full_path')
+
         logger.info("Downloading UrbanSim data from s3!")
         s3 = s3fs.S3FileSystem()
 
-        if inject.get_injectable("remote_data_full_path", False):
-            remote_s3_path = inject.get_injectable("remote_data_full_path")
-        else:
-            logger.info(
-                "No path to remote data specified at runtime. Trying to "
-                "create path from default settings.")
-
-            remote_s3_path = os.path.join(
-                settings['bucket_name'], "input", settings['scenario'],
-                str(settings['sim_year']), settings['usim_data_store'])
-            if not s3.exists(remote_s3_path):
-                raise KeyError(
-                    "No remote model data found using default path. See "
-                    "simluation.py --help or configs/settings.yaml "
-                    "for more ideas.")
+        if not s3.exists(remote_data_full_path):
+            raise KeyError(
+                "No remote model data found using default path. See "
+                "simluation.py --help or configs/settings.yaml "
+                "for more ideas.")
 
         with open(data_store_path, 'w') as f:
-            s3.get(remote_s3_path, f.name)
+            s3.get(remote_data_full_path, f.name)
 
     logger.info("Loading UrbanSim input data from disk!")
     store = pd.HDFStore(data_store_path)
@@ -995,6 +999,10 @@ def create_inputs_from_usim_data(data_dir, settings):
     if not (persons_table & households_table & land_use_table):
 
         logger.info("Creating inputs from UrbanSim data!")
+
+        remote_data_full_path = os.path.join(
+            bucket, 'input', scenario, year, config.setting('usim_data_store'))
+        inject.add_injectable('remote_data_full_path', remote_data_full_path)
 
         store = orca.get_injectable('store')
 
