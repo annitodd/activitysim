@@ -253,9 +253,10 @@ def store(data_dir, settings):
     data_store_path = os.path.join(data_dir, settings['usim_data_store'])
     if not os.path.exists(data_store_path):
 
-        if not inject.get_injectable('remote_data_full_path'):
+        if not inject.get_injectable('remote_data_full_path', False):
             logger.info("Creating remote data path from default parameters.")
-            bucket = inject.get_injectable('bucket_name', settings['bucket_name'])
+            bucket = inject.get_injectable(
+                'bucket_name', settings['bucket_name'])
             scenario = inject.get_injectable('scenario', settings['scenario'])
             year = inject.get_injectable('year', settings['sim_year'])
 
