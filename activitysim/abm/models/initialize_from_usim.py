@@ -1000,11 +1000,6 @@ def create_inputs_from_usim_data(data_dir, settings):
     if not (persons_table & households_table & land_use_table):
 
         logger.info("Creating inputs from UrbanSim data!")
-
-        remote_data_full_path = os.path.join(
-            bucket, 'input', scenario, year, config.setting('usim_data_store'))
-        inject.add_injectable('remote_data_full_path', remote_data_full_path)
-
         store = orca.get_injectable('store')
 
         # assign TAZ's to blocks if not already done. we only want to have to
