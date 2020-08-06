@@ -86,7 +86,10 @@ if __name__ == '__main__':
     parser.add_argument(
         "-u", "--skims_url", action="store", help="url of skims .csv")
     parser.add_argument(
-        "-x", "--path_to_remote_data", help="url of urbansim .h5 model data")
+        "-x", "--path_to_remote_data", action="store",
+        help="url of urbansim .h5 model data")
+    parser.add_argument(
+        "-w", "--write_to_s3", action="store_true", help="write output to s3?")
 
     args = parser.parse_args()
 
@@ -105,6 +108,9 @@ if __name__ == '__main__':
     if args.path_to_remote_data:
         inject.add_injectable(
             'remote_data_full_path', args.path_to_remote_data)
+
+    if args.write_to_s3:
+        inject.add_injectable('s3_output', True)
 
     inject.add_injectable('data_dir', 'data')
     inject.add_injectable('configs_dir', ['configs', 'configs/configs'])
