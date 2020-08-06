@@ -66,8 +66,11 @@ def write_outputs_to_s3(data_dir, settings):
     if 'households' in asim_output_dict.keys():
         asim_output_dict['households'].rename(
             columns=hh_names_dict, inplace=True)
-        if not all([col in asim_output_dict['households'].columns for col in households_cols]):
-            raise KeyError("Not all required columns are in the persons table!")
+        if not all([
+                col in asim_output_dict['households'].columns
+                for col in households_cols]):
+            raise KeyError(
+                "Not all required columns are in the persons table!")
         asim_output_dict['households'] = asim_output_dict[
             'households'][households_cols]
 
@@ -91,11 +94,24 @@ def write_outputs_to_s3(data_dir, settings):
             csv_zip.writestr(
                 table_name + ".csv", asim_output_dict[table_name].to_csv())
 
-    s3 = s3fs.S3FileSystem()
+    fs = s3fs.S3FileSystem()
+    bucket = inject.get_injectable('bucket_name', settings['bucket_name'])
+    scenario = inject.get_injectable('scenario', settings['scenario'])
+    year = inject.get_injectable('year', settings['sim_year'])
     remote_s3_path = os.path.join(
-        settings['bucket_name'], "output", settings['sim_year'], archive_name)
+        bucket, "output", scenario, year, archive_name)
+
+    if fs.exists(remote_s3_path):
+        print("Archiving old outputs first.")
+        ts = fs.info(remote_s3_path)['LastModified'].strftime(
+            "%Y_%m_%d_%H%M%S")
+        new_fname = 'model_data_{0}.h5'.format(ts)
+        new_path_elements = remote_s3_path.split("/")[:3] + [
+            'archive', new_fname]
+        new_fpath = os.path.join(*new_path_elements)
+        fs.mv(remote_s3_path, new_fpath)
     logger.info('Sending combined data to s3!')
-    s3.put(outpath, remote_s3_path)
+    fs.put(outpath, remote_s3_path)
 
     store.close()
 
