@@ -14,8 +14,11 @@ logger = logging.getLogger(__name__)
 @inject.step()
 def write_outputs_to_s3(data_dir, settings):
 
-    if settings['s3_output'] is False:
+    s3_output = inject.get_injectable('s3_output', settings['s3_output'])
+    if s3_output is False:
         return
+
+    logger.info("Writing outputs to s3!")
 
     # LOAD ASIM OUTPUTS
     output_tables_settings = settings['output_tables']
@@ -102,7 +105,7 @@ def write_outputs_to_s3(data_dir, settings):
         bucket, "output", scenario, year, archive_name)
 
     if fs.exists(remote_s3_path):
-        print("Archiving old outputs first.")
+        logger.info("Archiving old outputs first.")
         ts = fs.info(remote_s3_path)['LastModified'].strftime(
             "%Y_%m_%d_%H%M%S")
         new_fname = 'model_data_{0}.h5'.format(ts)
