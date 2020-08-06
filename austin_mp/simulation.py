@@ -86,7 +86,7 @@ if __name__ == '__main__':
     parser.add_argument(
         "-u", "--skims_url", action="store", help="url of skims .csv")
     parser.add_argument(
-        "-s", "--path_to_remote_data", help="url of urbansim .h5 model data")
+        "-x", "--path_to_remote_data", help="url of urbansim .h5 model data")
 
     args = parser.parse_args()
 
