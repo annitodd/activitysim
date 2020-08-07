@@ -97,7 +97,8 @@ def write_outputs_to_s3(data_dir, settings):
             csv_zip.writestr(
                 table_name + ".csv", asim_output_dict[table_name].to_csv())
 
-    fs = s3fs.S3FileSystem()
+    s3fs.S3FileSystem.read_timeout = 84600
+    fs = s3fs.S3FileSystem(config_kwargs={'read_timeout': 86400})
     bucket = inject.get_injectable('bucket_name', settings['bucket_name'])
     scenario = inject.get_injectable('scenario', settings['scenario'])
     year = inject.get_injectable('year', settings['sim_year'])
@@ -112,10 +113,13 @@ def write_outputs_to_s3(data_dir, settings):
             "%Y_%m_%d_%H%M%S")
         new_fname = archive_name.split('.')[0] + \
             '_' + ts + '.' + archive_name.split('.')[-1]
-        new_path_elements = remote_s3_path.split("/")[:3] + [
+        new_path_elements = remote_s3_path.split("/")[:4] + [
             'archive', new_fname]
         new_fpath = os.path.join(*new_path_elements)
-        fs.mv(remote_s3_path, new_fpath)
+        if fs.exists(new_fpath):
+            fs.rm(remote_s3_path)
+        else:
+            fs.mv(remote_s3_path, new_fpath)
     logger.info('Sending combined data to s3!')
     fs.put(outpath, remote_s3_path)
 
