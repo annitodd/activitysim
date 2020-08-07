@@ -110,7 +110,8 @@ def write_outputs_to_s3(data_dir, settings):
         logger.info("Archiving old outputs first.")
         ts = fs.info(remote_s3_path)['LastModified'].strftime(
             "%Y_%m_%d_%H%M%S")
-        new_fname = 'model_data_{0}.h5'.format(ts)
+        new_fname = archive_name.split('.')[0] + \
+            '_' + ts + '.' + archive_name.split('.')[-1]
         new_path_elements = remote_s3_path.split("/")[:3] + [
             'archive', new_fname]
         new_fpath = os.path.join(*new_path_elements)
