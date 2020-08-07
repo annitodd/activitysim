@@ -259,6 +259,8 @@ def store(data_dir, settings):
                 'bucket_name', settings['bucket_name'])
             scenario = inject.get_injectable('scenario', settings['scenario'])
             year = inject.get_injectable('year', settings['sim_year'])
+            if not isinstance(year, str):
+                year = str(year)
 
             remote_data_full_path = os.path.join(
                 bucket, 'input', scenario, year, settings['usim_data_store'])

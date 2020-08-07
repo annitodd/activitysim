@@ -81,7 +81,8 @@ if __name__ == '__main__':
 
     parser.add_argument(
         "-b", "--bucket_name", action="store", help="s3 bucket name")
-    parser.add_argument("-y", "--year", action="store", help="data year")
+    parser.add_argument(
+        "-y", "--year", action="store", type=int, help="data year")
     parser.add_argument("-s", "--scenario", action="store", help="scenario")
     parser.add_argument(
         "-u", "--skims_url", action="store", help="url of skims .csv")

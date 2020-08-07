@@ -101,6 +101,8 @@ def write_outputs_to_s3(data_dir, settings):
     bucket = inject.get_injectable('bucket_name', settings['bucket_name'])
     scenario = inject.get_injectable('scenario', settings['scenario'])
     year = inject.get_injectable('year', settings['sim_year'])
+    if not isinstance(year, str):
+        year = str(year)
     remote_s3_path = os.path.join(
         bucket, "output", scenario, year, archive_name)
 
