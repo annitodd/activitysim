@@ -128,9 +128,11 @@ multiprocess_steps:
 
 
 output_tables:
+  h5_store: True
   action: include
-  prefix: final_
+  prefix: final
   tables:
+    - checkpoints
     - land_use
     - households
     - persons
