@@ -22,7 +22,7 @@ def write_outputs_to_s3(data_dir, settings):
 
     # 1. LOAD ASIM OUTPUTS
     output_tables_settings = settings['output_tables']
-    h5_output = output_tables_settings['h5_output']
+    h5_output = output_tables_settings['h5_store']
     prefix = output_tables_settings['prefix']
     output_tables = output_tables_settings['tables']
 
@@ -52,8 +52,13 @@ def write_outputs_to_s3(data_dir, settings):
             s3.get(remote_s3_path, f.name)
 
     store = pd.HDFStore(data_store_path)
-    households_cols = store['households'].reset_index().columns
-    persons_cols = store['persons'].reset_index().columns
+
+    if h5_output:
+        households_cols = store['households'].columns
+        persons_cols = store['persons'].columns
+    else:
+        households_cols = store['households'].reset_index().columns
+        persons_cols = store['persons'].reset_index().columns
 
     # 3. UPDATE USIM PERSONS
     # new columns to persist: workplace_taz, school_taz
@@ -70,11 +75,14 @@ def write_outputs_to_s3(data_dir, settings):
     # 4. UPDATE USIM HOUSEHOLDS
     # no new columns to persist, just convert auto_ownership --> cars
     hh_names_dict = {
-        'HHID': 'household_id',
         'hhsize': 'persons',
         'num_workers': 'workers',
         'auto_ownership': 'cars',
         'PNUM': 'member_id'}
+    if h5_output:
+        asim_output_dict['households'].index.name = 'household_id'
+    else:
+        hh_names_dict['HHID'] = 'household_id'
     if 'households' in asim_output_dict.keys():
         asim_output_dict['households'].rename(
             columns=hh_names_dict, inplace=True)
