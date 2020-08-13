@@ -130,7 +130,7 @@ multiprocess_steps:
 output_tables:
   h5_store: True
   action: include
-  prefix: final
+  prefix: final_
   tables:
     - checkpoints
     - land_use
