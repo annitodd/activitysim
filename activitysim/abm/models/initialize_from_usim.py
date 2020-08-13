@@ -1038,14 +1038,20 @@ def create_inputs_from_usim_data(data_dir, settings):
         logger.info("Creating households table!")
 
         hh_names_dict = {
-            'household_id': 'HHID',
             'persons': 'PERSONS',
             'cars': 'VEHICL',
             'member_id': 'PNUM'}
 
         usim_households = orca.get_table('usim_households').to_frame()
         hh_df = usim_households.rename(columns=hh_names_dict)
-        hh_df = hh_df[~hh_df.TAZ.isnull()]
+        if 'household_id' in hh_df.columns:
+            hh_df.set_index('household_id', inplace=True)
+        else:
+            hh_df.index.name = 'household_id'
+        hh_null_taz = hh_df.TAZ.isnull()
+        logger.info('Dropping {0} households without TAZs'.format(
+            hh_null_taz.sum()))
+        hh_df = hh_df[~hh_null_taz]
         hh_df.to_csv(os.path.join(data_dir, 'households.csv'))
         del hh_df
 
@@ -1054,7 +1060,13 @@ def create_inputs_from_usim_data(data_dir, settings):
         usim_persons = orca.get_table('usim_persons').to_frame()
         p_names_dict = {'member_id': 'PNUM'}
         p_df = usim_persons.rename(columns=p_names_dict)
-        p_df = p_df[~p_df.TAZ.isnull()]
+        p_null_taz = p_df.TAZ.isnull()
+        logger.info("Dropping {0} persons bc they have no TAZs".format(
+            p_null_taz.sum()))
+        p_df = p_df[~p_null_taz]
+
+        # TO DO: come up with a different fix so we dont reset
+        # person ids in between runs
         p_df.sort_values('household_id', inplace=True)
         p_df.reset_index(drop=True, inplace=True)
         p_df.index.name = 'person_id'
