@@ -269,7 +269,8 @@ def store(data_dir, settings):
             remote_data_full_path = inject.get_injectable(
                 'remote_data_full_path')
 
-        logger.info("Downloading UrbanSim data from s3!")
+        logger.info("Downloading UrbanSim data from s3 at {0}!".format(
+            remote_data_full_path))
         s3 = s3fs.S3FileSystem()
 
         if not s3.exists(remote_data_full_path):
