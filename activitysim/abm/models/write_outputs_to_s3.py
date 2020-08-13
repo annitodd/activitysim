@@ -32,7 +32,14 @@ def write_outputs_to_s3(data_dir, settings):
         for table_name in output_tables:
             file_name = "%s%s.csv" % (prefix, table_name)
             file_path = config.output_file_path(file_name)
-            asim_output_dict[table_name] = pd.read_csv(file_path)
+            if table_name == 'persons':
+                index_col = 'person_id'
+            elif table_name == 'households':
+                index_col = 'household_id'
+            else:
+                index_col = None
+            asim_output_dict[table_name] = pd.read_csv(
+                file_path, index_col=index_col)
     else:
         file_name = '%soutput_tables.h5' % prefix
         file_path = config.output_file_path(file_name)
@@ -53,12 +60,8 @@ def write_outputs_to_s3(data_dir, settings):
 
     store = pd.HDFStore(data_store_path)
 
-    if h5_output:
-        households_cols = store['households'].columns
-        persons_cols = store['persons'].columns
-    else:
-        households_cols = store['households'].reset_index().columns
-        persons_cols = store['persons'].reset_index().columns
+    households_cols = store['households'].columns
+    persons_cols = store['persons'].columns
 
     # 3. UPDATE USIM PERSONS
     # new columns to persist: workplace_taz, school_taz
@@ -67,8 +70,12 @@ def write_outputs_to_s3(data_dir, settings):
     if 'persons' in asim_output_dict.keys():
 
         asim_output_dict['persons'].rename(columns=p_names_dict, inplace=True)
-        if not all([col in asim_output_dict['persons'].columns for col in persons_cols]):
-            raise KeyError("Not all required columns are in the persons table!")
+        if not all([
+                col in asim_output_dict['persons'].columns
+                for col in persons_cols]):
+            raise KeyError(
+                "Not all required columns are in the persons table!")
+
         asim_output_dict['persons'] = asim_output_dict['persons'][
             list(persons_cols) + asim_p_cols_to_include]
 
@@ -79,18 +86,17 @@ def write_outputs_to_s3(data_dir, settings):
         'num_workers': 'workers',
         'auto_ownership': 'cars',
         'PNUM': 'member_id'}
-    if h5_output:
-        asim_output_dict['households'].index.name = 'household_id'
-    else:
-        hh_names_dict['HHID'] = 'household_id'
+
     if 'households' in asim_output_dict.keys():
         asim_output_dict['households'].rename(
             columns=hh_names_dict, inplace=True)
+
         if not all([
                 col in asim_output_dict['households'].columns
                 for col in households_cols]):
             raise KeyError(
                 "Not all required columns are in the persons table!")
+
         asim_output_dict['households'] = asim_output_dict[
             'households'][households_cols]
 
