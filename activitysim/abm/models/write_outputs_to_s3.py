@@ -158,15 +158,16 @@ def write_outputs_to_s3(data_dir, settings):
     logger.info(
         'Merging results back into UrbanSim format and storing as .h5!')
     out_store = pd.HDFStore(outpath_usim)
+
     # copy usim static inputs into archive
     for table_name in store.keys():
         if table_name not in [
                 '/persons', '/households', 'persons', 'households']:
-            out_store.put(table_name, store[table_name])
+            out_store.put(table_name, store[table_name], format='t')
 
     # copy usim outputs into archive
     for table_name in asim_output_dict.keys():
-        out_store.put(table_name, asim_output_dict[table_name])
+        out_store.put(table_name, asim_output_dict[table_name], format='t')
 
     out_store.close()
     logger.info("Copying outputs to UrbanSim inputs!")
