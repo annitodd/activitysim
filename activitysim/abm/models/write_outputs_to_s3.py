@@ -20,6 +20,15 @@ def write_outputs_to_s3(data_dir, settings):
 
     logger.info("Writing outputs to s3!")
 
+    updated_tables = ['households', 'persons']
+
+    # run vars
+    bucket = inject.get_injectable('bucket_name', settings['bucket_name'])
+    scenario = inject.get_injectable('scenario', settings['scenario'])
+    year = inject.get_injectable('year', settings['sim_year'])
+    if not isinstance(year, str):
+        year = str(year)
+
     # 1. LOAD ASIM OUTPUTS
     output_tables_settings = settings['output_tables']
     h5_output = output_tables_settings['h5_store']
@@ -46,6 +55,7 @@ def write_outputs_to_s3(data_dir, settings):
         store = pd.HDFStore(file_path)
         for table_name in output_tables:
             asim_output_dict[table_name] = store[table_name]
+        store.close()
 
     # 2. LOAD USIM INPUTS
     data_store_path = os.path.join(data_dir, settings['usim_data_store'])
@@ -53,34 +63,32 @@ def write_outputs_to_s3(data_dir, settings):
     if not os.path.exists(data_store_path):
         logger.info("Loading input .h5 from s3!")
         remote_s3_path = os.path.join(
-            settings['bucket_name'], "input", settings['sim_year'])
+            settings['bucket_name'], "input", scenario, year,
+            settings['usim_data_store'])
         s3 = s3fs.S3FileSystem()
         with open(data_store_path, 'w') as f:
             s3.get(remote_s3_path, f.name)
 
-    store = pd.HDFStore(data_store_path)
+    input_store = pd.HDFStore(data_store_path)
 
-    households_cols = store['households'].columns
-    persons_cols = store['persons'].columns
+    required_cols = {}
+    for table_name in updated_tables:
+        required_cols[table_name] = input_store[table_name].columns
 
-    # 3. UPDATE USIM PERSONS
+    # 3. PREPARE NEW PERSONS TABLE
     # new columns to persist: workplace_taz, school_taz
     p_names_dict = {'PNUM': 'member_id'}
     asim_p_cols_to_include = ['workplace_taz', 'school_taz']
     if 'persons' in asim_output_dict.keys():
 
         asim_output_dict['persons'].rename(columns=p_names_dict, inplace=True)
-        if not all([
-                col in asim_output_dict['persons'].columns
-                for col in persons_cols]):
-            raise KeyError(
-                "Not all required columns are in the persons table!")
 
+        # only preserve original usim columns and two new columns
         asim_output_dict['persons'] = asim_output_dict['persons'][
-            list(persons_cols) + asim_p_cols_to_include]
+            list(required_cols['persons']) + asim_p_cols_to_include]
 
-    # 4. UPDATE USIM HOUSEHOLDS
-    # no new columns to persist, just convert auto_ownership --> cars
+    # 4. PREPARE NEW HOUSEHOLDS TABLE
+    # no new columns to persist, just convert column names
     hh_names_dict = {
         'hhsize': 'persons',
         'num_workers': 'workers',
@@ -88,17 +96,37 @@ def write_outputs_to_s3(data_dir, settings):
         'PNUM': 'member_id'}
 
     if 'households' in asim_output_dict.keys():
+
         asim_output_dict['households'].rename(
             columns=hh_names_dict, inplace=True)
 
-        if not all([
-                col in asim_output_dict['households'].columns
-                for col in households_cols]):
-            raise KeyError(
-                "Not all required columns are in the persons table!")
-
+        # only preserve original usim columns
         asim_output_dict['households'] = asim_output_dict[
-            'households'][households_cols]
+            'households'][required_cols['households']]
+
+    # 5. ENSURE MATCHING SCHEMAS FOR UPDATED TABLES
+    for table_name in updated_tables:
+
+        # make sure all required columns are present
+        if not all([
+                col in asim_output_dict[table_name].columns
+                for col in required_cols[table_name]]):
+            raise KeyError(
+                "Not all required columns are in the {0} table!".format(
+                    table_name))
+
+        # make sure data types match for overlapping columns
+        else:
+
+            dtypes = input_store[table_name].dtypes.to_dict()
+            for col in required_cols[table_name]:
+                if asim_output_dict[table_name][col].dtype != dtypes[col]:
+                    asim_output_dict[table_name][col] = asim_output_dict[
+                        table_name][col].astype(dtypes[col])
+
+    # specific dtype required conversions
+    asim_output_dict['households']['block_id'] = asim_output_dict[
+        'households']['block_id'].astype(str)
 
     # 5. WRITE OUT FOR BEAM
     archive_name = 'asim_outputs.zip'
@@ -108,10 +136,10 @@ def write_outputs_to_s3(data_dir, settings):
     with zipfile.ZipFile(outpath, 'w') as csv_zip:
 
         # copy usim static inputs into archive
-        for table_name in store.keys():
+        for table_name in input_store.keys():
             if table_name not in [
                     '/persons', '/households', 'persons', 'households']:
-                df = store[table_name].reset_index()
+                df = input_store[table_name].reset_index()
                 csv_zip.writestr(
                     "{0}.csv".format(table_name), pd.DataFrame(df).to_csv())
 
@@ -122,11 +150,7 @@ def write_outputs_to_s3(data_dir, settings):
 
     s3fs.S3FileSystem.read_timeout = 84600
     fs = s3fs.S3FileSystem(config_kwargs={'read_timeout': 86400})
-    bucket = inject.get_injectable('bucket_name', settings['bucket_name'])
-    scenario = inject.get_injectable('scenario', settings['scenario'])
-    year = inject.get_injectable('year', settings['sim_year'])
-    if not isinstance(year, str):
-        year = str(year)
+
     remote_s3_path = os.path.join(
         bucket, "output", scenario, year, archive_name)
 
@@ -152,28 +176,40 @@ def write_outputs_to_s3(data_dir, settings):
     # 6. WRITE OUT FOR USIM
     usim_archive_name = 'model_data.h5'
     outpath_usim = config.output_file_path(usim_archive_name)
-    usim_bucket = bucket.replace('activitysim', 'urbansim')
     usim_remote_s3_path = os.path.join(
-        usim_bucket, 'input', scenario, year, usim_archive_name)
+        bucket, 'output', scenario, year, usim_archive_name)
     logger.info(
         'Merging results back into UrbanSim format and storing as .h5!')
     out_store = pd.HDFStore(outpath_usim)
 
     # copy usim static inputs into archive
-    for table_name in store.keys():
+    for table_name in input_store.keys():
         if table_name not in [
                 '/persons', '/households', 'persons', 'households']:
-            out_store.put(table_name, store[table_name], format='t')
+            out_store.put(table_name, input_store[table_name], format='t')
 
-    # copy usim outputs into archive
-    for table_name in asim_output_dict.keys():
+    # copy asim outputs into archive
+    for table_name in updated_tables:
         out_store.put(table_name, asim_output_dict[table_name], format='t')
 
     out_store.close()
     logger.info("Copying outputs to UrbanSim inputs!")
+    if fs.exists(usim_remote_s3_path):
+        logger.info("Archiving old outputs first.")
+        ts = fs.info(usim_remote_s3_path)['LastModified'].strftime(
+            "%Y_%m_%d_%H%M%S")
+        new_fname = archive_name.split('.')[0] + \
+            '_' + ts + '.' + usim_archive_name.split('.')[-1]
+        new_path_elements = usim_remote_s3_path.split("/")[:4] + [
+            'archive', new_fname]
+        new_fpath = os.path.join(*new_path_elements)
+        if fs.exists(new_fpath):
+            fs.rm(usim_remote_s3_path)
+        else:
+            fs.mv(usim_remote_s3_path, new_fpath)
     fs.put(outpath_usim, usim_remote_s3_path)
     logger.info(
         'New UrbanSim model data now available '
         'at {0}'.format("s3://" + usim_remote_s3_path))
 
-    store.close()
+    input_store.close()
