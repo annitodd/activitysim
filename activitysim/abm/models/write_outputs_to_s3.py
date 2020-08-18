@@ -78,14 +78,17 @@ def write_outputs_to_s3(data_dir, settings):
     # 3. PREPARE NEW PERSONS TABLE
     # new columns to persist: workplace_taz, school_taz
     p_names_dict = {'PNUM': 'member_id'}
-    asim_p_cols_to_include = ['workplace_taz', 'school_taz']
+    p_cols_to_include = required_cols['persons']
     if 'persons' in asim_output_dict.keys():
 
         asim_output_dict['persons'].rename(columns=p_names_dict, inplace=True)
 
         # only preserve original usim columns and two new columns
+        for col in ['workplace_taz', 'school_taz']:
+            if col not in asim_output_dict['persons'].columns:
+                p_cols_to_include.append(col)
         asim_output_dict['persons'] = asim_output_dict['persons'][
-            list(required_cols['persons']) + asim_p_cols_to_include]
+            p_cols_to_include]
 
     # 4. PREPARE NEW HOUSEHOLDS TABLE
     # no new columns to persist, just convert column names
@@ -115,13 +118,10 @@ def write_outputs_to_s3(data_dir, settings):
                 "Not all required columns are in the {0} table!".format(
                     table_name))
 
-        # make sure data types match for overlapping columns
+        # make sure data types match
         else:
-
             dtypes = input_store[table_name].dtypes.to_dict()
             for col in required_cols[table_name]:
-                if not isinstance(asim_output_dict[table_name][col], pd.Series):
-                    print(asim_output_dict[table_name].head())
                 if asim_output_dict[table_name][col].dtype != dtypes[col]:
                     asim_output_dict[table_name][col] = asim_output_dict[
                         table_name][col].astype(dtypes[col])
