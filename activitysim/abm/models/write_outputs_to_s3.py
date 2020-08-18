@@ -73,7 +73,7 @@ def write_outputs_to_s3(data_dir, settings):
 
     required_cols = {}
     for table_name in updated_tables:
-        required_cols[table_name] = input_store[table_name].columns
+        required_cols[table_name] = list(input_store[table_name].columns)
 
     # 3. PREPARE NEW PERSONS TABLE
     # new columns to persist: workplace_taz, school_taz
@@ -120,6 +120,8 @@ def write_outputs_to_s3(data_dir, settings):
 
             dtypes = input_store[table_name].dtypes.to_dict()
             for col in required_cols[table_name]:
+                if not isinstance(asim_output_dict[table_name][col], pd.Series):
+                    print(asim_output_dict[table_name].head())
                 if asim_output_dict[table_name][col].dtype != dtypes[col]:
                     asim_output_dict[table_name][col] = asim_output_dict[
                         table_name][col].astype(dtypes[col])
