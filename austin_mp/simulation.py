@@ -7,7 +7,6 @@ install_aliases()  # noqa: E402
 
 import logging
 import argparse
-import os
 
 from activitysim.core import inject
 from activitysim.core import tracing
