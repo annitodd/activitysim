@@ -56,17 +56,17 @@ use_shadow_pricing: False
 #stagger: 5
 
 
-## - UrbanSim-input simulation
-households_sample_size: 0
-chunk_size: 5000000000
-num_processes: 24
-stagger: 0
-
 # ## - UrbanSim-input simulation
-# households_sample_size: 100000
-# chunk_size: 0
+# households_sample_size: 0
+# chunk_size: 5000000000
 # num_processes: 24
 # stagger: 0
+
+## - UrbanSim-input for Calibration 
+households_sample_size: 20000
+chunk_size: 0
+num_processes: 10
+stagger: 0
 
 
 # - tracing
@@ -98,21 +98,21 @@ models:
   - non_mandatory_tour_destination
   - non_mandatory_tour_scheduling
   - tour_mode_choice_simulate
-  - atwork_subtour_frequency
-  - atwork_subtour_destination
-  - atwork_subtour_scheduling
-  - atwork_subtour_mode_choice
-  - stop_frequency
-  - trip_purpose
-  - trip_destination
-  - trip_purpose_and_destination
-  - trip_scheduling
-  - trip_mode_choice
-  ## mp_summarize step
-  - generate_beam_plans
-  - write_data_dictionary
-  - write_tables
-  - write_outputs_to_s3
+#   - atwork_subtour_frequency
+#   - atwork_subtour_destination
+#   - atwork_subtour_scheduling
+#   - atwork_subtour_mode_choice
+#   - stop_frequency
+#   - trip_purpose
+#   - trip_destination
+#   - trip_purpose_and_destination
+#   - trip_scheduling
+#   - trip_mode_choice
+#   ## mp_summarize step
+#   - generate_beam_plans
+#   - write_data_dictionary
+#   - write_tables
+#   - write_outputs_to_s3
 
 multiprocess_steps:
   - name: mp_initialize
@@ -123,8 +123,8 @@ multiprocess_steps:
       tables:
         - households
         - persons
-  - name: mp_summarize
-    begin: generate_beam_plans
+#   - name: mp_summarize
+#     begin: generate_beam_plans
 
 
 output_tables:
