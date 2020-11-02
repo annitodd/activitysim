@@ -1,8 +1,5 @@
 # ActivitySim
 # See full license in LICENSE.txt.
-
-from __future__ import absolute_import
-
 from . import accessibility
 from . import atwork_subtour_destination
 from . import atwork_subtour_frequency
@@ -34,3 +31,5 @@ from . import trip_purpose
 from . import trip_purpose_and_destination
 from . import trip_scheduling
 from . import write_outputs_to_s3
+from . import trip_matrices
+
