@@ -1,3 +1,16 @@
+
+SAMPLE_SPEC: non_mandatory_tour_destination_sample.csv
+SPEC: non_mandatory_tour_destination.csv
+COEFFICIENTS: non_mandatory_tour_destination_coeffs.csv
+
+SEGMENTS:
+  - shopping
+  - othmaint
+  - othdiscr
+  - eatout
+  - social
+
+
 SAMPLE_SIZE: 30
 
 SIMULATE_CHOOSER_COLUMNS:
@@ -14,3 +27,9 @@ IN_PERIOD: 14
 OUT_PERIOD: 14
 
 SIZE_TERM_SELECTOR: non_mandatory
+
+# optional (comment out if not desired)
+DEST_CHOICE_LOGSUM_COLUMN_NAME: destination_logsum
+
+# comment out DEST_CHOICE_LOGSUM_COLUMN_NAME if saved alt logsum table
+DEST_CHOICE_SAMPLE_TABLE_NAME: tour_destination_sample

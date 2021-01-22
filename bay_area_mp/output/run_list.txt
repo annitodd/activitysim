@@ -40,7 +40,6 @@ multiprocess_steps:
     step_num: 0
     num_processes: 1
     chunk_size: 4000000000
-    stagger: 0
     models:
        - initialize_landuse
        - compute_accessibility
@@ -50,9 +49,8 @@ multiprocess_steps:
     begin: school_location
     slice: {'tables': ['households', 'persons']}
     step_num: 1
-    num_processes: 30
-    chunk_size: 133333333
-    stagger: 0
+    num_processes: 15
+    chunk_size: 266666667
     models:
        - school_location
        - workplace_location
@@ -86,7 +84,6 @@ multiprocess_steps:
     step_num: 2
     num_processes: 1
     chunk_size: 4000000000
-    stagger: 0
     models:
        - write_data_dictionary
        - write_tables

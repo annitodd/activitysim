@@ -172,7 +172,7 @@ rural_threshold: 6
 # upperPM	Upper limit on time of day for the PM time peak period		19
 
 skim_time_periods:
-    period_minutes: 60
+    period_minutes: 30
     periods:
         - 0
         - 6

@@ -46,6 +46,25 @@ def add_run_args(parser, multiprocess=True):
                         type=str,
                         metavar='FILE',
                         help='pipeline file name')
+    parser.add_argument("-b", "--bucket_name", 
+                        action="store", 
+                        help="s3 bucket name")
+    parser.add_argument("-y", "--year", 
+                        action="store", 
+                        type=int, 
+                        help="data year")
+    parser.add_argument("-s", "--scenario",
+                        action="store", 
+                        help="scenario")
+    parser.add_argument("-u", "--skims_url", 
+                        action="store", 
+                        help="url of skims .csv")
+    parser.add_argument( "-x", "--path_to_remote_data", 
+                        action="store",
+                        help="url of urbansim .h5 model data")
+    parser.add_argument( "t", "--write_to_s3", 
+                        action="store_true", 
+                        help="write output to s3?")
 
     if multiprocess:
         parser.add_argument('-m', '--multiprocess',

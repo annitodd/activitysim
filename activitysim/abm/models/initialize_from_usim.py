@@ -626,6 +626,12 @@ def HHT(usim_households):
     s = usim_households.persons
     return s.where(s == 1, 4)
 
+# @orca.column('usim_households')
+# def TOTPOP(usim_households):
+#     hh = usim_households.to_frame(columns=['TAZ', 'persons'])
+#     return hh.groupby('TAZ')['persons'].sum().reindex(
+#         blocks.index).fillna(0)
+
 
 # Persons Variables
 
@@ -695,7 +701,7 @@ def TOTHH(usim_households, zones):
 
 
 @orca.column('zones', cache=True)
-def HHPOP(usim_persons, zones):
+def TOTPOP(usim_persons, zones):
     s = usim_persons.TAZ.groupby(usim_persons.TAZ).count()
     return s.reindex(zones.index).fillna(0)
 

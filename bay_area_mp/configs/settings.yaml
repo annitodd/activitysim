@@ -1,5 +1,23 @@
-
 inherit_settings: True
+
+# output
+s3_output: False
+
+# geographic settings
+state_fips: 06
+local_crs: EPSG:7131 
+
+# skims
+create_skims_from_beam: True
+beam_skims_url: s3://baus-data/spring_2019/beam_skims_imputed.csv #For Bay Area, some skims where inputed with MTC data. 
+
+# urbansim data
+create_inputs_from_usim_data: True
+sim_year: 2010
+scenario: base
+bucket_name: bayarea-activitysim
+usim_data_store: model_data_full.h5
+usim_zone_geoms: Transportation_Analysis_Zones.shp
 
 # raise error if any sub-process fails without waiting for others to complete
 fail_fast: True
@@ -38,9 +56,9 @@ use_shadow_pricing: False
 
 
 ## - example sample
-households_sample_size: 0
+households_sample_size: 500000
 chunk_size: 4000000000
-num_processes: 30
+num_processes: 15
 stagger: 0
 
 
@@ -51,7 +69,7 @@ trace_od:
 #trace_od: [5, 11]
 
 # to resume after last successful checkpoint, specify resume_after: _
-resume_after: _
+# resume_after: _
 
 models:
   ### mp_initialize step

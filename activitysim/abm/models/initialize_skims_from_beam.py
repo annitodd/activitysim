@@ -83,7 +83,7 @@ def create_skims_from_beam(data_dir):
     else:
         logger.info("Creating skims.omx from BEAM skims")
         raw_beam_skims = inject.get_table('raw_beam_skims')
-        h3_zone_ids = inject.get_injectable('h3_zone_ids')
+        h3_zone_ids = inject.get_injectable('h3_zone_ids')# What is it is not a h3? 
         skims_df = raw_beam_skims.to_frame()
 
         # figure out the size of the skim matrices
