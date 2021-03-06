@@ -9,7 +9,7 @@ local_crs: EPSG:7131
 
 # skims
 create_skims_from_beam: True
-beam_skims_url: s3://baus-data/spring_2019/beam_skims_imputed.csv #For Bay Area, some skims where inputed with MTC data. 
+beam_skims_url: https://beam-outputs.s3.amazonaws.com/output/sfbay/sfbay-smartbaseline-full-TAZ-activitySimSkims-allTimePeriods-byR5-fixed__2021-02-20_11-57-40_dnv/ITERS/it.10/10.activitySimODSkims.UrbanSim.TAZ.Full.csv.gz
 
 # urbansim data
 create_inputs_from_usim_data: True
@@ -17,7 +17,7 @@ sim_year: 2010
 scenario: base
 bucket_name: bayarea-activitysim
 usim_data_store: model_data_full.h5
-usim_zone_geoms: Transportation_Analysis_Zones.shp
+usim_zone_geoms: Transportation_Analysis_Zones.shp #blocks.shpe
 
 # raise error if any sub-process fails without waiting for others to complete
 fail_fast: True
@@ -63,13 +63,11 @@ stagger: 0
 
 
 # - tracing
-trace_hh_id: 
-trace_od:
 #trace_hh_id: 1482966
 #trace_od: [5, 11]
 
 # to resume after last successful checkpoint, specify resume_after: _
-# resume_after: _
+resume_after: _
 
 models:
   ### mp_initialize step

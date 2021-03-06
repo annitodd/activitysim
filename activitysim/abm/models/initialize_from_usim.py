@@ -31,10 +31,16 @@ def get_zone_geoms_from_h3(h3_ids):
 
 def get_county_block_geoms(state_fips, county_fips):
 
-    base_url = (
+#     base_url = (
+#         'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/'
+#         'Tracts_Blocks/MapServer/12/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
+#         '&outFields=GEOID%2CSTATE%2CCOUNTY%2CTRACT%2CBLKGRP%2CBLOCK%2CCENTLAT'
+#         '%2CCENTLON&outSR=%7B"wkid"+%3A+4326%7D&f=pjson')
+    
+    base_url = ( ## Census group base_url
         'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/'
-        'Tracts_Blocks/MapServer/12/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
-        '&outFields=GEOID%2CSTATE%2CCOUNTY%2CTRACT%2CBLKGRP%2CBLOCK%2CCENTLAT'
+        'Tracts_Blocks/MapServer/11/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
+        '&outFields=GEOID%2CSTATE%2CCOUNTY%2CTRACT%2CBLKGRP%2CCENTLAT'
         '%2CCENTLON&outSR=%7B"wkid"+%3A+4326%7D&f=pjson')
     url = base_url.format(state_fips, county_fips)
     result = requests.get(url)
@@ -701,7 +707,8 @@ def TOTHH(usim_households, zones):
 
 
 @orca.column('zones', cache=True)
-def TOTPOP(usim_persons, zones):
+def HHPOP(usim_persons, zones):
+# def TOTPOP(usim_persons, zones):
     s = usim_persons.TAZ.groupby(usim_persons.TAZ).count()
     return s.reindex(zones.index).fillna(0)
 
@@ -796,6 +803,8 @@ def AGE62P(usim_persons, zones):
 @orca.column('zones', cache=True)
 def SHPOP62P(zones):
     return (zones.AGE62P / zones.HHPOP).reindex(zones.index).fillna(0)
+#     return (zones.AGE62P / zones.TOTPOP).reindex(zones.index).fillna(0)
+
 
 
 @orca.column('zones', cache=True)
