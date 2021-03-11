@@ -1,17 +1,16 @@
 # ActivitySim
 # See full license in LICENSE.txt.
-
-from __future__ import (absolute_import, division, print_function, )
-from future.standard_library import install_aliases
-install_aliases()  # noqa: E402
-
 try:
     from inspect import getfullargspec as getargspec
 except ImportError:
     from inspect import getargspec
 import logging
 import warnings
-from collections import Callable, namedtuple
+from collections import namedtuple
+try:
+    from collections.abc import Callable
+except ImportError:
+    from collections import Callable
 from contextlib import contextmanager
 from functools import wraps
 import inspect
@@ -983,8 +982,8 @@ def _collect_variables(names, expressions=None):
         expressions = []
     offset = len(names) - len(expressions)
     labels_map = dict(tz.concatv(
-        tz.compatibility.zip(names[:offset], names[:offset]),
-        tz.compatibility.zip(names[offset:], expressions)))
+        zip(names[:offset], names[:offset]),
+        zip(names[offset:], expressions)))
 
     all_variables = tz.merge(_INJECTABLES, _TABLES)
     variables = {}

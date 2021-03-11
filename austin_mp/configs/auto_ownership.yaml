@@ -1,3 +1,5 @@
 #LOGIT_TYPE: NL
 LOGIT_TYPE: MNL
 
+SPEC: auto_ownership_v2.csv
+
