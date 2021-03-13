@@ -31,17 +31,17 @@ def get_zone_geoms_from_h3(h3_ids):
 
 def get_county_block_geoms(state_fips, county_fips):
 
-#     base_url = (
-#         'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/'
-#         'Tracts_Blocks/MapServer/12/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
-#         '&outFields=GEOID%2CSTATE%2CCOUNTY%2CTRACT%2CBLKGRP%2CBLOCK%2CCENTLAT'
-#         '%2CCENTLON&outSR=%7B"wkid"+%3A+4326%7D&f=pjson')
-    
-    base_url = ( ## Census group base_url
+    base_url = (
         'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/'
-        'Tracts_Blocks/MapServer/11/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
-        '&outFields=GEOID%2CSTATE%2CCOUNTY%2CTRACT%2CBLKGRP%2CCENTLAT'
+        'Tracts_Blocks/MapServer/12/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
+        '&outFields=GEOID%2CSTATE%2CCOUNTY%2CTRACT%2CBLKGRP%2CBLOCK%2CCENTLAT'
         '%2CCENTLON&outSR=%7B"wkid"+%3A+4326%7D&f=pjson')
+
+    # base_url = ( ## Census group base_url
+    #     'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/'
+    #     'Tracts_Blocks/MapServer/11/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
+    #     '&outFields=GEOID%2CSTATE%2CCOUNTY%2CTRACT%2CBLKGRP%2CCENTLAT'
+    #     '%2CCENTLON&outSR=%7B"wkid"+%3A+4326%7D&f=pjson')
     url = base_url.format(state_fips, county_fips)
     result = requests.get(url)
     features = result.json()['features']
@@ -473,6 +473,15 @@ def zones(store, local_crs, data_dir):
         zones.reset_index(inplace=True, drop=True)
         zones.index.name = 'TAZ'
 
+        # save zone geoms in .h5 datastore so we don't
+        # have to do this again
+        out_zones = pd.DataFrame(zones.copy())
+        out_zones['geometry'] = out_zones['geometry'].apply(
+            lambda x: x.wkt)
+
+        logger.info("Storing zone geometries to .h5 datastore!")
+        store['zone_geoms'] = out_zones
+
     else:
         raise RuntimeError(
             "Zone geometries incorrectly specified in settings.yaml")
@@ -573,6 +582,8 @@ def colleges(store, state_fips, county_codes):
 
 @orca.column('schools', cache=True)
 def TAZ(schools, zones, local_crs):
+    if TAZ in schools.columns:
+        return schools.TAZ
     zones_gdf = zones.to_frame(columns=['geometry', 'h3_id'])
     schools_df = schools.to_frame(columns=['x', 'y'])
     schools_df.index.name = 'school_id'
@@ -581,6 +592,8 @@ def TAZ(schools, zones, local_crs):
 
 @orca.column('colleges', cache=True)
 def TAZ(colleges, zones, local_crs):
+    if TAZ in colleges.columns:
+        return schools.TAZ
     colleges_df = colleges.to_frame(columns=['x', 'y'])
     colleges_df.index.name = 'college_id'
     zones_gdf = zones.to_frame(columns=['geometry', 'h3_id'])
@@ -707,8 +720,7 @@ def TOTHH(usim_households, zones):
 
 
 @orca.column('zones', cache=True)
-def HHPOP(usim_persons, zones):
-# def TOTPOP(usim_persons, zones):
+def TOTPOP(usim_persons, zones):
     s = usim_persons.TAZ.groupby(usim_persons.TAZ).count()
     return s.reindex(zones.index).fillna(0)
 
@@ -802,8 +814,7 @@ def AGE62P(usim_persons, zones):
 
 @orca.column('zones', cache=True)
 def SHPOP62P(zones):
-    return (zones.AGE62P / zones.HHPOP).reindex(zones.index).fillna(0)
-#     return (zones.AGE62P / zones.TOTPOP).reindex(zones.index).fillna(0)
+    return (zones.AGE62P / zones.TOTPOP).reindex(zones.index).fillna(0)
 
 
 
@@ -899,7 +910,7 @@ def employment_density(zones):
 
 @orca.column('zones')
 def pop_density(zones):
-    return zones.HHPOP / zones.TOTACRE
+    return zones.TOTPOP / zones.TOTACRE
 
 
 @orca.column('zones')
@@ -971,10 +982,10 @@ def area_type_metric(zones):
     mode shares. However, we haven't found this to be the case.
     """
 
-    zones_df = zones.to_frame(columns=['HHPOP', 'TOTEMP', 'TOTACRE'])
+    zones_df = zones.to_frame(columns=['TOTPOP', 'TOTEMP', 'TOTACRE'])
 
     metric_vals = ((
-        1 * zones_df['HHPOP']) + (
+        1 * zones_df['TOTPOP']) + (
         2.5 * zones_df['TOTEMP'])) / zones_df['TOTACRE']
 
     return metric_vals.fillna(0)
@@ -1023,11 +1034,17 @@ def create_inputs_from_usim_data(data_dir, settings):
         # assign TAZ's to blocks if not already done. we only want to have to
         # do this once in an simulation workflow. The TAZ ID's will be
         # preserved in the land_use table
+        assign_taz_to_blocks = False
         if 'TAZ' not in orca.get_table('blocks').local_columns:
 
-            zones_gdf = orca.get_table('zones').to_frame(columns=['geometry'])
-            zones_gdf.crs = 'EPSG:4326'
+            assign_taz_to_blocks = True
 
+        elif orca.get_table('blocks')['TAZ'].isnull().all():
+
+            assign_taz_to_blocks = True
+
+        if assign_taz_to_blocks:
+            zones_gdf = orca.get_table('zones').to_frame(columns=['geometry'])
             blocks_gdf = orca.get_table('block_geoms').to_frame()
             blocks_gdf.crs = 'EPSG:4326'
 
@@ -1094,7 +1111,7 @@ def create_inputs_from_usim_data(data_dir, settings):
         lu_df.to_csv(os.path.join(data_dir, 'land_use.csv'))
         del lu_df
 
-        # close the datstore
+        # close the datastore
         store.close()
 
     else:

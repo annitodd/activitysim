@@ -75,7 +75,51 @@ def log_settings():
 
 if __name__ == '__main__':
 
-    injectables = ['data_dir','configs_dir','output_dir']
+    parser = argparse.ArgumentParser(add_help=False)
+
+    parser.add_argument(
+        "-b", "--bucket_name", action="store", help="s3 bucket name")
+    parser.add_argument(
+        "-y", "--year", action="store", type=int, help="data year")
+    parser.add_argument(
+        "-s", "--scenario", action="store", help="scenario")
+    parser.add_argument(
+        "-u", "--skims_url", action="store", help="url of skims .csv")
+    parser.add_argument(
+        "-x", "--path_to_remote_data", action="store",
+        help="url of urbansim .h5 model data")
+    parser.add_argument(
+        "-w", "--write_to_s3", action="store_true", help="write output to s3?")
+    parser.add_argument(
+        "-h", "--household_sample_size", action="store",
+        help="household sample size")
+
+    args = parser.parse_args()
+
+    if args.skims_url:
+        inject.add_injectable('beam_skims_url', args.skims_url)
+
+    if args.bucket_name:
+        inject.add_injectable('bucket_name', args.bucket_name)
+
+    if args.scenario:
+        inject.add_injectable('scenario', args.scenario)
+
+    if args.year:
+        inject.add_injectable('year', args.year)
+
+    if args.path_to_remote_data:
+        inject.add_injectable(
+            'remote_data_full_path', args.path_to_remote_data)
+
+    if args.write_to_s3:
+        inject.add_injectable('s3_output', True)
+
+    if args.household_sample_size:
+        config.override_setting(
+            'households_sample_size', args.household_sample_size)
+
+    injectables = ['data_dir', 'configs_dir', 'output_dir']
     inject.add_injectable('data_dir', 'data')
     inject.add_injectable('configs_dir', ['configs', 'configs/configs'])
 

@@ -1,67 +1,20 @@
-# input tables
+# input tables 
 input_table_list:
   - tablename: households
     filename: households.csv
     index_col: household_id
-    rename_columns:
-      HHID: household_id
-      PERSONS: hhsize
-      workers: num_workers
-      VEHICL: auto_ownership
-    keep_columns:
-      - TAZ
-      - income
-      - hhsize
-      - HHT
-      - auto_ownership
-      - num_workers
+    column_map:
+      household_id: household_id
   - tablename: persons
     filename: persons.csv
     index_col: person_id
-    rename_columns:
-      PERID: person_id
-    keep_columns:
-      - household_id
-      - age
-      - PNUM
-      - sex
-      - pemploy
-      - pstudent
-      - ptype
+    column_map:
+      person_id: person_id
   - tablename: land_use
     filename: land_use.csv
     index_col: TAZ
-    rename_columns:
+    column_map:
       ZONE: TAZ
-      COUNTY: county_id
-      HHPOP: TOTPOP #Drop this for future run (When Usim tables are generated) 
-    keep_columns:
-#       - DISTRICT
-#       - SD
-      - county_id
-      - TOTHH
-      - TOTPOP
-      - TOTACRE
-#       - RESACRE
-#       - CIACRE
-      - TOTEMP
-      - AGE0519
-      - RETEMPN
-      - FPSEMPN
-      - HEREMPN
-      - OTHEMPN
-      - AGREMPN
-      - MWTEMPN
-      - PRKCST
-      - OPRKCST
-      - area_type
-      - HSENROLL
-      - COLLFTE
-      - COLLPTE
-      - TOPOLOGY
-      - TERMINAL
-      - hh_density
-      - employment_density
 
 
 # input skims

@@ -42,8 +42,8 @@ beam_asim_transit_measure_map = {
     'IVT': 'TOTIVT_IVT_minutes' # In vehicle travel time (minutes)
 }
 
-beam_skims_types = {'timePeriod': str, 
-                    'pathType': str, 
+beam_skims_types = {'timePeriod': str,
+                    'pathType': str,
                     'origin': int,
                     'destination': int,
                     'TIME_minutes': float,
@@ -57,7 +57,8 @@ beam_skims_types = {'timePeriod': str,
                     'DDIST_meters': float,
                     'KEYIVT_minutes': float,
                     'FERRYIVT_minutes': float,
-                    'BOARDS': float
+                    'BOARDS': float,
+                    'DEBUG_TEXT': str
                     }
 
 
@@ -68,10 +69,10 @@ def raw_beam_skims(settings):
         beam_skims_url = inject.get_injectable('beam_skims_url')
     else:
         try:
+            beam_skims_url = settings['beam_skims_url']
             logger.info(
                 "No remote path to BEAM skims specified at runtime. "
-                "Trying default URL.")
-            beam_skims_url = settings['beam_skims_url']
+                "Trying default URL: {0}".format(beam_skims_url))
         except KeyError:
             raise KeyError(
                 "Couldn't find skims at the default URL either. See "
@@ -79,7 +80,7 @@ def raw_beam_skims(settings):
                 "for more ideas.")
 
     # load skims from url
-    skims = pd.read_csv(beam_skims_url, dtype = beam_skims_types)
+    skims = pd.read_csv(beam_skims_url, dtype=beam_skims_types)
 
     return skims
 
@@ -107,10 +108,11 @@ def create_skim_object(data_dir):
 
 # @inject.injectable(cache = True)
 def create_skims_by_mode():
-    '''Returns 2 OD pandas dataframe for auto and transit '''
+    '''Returns 2 OD pandas dataframe for auto and transit'''
+    logger.info("Splitting BEAM skims by mode.")
     raw_beam_skims = inject.get_table('raw_beam_skims')
     skims_df = raw_beam_skims.to_frame()
-    
+
     num_hours = skims_df['timePeriod'].nunique()
     num_modes = skims_df['pathType'].nunique()
     num_od_pairs = len(skims_df) / num_hours / num_modes
@@ -119,13 +121,15 @@ def create_skims_by_mode():
     num_taz = np.sqrt(num_od_pairs)
     assert num_taz.is_integer()
     num_taz = int(num_taz)
-    
+
     # convert beam skims to activitysim units (miles and minutes)
     skims_df['DIST_miles'] = skims_df['DIST_meters'] * (0.621371 / 1000)
     skims_df['DDIST_miles'] = skims_df['DDIST_meters'] * (0.621371 / 1000)
-    
-    skims_df = skims_df.sort_values(['origin', 'destination','TIME_minutes'])
-    auto_df = skims_df[(skims_df['pathType'] == 'SOV')]
+
+    skims_df = skims_df.sort_values(['origin', 'destination', 'TIME_minutes'])
+    logger.info('Splitting out auto skims.')
+    auto_df = skims_df.loc[skims_df['pathType'] == 'SOV']
+    logger.info('Splitting out transit skims.')
     transit_df = skims_df[(skims_df['pathType'].isin(transit_paths))]
     return auto_df, transit_df, num_taz
 
@@ -135,7 +139,7 @@ def distance_skims(auto_df, data_dir, num_taz):
     skims_path = os.path.join(data_dir, 'skims.omx')
     skims = omx.open_file(skims_path, 'a')
     
-    #TO DO: Include walk and bike distances, for now walk and bike are the same as drive. 
+    #TO DO: Include walk and bike distances, for now walk and bike are the same as drive.
     distances_auto = auto_df.drop_duplicates(['origin', 'destination'], keep = 'last')[beam_asim_hwy_measure_map['DIST']]
     distances_auto = distances_auto.replace(0, np.random.normal(39,20)) #TO DO: Do something better. 
     # distances_walk = walk_df.drop_duplicates(['origin', 'destination'])[beam_asim_hwy_measure_map['DIST']]
@@ -150,7 +154,7 @@ def distance_skims(auto_df, data_dir, num_taz):
     skims.close()
 
 # @inject.injectable(cache = True)
-def transit_acces(transit_df, access_paths, num_taz):
+def transit_access(transit_df, access_paths, num_taz):
     ''' OD pair value for drive access '''
     df = transit_df[transit_df.pathType.isin(access_paths)]
     df.drop_duplicates(['origin','destination'], keep = 'last', inplace = True)
@@ -160,6 +164,7 @@ def transit_acces(transit_df, access_paths, num_taz):
 # @inject.injectable(cache = True)
 def transit_skims(transit_df, data_dir, num_taz):
     """ Generate transit OMX skims"""
+    logger.info("Creating transit skims.")
     #Open skims object
     skims_path = os.path.join(data_dir, 'skims.omx')
     skims = omx.open_file(skims_path, 'a')
@@ -167,8 +172,8 @@ def transit_skims(transit_df, data_dir, num_taz):
     drive_access = ['DRV_COM_WLK', 'DRV_HVY_WLK', 'DRV_LOC_WLK','DRV_LRF_WLK','DRV_EXP_WLK']
     walk_acces = ['WLK_COM_WLK', 'WLK_HVY_WLK', 'WLK_LOC_WLK','WLK_LRF_WLK','WLK_EXP_WLK', 'WLK_TRN_WLK']
 
-    drive_access_values = transit_acces(transit_df, drive_access, num_taz)
-    walk_access_values =  transit_acces(transit_df, walk_acces, num_taz)
+    drive_access_values = transit_access(transit_df, drive_access, num_taz)
+    walk_access_values =  transit_access(transit_df, walk_acces, num_taz)
 
     for path in transit_paths:
         path_ = path.replace('EXP', "LOC") #Get the values of LOC for EXP. 
@@ -198,6 +203,7 @@ def transit_skims(transit_df, data_dir, num_taz):
 
 # @inject.injectable(cache = True, data_dir)
 def auto_skims(auto_df, data_dir,num_taz):
+    logger.info("Creating drive skims.")
     #Open skims object
     skims_path = os.path.join(data_dir, 'skims.omx')
     skims = omx.open_file(skims_path, 'a')
@@ -218,6 +224,8 @@ def auto_skims(auto_df, data_dir,num_taz):
     skims.close()
 
 def create_offset(auto_df, data_dir):
+    logger.info("Creating skims offset keys")
+
     #Open skims object
     skims_path = os.path.join(data_dir, 'skims.omx')
     skims = omx.open_file(skims_path, 'a')
