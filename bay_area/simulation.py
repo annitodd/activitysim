@@ -5,7 +5,6 @@ from __future__ import (absolute_import, division, print_function, )
 from future.standard_library import install_aliases
 install_aliases()  # noqa: E402
 
-import sys
 import logging
 import argparse
 
@@ -35,6 +34,8 @@ def cleanup_output_files():
 
 
 def run(run_list, injectables=None):
+
+    # TO DO: move these pre-processing steps to PILATES
 
     # Create a new skims.omx file from BEAM (http://beam.lbl.gov/) skims
     # if skims do not already exist in the input data directory
@@ -97,23 +98,23 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.skims_url:
-        inject.add_injectable('beam_skims_url', args.skims_url)
+        config.override_setting('beam_skims_url', args.skims_url)
 
     if args.bucket_name:
-        inject.add_injectable('bucket_name', args.bucket_name)
+        config.override_setting('bucket_name', args.bucket_name)
 
     if args.scenario:
-        inject.add_injectable('scenario', args.scenario)
+        config.override_setting('scenario', args.scenario)
 
     if args.year:
-        inject.add_injectable('year', args.year)
+        config.override_setting('year', args.year)
 
     if args.path_to_remote_data:
-        inject.add_injectable(
+        config.override_setting(
             'remote_data_full_path', args.path_to_remote_data)
 
     if args.write_to_s3:
-        inject.add_injectable('s3_output', True)
+        config.override_setting('s3_output', True)
 
     if args.household_sample_size:
         config.override_setting(
@@ -142,17 +143,18 @@ if __name__ == '__main__':
 
         # do this after config.handle_standard_args,
         # as command line args may override injectables
-#         injectables = list(
-#             set(injectables) | set(['data_dir', 'configs_dir', 'output_dir']))
+        # injectables = list(
+        #     set(injectables) | set(
+        #     ['data_dir', 'configs_dir', 'output_dir']))
         injectables = {k: inject.get_injectable(k) for k in injectables}
     else:
         injectables = None
 
     run(run_list, injectables)
 
-    # pipeline will be closed if multiprocessing
+    # pipeline will be closed after run if multiprocessing
     # if you want access to tables, BE SURE TO OPEN
-    # WITH '_' or all tables will be reinitialized
+    # WITH '_' or all tables will be reinitialized (deleted)
     # pipeline.open_pipeline('_')
 
     t0 = tracing.print_elapsed_time("everything", t0)

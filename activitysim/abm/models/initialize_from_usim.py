@@ -259,21 +259,20 @@ def store(data_dir, settings):
     data_store_path = os.path.join(data_dir, settings['usim_data_store'])
     if not os.path.exists(data_store_path):
 
-        if not inject.get_injectable('remote_data_full_path', False):
+        if not settings.get('remote_data_full_path', False):
             logger.info("Creating remote data path from default parameters.")
-            bucket = inject.get_injectable(
-                'bucket_name', settings['bucket_name'])
-            scenario = inject.get_injectable('scenario', settings['scenario'])
-            year = inject.get_injectable('year', settings['sim_year'])
+            bucket = settings.get('bucket_name')
+            scenario = settings.get('scenario')
+            year = settings.get('year')
+            usim_data_store = settings.get('usim_data_store')
             if not isinstance(year, str):
                 year = str(year)
 
             remote_data_full_path = os.path.join(
-                bucket, 'input', scenario, year, settings['usim_data_store'])
+                bucket, 'input', scenario, year, usim_data_store)
 
         else:
-            remote_data_full_path = inject.get_injectable(
-                'remote_data_full_path')
+            remote_data_full_path = settings.get('remote_data_full_path')
 
         logger.info("Downloading UrbanSim data from s3 at {0}!".format(
             remote_data_full_path))
