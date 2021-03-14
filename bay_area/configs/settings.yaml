@@ -15,7 +15,7 @@ beam_skims_url: https://beam-outputs.s3.amazonaws.com/output/sfbay/sfbay-smartba
 
 # urbansim data
 create_inputs_from_usim_data: True
-sim_year: 2010
+year: 2010
 scenario: base
 bucket_name: bayarea-activitysim
 usim_data_store: model_data.h5
