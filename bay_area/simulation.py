@@ -118,7 +118,7 @@ if __name__ == '__main__':
 
     if args.household_sample_size:
         config.override_setting(
-            'households_sample_size', args.household_sample_size)
+            'households_sample_size', int(args.household_sample_size))
 
     injectables = ['data_dir', 'configs_dir', 'output_dir']
     inject.add_injectable('data_dir', 'data')
