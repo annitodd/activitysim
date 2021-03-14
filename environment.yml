@@ -217,4 +217,4 @@ dependencies:
     - toolz==0.11.1
     - urllib3==1.26.3
     - zbox==1.2.0
-prefix: /home/ubuntu/anaconda3/envs/asim3
+prefix: /home/ubuntu/anaconda3/envs/asim

@@ -63,7 +63,7 @@ households_sample_size: 0
 # multiprocessing controls
 multiprocess: True
 chunk_size: 4000000000
-num_processes: 15
+num_processes: 24
 stagger: 0
 
 # tracing
