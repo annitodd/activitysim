@@ -77,7 +77,7 @@ There is also two submodels that get run in-sequence with the main ActivitySim s
 
 ## Docker
 - `docker build -t <dockeruser>/activitysim .`
-- `docker run -w <working dir, e.g. "bay_area"> <dockeruser>/activitysim -b <s3 bucket> -y <input data year> -s <scenario> -u <skims url> -w`
+- `docker run -w <working dir, e.g. "/activitysim/bay_area"> <dockeruser>/activitysim -b <s3 bucket> -y <input data year> -s <scenario> -u <skims url> -w`
 
 
 ## [TO DO](https://github.com/ual/activitysim/wiki/TO-DO)
