@@ -10,7 +10,8 @@ import requests
 import logging
 from tqdm import tqdm
 import time
-import s3fs
+import boto3
+from botocore.exceptions import ClientError
 
 from activitysim.core import config
 from activitysim.core import inject
@@ -36,12 +37,6 @@ def get_county_block_geoms(state_fips, county_fips):
         'Tracts_Blocks/MapServer/12/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
         '&outFields=GEOID%2CSTATE%2CCOUNTY%2CTRACT%2CBLKGRP%2CBLOCK%2CCENTLAT'
         '%2CCENTLON&outSR=%7B"wkid"+%3A+4326%7D&f=pjson')
-
-    # base_url = ( ## Census group base_url
-    #     'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/'
-    #     'Tracts_Blocks/MapServer/11/query?where=STATE%3D{0}+and+COUNTY%3D{1}'
-    #     '&outFields=GEOID%2CSTATE%2CCOUNTY%2CTRACT%2CBLKGRP%2CCENTLAT'
-    #     '%2CCENTLON&outSR=%7B"wkid"+%3A+4326%7D&f=pjson')
     url = base_url.format(state_fips, county_fips)
     result = requests.get(url)
     features = result.json()['features']
@@ -226,6 +221,14 @@ def get_part_time_enrollment(state_fips):
     return s
 
 
+def exists_on_s3(s3_client, bucket, key):
+    try:
+        s3_client.head_object(Bucket=bucket, Key=key)
+    except ClientError as e:
+        return int(e.response['Error']['Code']) != 404
+    return True
+
+
 # ** define injectables we'll use over and over **
 @orca.injectable()
 def county_codes(blocks):
@@ -276,16 +279,16 @@ def store(data_dir, settings):
 
         logger.info("Downloading UrbanSim data from s3 at {0}!".format(
             remote_data_full_path))
-        s3 = s3fs.S3FileSystem()
-
-        if not s3.exists(remote_data_full_path):
+        s3 = boto3.client('s3')
+        bucket = remote_data_full_path.split('/')[0]
+        key = os.path.join(*remote_data_full_path.split('/')[1:])
+        if not exists_on_s3(s3, bucket, key):
             raise KeyError(
                 "No remote model data found using default path. See "
-                "simluation.py --help or configs/settings.yaml "
+                "simuation.py --help or configs/settings.yaml "
                 "for more ideas.")
-
-        with open(data_store_path, 'w') as f:
-            s3.get(remote_data_full_path, f.name)
+        with open(data_store_path, 'wb') as f:
+            s3.download_fileobj(bucket, key, f)
 
     logger.info("Loading UrbanSim input data from disk!")
     store = pd.HDFStore(data_store_path)

@@ -1,4 +1,5 @@
-import s3fs
+import boto3
+from botocore.exceptions import ClientError
 import logging
 import pandas as pd
 import zipfile
@@ -9,6 +10,14 @@ from activitysim.core import inject
 
 
 logger = logging.getLogger(__name__)
+
+
+def exists_on_s3(s3_client, bucket, key):
+    try:
+        s3_client.head_object(Bucket=bucket, Key=key)
+    except ClientError as e:
+        return int(e.response['Error']['Code']) != 404
+    return True
 
 
 @inject.step()
@@ -67,9 +76,16 @@ def write_outputs_to_s3(data_dir, settings):
         remote_s3_path = os.path.join(
             settings['bucket_name'], "input", scenario, year,
             settings['usim_data_store'])
-        s3 = s3fs.S3FileSystem()
-        with open(data_store_path, 'w') as f:
-            s3.get(remote_s3_path, f.name)
+        s3 = boto3.client('s3')
+        bucket = remote_s3_path.split('/')[0]
+        key = os.path.join(*remote_s3_path.split('/')[1:])
+        if not exists_on_s3(s3, bucket, key):
+            raise KeyError(
+                "No remote model data found using default path. See "
+                "simuation.py --help or configs/settings.yaml "
+                "for more ideas.")
+        with open(data_store_path, 'wb') as f:
+            s3.download_fileobj(bucket, key, f)
 
     logger.info("Loading input .h5 from into memory!")
     input_store = pd.HDFStore(data_store_path)
@@ -163,39 +179,49 @@ def write_outputs_to_s3(data_dir, settings):
                 table_name + ".csv", asim_output_dict[table_name].to_csv())
     logger.info("Done creating .zip archive!")
 
-    s3fs.S3FileSystem.read_timeout = 100
-    logger.info("Establishing connection with s3...Will timeout after 100 seconds!")
-    fs = s3fs.S3FileSystem(config_kwargs={'read_timeout': 100})
+    logger.info("Establishing connection with s3.")
+    s3 = boto3.client('s3')
     logger.info("Connected!")
 
     remote_s3_path = os.path.join(
         bucket, "output", scenario, year, archive_name)
+    bucket = remote_s3_path.split('/')[0]
+    key = os.path.join(*remote_s3_path.split('/')[1:])
     logger.info("Preparing to write zip archive to {0}".format(remote_s3_path))
 
-    if fs.exists(remote_s3_path):
+    if exists_on_s3(s3, bucket, key):
         logger.info("Archiving old outputs first.")
-        ts = fs.info(remote_s3_path)['LastModified'].strftime(
-            "%Y_%m_%d_%H%M%S")
+        last_mod_datetime = s3.head_object(
+            Bucket=bucket, Key=key)['LastModified']
+        ts = last_mod_datetime.strftime("%Y_%m_%d_%H%M%S")
         new_fname = archive_name.split('.')[0] + \
             '_' + ts + '.' + archive_name.split('.')[-1]
         new_path_elements = remote_s3_path.split("/")[:4] + [
             'archive', new_fname]
         new_fpath = os.path.join(*new_path_elements)
-        if fs.exists(new_fpath):
-            fs.rm(remote_s3_path)
+        new_key = os.path.join(*new_fpath.split('/')[1:])
+        if exists_on_s3(s3, bucket, new_key):
+            # archive already created, just delete og
+            s3.delete_object(Bucket=bucket, Key=key)
         else:
-            fs.mv(remote_s3_path, new_fpath)
+            s3.copy_object(
+                Bucket=bucket,
+                CopySource={'Bucket': bucket, 'Key': key},
+                Key=new_key)
     logger.info('Sending combined data to s3!')
-    fs.put(outpath, remote_s3_path)
+    with open(outpath, 'rb') as archive:
+        s3.upload_fileobj(archive, bucket, key)
     logger.info(
         'Zipped archive of results for use in UrbanSim or BEAM now available '
-        'at {0}'.format("s3://" + remote_s3_path))
+        'at {0}'.format("s3://" + os.path.join(bucket, key)))
 
     # 6. WRITE OUT FOR USIM
     usim_archive_name = 'model_data.h5'
     outpath_usim = config.output_file_path(usim_archive_name)
     usim_remote_s3_path = os.path.join(
         bucket, 'output', scenario, year, usim_archive_name)
+    bucket = usim_remote_s3_path.split('/')[0]
+    key = os.path.join(*usim_remote_s3_path.split('/')[1:])
     logger.info(
         'Merging results back into UrbanSim format and storing as .h5!')
     out_store = pd.HDFStore(outpath_usim)
@@ -218,22 +244,29 @@ def write_outputs_to_s3(data_dir, settings):
 
     out_store.close()
     logger.info("Copying outputs to UrbanSim inputs!")
-    if fs.exists(usim_remote_s3_path):
+    if exists_on_s3(s3, bucket, key):
         logger.info("Archiving old outputs first.")
-        ts = fs.info(usim_remote_s3_path)['LastModified'].strftime(
-            "%Y_%m_%d_%H%M%S")
+        last_mod_datetime = s3.head_object(
+            Bucket=bucket, Key=key)['LastModified']
+        ts = last_mod_datetime.strftime("%Y_%m_%d_%H%M%S")
         new_fname = archive_name.split('.')[0] + \
             '_' + ts + '.' + usim_archive_name.split('.')[-1]
         new_path_elements = usim_remote_s3_path.split("/")[:4] + [
             'archive', new_fname]
         new_fpath = os.path.join(*new_path_elements)
-        if fs.exists(new_fpath):
-            fs.rm(usim_remote_s3_path)
+        new_key = os.path.join(*new_fpath.split('/')[1:])
+        if exists_on_s3(s3, bucket, new_key):
+            # archive already created, just delete og
+            s3.delete_object(Bucket=bucket, Key=key)
         else:
-            fs.mv(usim_remote_s3_path, new_fpath)
-    fs.put(outpath_usim, usim_remote_s3_path)
+            s3.copy_object(
+                Bucket=bucket,
+                CopySource={'Bucket': bucket, 'Key': key},
+                Key=new_key)
+    with open(outpath_usim, 'rb') as archive:
+        s3.upload_fileobj(archive, bucket, key)
     logger.info(
         'New UrbanSim model data now available '
-        'at {0}'.format("s3://" + usim_remote_s3_path))
+        'at {0}'.format("s3://" + os.path.join(bucket, key)))
 
     input_store.close()
