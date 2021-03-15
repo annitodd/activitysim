@@ -161,9 +161,12 @@ def write_outputs_to_s3(data_dir, settings):
                 "Zipping {0} asim table to output archive!".format(table_name))
             csv_zip.writestr(
                 table_name + ".csv", asim_output_dict[table_name].to_csv())
+    logger.info("Done creating .zip archive!")
 
-    s3fs.S3FileSystem.read_timeout = 84600
-    fs = s3fs.S3FileSystem(config_kwargs={'read_timeout': 86400})
+    s3fs.S3FileSystem.read_timeout = 100
+    logger.info("Establishing connection with s3...Will timeout after 100 seconds!")
+    fs = s3fs.S3FileSystem(config_kwargs={'read_timeout': 100})
+    logger.info("Connected!")
 
     remote_s3_path = os.path.join(
         bucket, "output", scenario, year, archive_name)
@@ -200,8 +203,8 @@ def write_outputs_to_s3(data_dir, settings):
     # copy usim static inputs into archive
     for table_name in input_store.keys():
         logger.info(
-                "Copying {0} input table to output store!".format(
-                    table_name))
+            "Copying {0} input table to output store!".format(
+                table_name))
         if table_name not in [
                 '/persons', '/households', 'persons', 'households']:
             out_store.put(table_name, input_store[table_name], format='t')
@@ -209,8 +212,8 @@ def write_outputs_to_s3(data_dir, settings):
     # copy asim outputs into archive
     for table_name in updated_tables:
         logger.info(
-                "Copying {0} asim table to output store!".format(
-                    table_name))
+            "Copying {0} asim table to output store!".format(
+                table_name))
         out_store.put(table_name, asim_output_dict[table_name], format='t')
 
     out_store.close()
