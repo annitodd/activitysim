@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 @inject.step()
 def write_outputs_to_s3(data_dir, settings):
 
-    s3_output = inject.get_injectable('s3_output', settings['s3_output'])
+    s3_output = settings.get('s3_output', False)
     if s3_output is False:
         return
 
@@ -23,9 +23,9 @@ def write_outputs_to_s3(data_dir, settings):
     updated_tables = ['households', 'persons']
 
     # run vars
-    bucket = inject.get_injectable('bucket_name', settings['bucket_name'])
-    scenario = inject.get_injectable('scenario', settings['scenario'])
-    year = inject.get_injectable('year', settings['year'])
+    bucket = settings['bucket_name']
+    scenario = settings['scenario']
+    year = settings['year']
     if not isinstance(year, str):
         year = str(year)
 
@@ -36,7 +36,7 @@ def write_outputs_to_s3(data_dir, settings):
     output_tables = output_tables_settings['tables']
 
     asim_output_dict = {}
-
+    logger.info("H5 storage setting is {0}!".format(str(h5_output)))
     if h5_output is False:
         for table_name in output_tables:
             file_name = "%s%s.csv" % (prefix, table_name)
@@ -54,6 +54,8 @@ def write_outputs_to_s3(data_dir, settings):
         file_path = config.output_file_path(file_name)
         store = pd.HDFStore(file_path)
         for table_name in output_tables:
+            logger.info(
+                "Loading asim output {0} table into memory".format(table_name))
             asim_output_dict[table_name] = store[table_name]
         store.close()
 
@@ -69,6 +71,7 @@ def write_outputs_to_s3(data_dir, settings):
         with open(data_store_path, 'w') as f:
             s3.get(remote_s3_path, f.name)
 
+    logger.info("Loading input .h5 from into memory!")
     input_store = pd.HDFStore(data_store_path)
 
     required_cols = {}
@@ -76,6 +79,7 @@ def write_outputs_to_s3(data_dir, settings):
         required_cols[table_name] = list(input_store[table_name].columns)
 
     # 3. PREPARE NEW PERSONS TABLE
+    logger.info("Preparing persons table!")
     # new columns to persist: workplace_taz, school_taz
     p_names_dict = {'PNUM': 'member_id'}
     p_cols_to_include = required_cols['persons']
@@ -91,6 +95,7 @@ def write_outputs_to_s3(data_dir, settings):
             p_cols_to_include]
 
     # 4. PREPARE NEW HOUSEHOLDS TABLE
+    logger.info("Preparing households table!")
     # no new columns to persist, just convert column names
     hh_names_dict = {
         'hhsize': 'persons',
@@ -109,6 +114,8 @@ def write_outputs_to_s3(data_dir, settings):
 
     # 5. ENSURE MATCHING SCHEMAS FOR UPDATED TABLES
     for table_name in updated_tables:
+        logger.info(
+            "Validating data schemas for table {0}.".format(table_name))
 
         # make sure all required columns are present
         if not all([
@@ -139,6 +146,9 @@ def write_outputs_to_s3(data_dir, settings):
 
         # copy usim static inputs into archive
         for table_name in input_store.keys():
+            logger.info(
+                "Zipping {0} input table to output archive!".format(
+                    table_name))
             if table_name not in [
                     '/persons', '/households', 'persons', 'households']:
                 df = input_store[table_name].reset_index()
@@ -147,6 +157,8 @@ def write_outputs_to_s3(data_dir, settings):
 
         # copy asim outputs into archive
         for table_name in asim_output_dict.keys():
+            logger.info(
+                "Zipping {0} asim table to output archive!".format(table_name))
             csv_zip.writestr(
                 table_name + ".csv", asim_output_dict[table_name].to_csv())
 
@@ -155,6 +167,7 @@ def write_outputs_to_s3(data_dir, settings):
 
     remote_s3_path = os.path.join(
         bucket, "output", scenario, year, archive_name)
+    logger.info("Preparing to write zip archive to {0}".format(remote_s3_path))
 
     if fs.exists(remote_s3_path):
         logger.info("Archiving old outputs first.")
@@ -186,12 +199,18 @@ def write_outputs_to_s3(data_dir, settings):
 
     # copy usim static inputs into archive
     for table_name in input_store.keys():
+        logger.info(
+                "Copying {0} input table to output store!".format(
+                    table_name))
         if table_name not in [
                 '/persons', '/households', 'persons', 'households']:
             out_store.put(table_name, input_store[table_name], format='t')
 
     # copy asim outputs into archive
     for table_name in updated_tables:
+        logger.info(
+                "Copying {0} asim table to output store!".format(
+                    table_name))
         out_store.put(table_name, asim_output_dict[table_name], format='t')
 
     out_store.close()
