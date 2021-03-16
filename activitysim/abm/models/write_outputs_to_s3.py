@@ -179,94 +179,95 @@ def write_outputs_to_s3(data_dir, settings):
                 table_name + ".csv", asim_output_dict[table_name].to_csv())
     logger.info("Done creating .zip archive!")
 
-    logger.info("Establishing connection with s3.")
-    s3 = boto3.client('s3')
-    logger.info("Connected!")
+    # THIS SHOULD ALL GET MOVED TO PILATES
+    # logger.info("Establishing connection with s3.")
+    # s3 = boto3.client('s3')
+    # logger.info("Connected!")
 
-    remote_s3_path = os.path.join(
-        bucket, "output", scenario, year, archive_name)
-    bucket = remote_s3_path.split('/')[0]
-    key = os.path.join(*remote_s3_path.split('/')[1:])
-    logger.info("Preparing to write zip archive to {0}".format(remote_s3_path))
+    # remote_s3_path = os.path.join(
+    #     bucket, "output", scenario, year, archive_name)
+    # bucket = remote_s3_path.split('/')[0]
+    # key = os.path.join(*remote_s3_path.split('/')[1:])
+    # logger.info("Preparing to write zip archive to {0}".format(remote_s3_path))
 
-    if exists_on_s3(s3, bucket, key):
-        logger.info("Archiving old outputs first.")
-        last_mod_datetime = s3.head_object(
-            Bucket=bucket, Key=key)['LastModified']
-        ts = last_mod_datetime.strftime("%Y_%m_%d_%H%M%S")
-        new_fname = archive_name.split('.')[0] + \
-            '_' + ts + '.' + archive_name.split('.')[-1]
-        new_path_elements = remote_s3_path.split("/")[:4] + [
-            'archive', new_fname]
-        new_fpath = os.path.join(*new_path_elements)
-        new_key = os.path.join(*new_fpath.split('/')[1:])
-        if exists_on_s3(s3, bucket, new_key):
-            # archive already created, just delete og
-            s3.delete_object(Bucket=bucket, Key=key)
-        else:
-            s3.copy_object(
-                Bucket=bucket,
-                CopySource={'Bucket': bucket, 'Key': key},
-                Key=new_key)
-    logger.info('Sending combined data to s3!')
-    with open(outpath, 'rb') as archive:
-        s3.upload_fileobj(archive, bucket, key)
-    logger.info(
-        'Zipped archive of results for use in UrbanSim or BEAM now available '
-        'at {0}'.format("s3://" + os.path.join(bucket, key)))
+    # if exists_on_s3(s3, bucket, key):
+    #     logger.info("Archiving old outputs first.")
+    #     last_mod_datetime = s3.head_object(
+    #         Bucket=bucket, Key=key)['LastModified']
+    #     ts = last_mod_datetime.strftime("%Y_%m_%d_%H%M%S")
+    #     new_fname = archive_name.split('.')[0] + \
+    #         '_' + ts + '.' + archive_name.split('.')[-1]
+    #     new_path_elements = remote_s3_path.split("/")[:4] + [
+    #         'archive', new_fname]
+    #     new_fpath = os.path.join(*new_path_elements)
+    #     new_key = os.path.join(*new_fpath.split('/')[1:])
+    #     if exists_on_s3(s3, bucket, new_key):
+    #         # archive already created, just delete og
+    #         s3.delete_object(Bucket=bucket, Key=key)
+    #     else:
+    #         s3.copy_object(
+    #             Bucket=bucket,
+    #             CopySource={'Bucket': bucket, 'Key': key},
+    #             Key=new_key)
+    # logger.info('Sending combined data to s3!')
+    # with open(outpath, 'rb') as archive:
+    #     s3.upload_fileobj(archive, bucket, key)
+    # logger.info(
+    #     'Zipped archive of results for use in UrbanSim or BEAM now available '
+    #     'at {0}'.format("s3://" + os.path.join(bucket, key)))
 
-    # 6. WRITE OUT FOR USIM
-    usim_archive_name = 'model_data.h5'
-    outpath_usim = config.output_file_path(usim_archive_name)
-    usim_remote_s3_path = os.path.join(
-        bucket, 'output', scenario, year, usim_archive_name)
-    bucket = usim_remote_s3_path.split('/')[0]
-    key = os.path.join(*usim_remote_s3_path.split('/')[1:])
-    logger.info(
-        'Merging results back into UrbanSim format and storing as .h5!')
-    out_store = pd.HDFStore(outpath_usim)
+    # # 6. WRITE OUT FOR USIM
+    # usim_archive_name = 'model_data.h5'
+    # outpath_usim = config.output_file_path(usim_archive_name)
+    # usim_remote_s3_path = os.path.join(
+    #     bucket, 'output', scenario, year, usim_archive_name)
+    # bucket = usim_remote_s3_path.split('/')[0]
+    # key = os.path.join(*usim_remote_s3_path.split('/')[1:])
+    # logger.info(
+    #     'Merging results back into UrbanSim format and storing as .h5!')
+    # out_store = pd.HDFStore(outpath_usim)
 
-    # copy usim static inputs into archive
-    for table_name in input_store.keys():
-        logger.info(
-            "Copying {0} input table to output store!".format(
-                table_name))
-        if table_name not in [
-                '/persons', '/households', 'persons', 'households']:
-            out_store.put(table_name, input_store[table_name], format='t')
+    # # copy usim static inputs into archive
+    # for table_name in input_store.keys():
+    #     logger.info(
+    #         "Copying {0} input table to output store!".format(
+    #             table_name))
+    #     if table_name not in [
+    #             '/persons', '/households', 'persons', 'households']:
+    #         out_store.put(table_name, input_store[table_name], format='t')
 
-    # copy asim outputs into archive
-    for table_name in updated_tables:
-        logger.info(
-            "Copying {0} asim table to output store!".format(
-                table_name))
-        out_store.put(table_name, asim_output_dict[table_name], format='t')
+    # # copy asim outputs into archive
+    # for table_name in updated_tables:
+    #     logger.info(
+    #         "Copying {0} asim table to output store!".format(
+    #             table_name))
+    #     out_store.put(table_name, asim_output_dict[table_name], format='t')
 
-    out_store.close()
-    logger.info("Copying outputs to UrbanSim inputs!")
-    if exists_on_s3(s3, bucket, key):
-        logger.info("Archiving old outputs first.")
-        last_mod_datetime = s3.head_object(
-            Bucket=bucket, Key=key)['LastModified']
-        ts = last_mod_datetime.strftime("%Y_%m_%d_%H%M%S")
-        new_fname = archive_name.split('.')[0] + \
-            '_' + ts + '.' + usim_archive_name.split('.')[-1]
-        new_path_elements = usim_remote_s3_path.split("/")[:4] + [
-            'archive', new_fname]
-        new_fpath = os.path.join(*new_path_elements)
-        new_key = os.path.join(*new_fpath.split('/')[1:])
-        if exists_on_s3(s3, bucket, new_key):
-            # archive already created, just delete og
-            s3.delete_object(Bucket=bucket, Key=key)
-        else:
-            s3.copy_object(
-                Bucket=bucket,
-                CopySource={'Bucket': bucket, 'Key': key},
-                Key=new_key)
-    with open(outpath_usim, 'rb') as archive:
-        s3.upload_fileobj(archive, bucket, key)
-    logger.info(
-        'New UrbanSim model data now available '
-        'at {0}'.format("s3://" + os.path.join(bucket, key)))
+    # out_store.close()
+    # logger.info("Copying outputs to UrbanSim inputs!")
+    # if exists_on_s3(s3, bucket, key):
+    #     logger.info("Archiving old outputs first.")
+    #     last_mod_datetime = s3.head_object(
+    #         Bucket=bucket, Key=key)['LastModified']
+    #     ts = last_mod_datetime.strftime("%Y_%m_%d_%H%M%S")
+    #     new_fname = archive_name.split('.')[0] + \
+    #         '_' + ts + '.' + usim_archive_name.split('.')[-1]
+    #     new_path_elements = usim_remote_s3_path.split("/")[:4] + [
+    #         'archive', new_fname]
+    #     new_fpath = os.path.join(*new_path_elements)
+    #     new_key = os.path.join(*new_fpath.split('/')[1:])
+    #     if exists_on_s3(s3, bucket, new_key):
+    #         # archive already created, just delete og
+    #         s3.delete_object(Bucket=bucket, Key=key)
+    #     else:
+    #         s3.copy_object(
+    #             Bucket=bucket,
+    #             CopySource={'Bucket': bucket, 'Key': key},
+    #             Key=new_key)
+    # with open(outpath_usim, 'rb') as archive:
+    #     s3.upload_fileobj(archive, bucket, key)
+    # logger.info(
+    #     'New UrbanSim model data now available '
+    #     'at {0}'.format("s3://" + os.path.join(bucket, key)))
 
-    input_store.close()
+    # input_store.close()
