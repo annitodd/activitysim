@@ -49,8 +49,8 @@ multiprocess_steps:
     begin: school_location
     slice: {'tables': ['households', 'persons']}
     step_num: 1
-    num_processes: 15
-    chunk_size: 266666667
+    num_processes: 20
+    chunk_size: 200000000
     models:
        - school_location
        - workplace_location

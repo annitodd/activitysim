@@ -5,5 +5,33 @@
   name: mp_initialize
   simulate: true
 - apportion: true
-  completed: []
+  coalesce: true
+  completed:
+  - mp_households_0
+  - mp_households_11
+  - mp_households_6
+  - mp_households_7
+  - mp_households_16
+  - mp_households_8
+  - mp_households_1
+  - mp_households_5
+  - mp_households_9
+  - mp_households_17
+  - mp_households_19
+  - mp_households_3
+  - mp_households_18
+  - mp_households_2
+  - mp_households_4
+  - mp_households_10
+  - mp_households_15
+  - mp_households_12
+  - mp_households_14
+  - mp_households_13
   name: mp_households
+  simulate: true
+- apportion: true
+  coalesce: true
+  completed:
+  - mp_summarize
+  name: mp_summarize
+  simulate: true
