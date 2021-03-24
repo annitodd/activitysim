@@ -30,8 +30,10 @@ models:
   -  trip_purpose_and_destination
   -  trip_scheduling
   -  trip_mode_choice
+  -  generate_beam_plans
   -  write_data_dictionary
   -  write_tables
+  -  write_outputs_to_s3
 
 multiprocess_steps:
   step: mp_initialize
@@ -49,8 +51,8 @@ multiprocess_steps:
     begin: school_location
     slice: {'tables': ['households', 'persons']}
     step_num: 1
-    num_processes: 15
-    chunk_size: 266666667
+    num_processes: 24
+    chunk_size: 166666667
     models:
        - school_location
        - workplace_location
@@ -80,10 +82,12 @@ multiprocess_steps:
        - trip_mode_choice
   step: mp_summarize
     name: mp_summarize
-    begin: write_data_dictionary
+    begin: generate_beam_plans
     step_num: 2
     num_processes: 1
     chunk_size: 4000000000
     models:
+       - generate_beam_plans
        - write_data_dictionary
        - write_tables
+       - write_outputs_to_s3
