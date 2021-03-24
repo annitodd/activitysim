@@ -2,6 +2,8 @@ sandbox/
 example/data/*
 bay_area_urbansim/data/*
 bay_area_urbansim/output/*
+bay_area/data/*
+bay_area/output/*
 *.h5
 .ipynb_checkpoints
 .coverage*
