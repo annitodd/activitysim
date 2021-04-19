@@ -241,6 +241,7 @@ def generate_beam_plans():
     mode_shares = expanded_trips[
         'mode_type'].value_counts() / len(expanded_trips)
     mode_shares = np.round(mode_shares * 100, 1)
+    mode_shares.keys()
     logger.warning(
         "MODE SHARES -- drive: {0}% // transit: {1}% // active: {2}%".format(
             mode_shares['drive'], mode_shares['transit'],
