@@ -20,6 +20,8 @@ scenario: base
 bucket_name: bayarea-activitysim
 usim_data_store: model_data.h5
 usim_zone_geoms: Transportation_Analysis_Zones.shp
+usim_zone_index: objectid
+remote_data_full_path: bayarea-activitysim/input/base/2010/model_data.h5
 
 #####################
 #   ASIM SETTINGS   #
@@ -62,8 +64,8 @@ households_sample_size: 0
 
 # multiprocessing controls
 multiprocess: True
-chunk_size: 4000000000
-num_processes: 24
+chunk_size: 5000000000
+num_processes: 60
 stagger: 0
 
 # tracing

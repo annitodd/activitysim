@@ -282,6 +282,7 @@ def store(data_dir, settings):
 
         else:
             remote_data_full_path = settings.get('remote_data_full_path')
+        print(remote_data_full_path)
 
         logger.info("Downloading UrbanSim data from s3 at {0}!".format(
             remote_data_full_path))
