@@ -1,0 +1,2 @@
+trip_id,person_id,household_id,tour_id,primary_purpose,trip_num,outbound,trip_count,purpose,destination,origin,destination_logsum,chunk_id,earliest,latest,tour_hour,next_trip_id,HR5,HR6,HR7,HR8,HR9,HR10,HR11,HR12,HR13,HR14,HR15,HR16,HR17,HR18,HR19,HR20,HR21,HR22,HR23
+337738898,1029691,409302,42217362,univ,2,True,2,univ,566,583,,2,19.0,19.0,19,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
