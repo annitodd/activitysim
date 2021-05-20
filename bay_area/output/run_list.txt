@@ -41,7 +41,7 @@ multiprocess_steps:
     begin: initialize_landuse
     step_num: 0
     num_processes: 1
-    chunk_size: 4000000000
+    chunk_size: 5000000000
     models:
        - initialize_landuse
        - compute_accessibility
@@ -51,8 +51,8 @@ multiprocess_steps:
     begin: school_location
     slice: {'tables': ['households', 'persons']}
     step_num: 1
-    num_processes: 24
-    chunk_size: 166666667
+    num_processes: 60
+    chunk_size: 83333333
     models:
        - school_location
        - workplace_location
@@ -85,7 +85,7 @@ multiprocess_steps:
     begin: generate_beam_plans
     step_num: 2
     num_processes: 1
-    chunk_size: 4000000000
+    chunk_size: 5000000000
     models:
        - generate_beam_plans
        - write_data_dictionary
