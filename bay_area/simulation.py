@@ -94,6 +94,9 @@ if __name__ == '__main__':
     parser.add_argument(
         "-h", "--household_sample_size", action="store",
         help="household sample size")
+    parser.add_argument(
+        "-n", "--num_processes", action="store",
+        help="# multiprocess workers to use")
 
     args = parser.parse_args()
 
@@ -119,6 +122,9 @@ if __name__ == '__main__':
     if args.household_sample_size:
         config.override_setting(
             'households_sample_size', int(args.household_sample_size))
+
+    if args.num_processes:
+        config.override_setting('num_processes', int(args.num_processes))
 
     injectables = ['data_dir', 'configs_dir', 'output_dir']
     inject.add_injectable('data_dir', 'data')
