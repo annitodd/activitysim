@@ -39,13 +39,13 @@ def run(run_list, injectables=None):
 
     # Create a new skims.omx file from BEAM (http://beam.lbl.gov/) skims
     # if skims do not already exist in the input data directory
-    if config.setting('create_skims_from_beam'):
+    if config.setting('create_skims_from_beam', False):
         pipeline.run(models=['create_skims_from_beam'])
         pipeline.close_pipeline()
 
     # Create persons, households, and land use .csv files from UrbanSim
     # data if these files do not already exist in the input data directory
-    if config.setting('create_inputs_from_usim_data'):
+    if config.setting('create_inputs_from_usim_data', False):
         pipeline.run(models=['create_inputs_from_usim_data'])
         pipeline.close_pipeline()
 
@@ -94,6 +94,12 @@ if __name__ == '__main__':
     parser.add_argument(
         "-h", "--household_sample_size", action="store",
         help="household sample size")
+    parser.add_argument(
+        "-n", "--num_processes", action="store",
+        help="# of multiprocess workers to use")
+    parser.add_argument(
+        "-c", "--chunk_size", action="store",
+        help="batch size for processing choosers")
 
     args = parser.parse_args()
 
@@ -119,6 +125,12 @@ if __name__ == '__main__':
     if args.household_sample_size:
         config.override_setting(
             'households_sample_size', int(args.household_sample_size))
+
+    if args.num_processes:
+        config.override_setting('num_processes', int(args.num_processes))
+
+    if args.num_processes:
+        config.override_setting('chunk_size', int(args.num_processes))
 
     injectables = ['data_dir', 'configs_dir', 'output_dir']
     inject.add_injectable('data_dir', 'data')
