@@ -130,7 +130,7 @@ if __name__ == '__main__':
         config.override_setting('num_processes', int(args.num_processes))
 
     if args.num_processes:
-        config.override_setting('chunk_size', int(args.num_processes))
+        config.override_setting('chunk_size', int(args.chunk_size))
 
     injectables = ['data_dir', 'configs_dir', 'output_dir']
     inject.add_injectable('data_dir', 'data')
