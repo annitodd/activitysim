@@ -7,6 +7,7 @@ install_aliases()  # noqa: E402
 
 import logging
 import argparse
+import os
 
 from activitysim.core import inject
 from activitysim.core import tracing
@@ -170,3 +171,14 @@ if __name__ == '__main__':
     # pipeline.open_pipeline('_')
 
     t0 = tracing.print_elapsed_time("everything", t0)
+
+    # make sure output data has same permissions as containing
+    # directory (should only be an issue when running from inside
+    # docker which will execute this script as root)
+    output_dir_full_path = os.path.abspath('./output/')
+    data_stats = os.stat(output_dir_full_path)
+    uid = data_stats.st_uid
+    gid = data_stats.st_gid
+    for dirpath, dirnames, filenames in os.walk(output_dir_full_path):
+        for fname in filenames:
+            os.chown(os.path.join(dirpath, fname), uid, gid)
