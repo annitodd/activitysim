@@ -1,0 +1,17 @@
+label,value_1,value_2,value_3
+trip_id,744821733,744822713,744822717
+person_id,2270797,2270800,2270800
+household_id,866761,866761,866761
+tour_id,93102716,93102839,93102839
+primary_purpose,work,work,work
+trip_num,1,1,1
+outbound,False,True,False
+trip_count,2,2,2
+purpose,othmaint,escort,shopping
+destination,974,940,974
+origin,913,974,940
+failed,False,False,False
+next_trip_id,744821734,744822714,744822718
+tour_mode,TNC_SINGLE,WALK_LOC,WALK_LOC
+trip_period,PM,AM,PM
+is_joint,False,False,False

@@ -1,0 +1,3 @@
+trip_id,person_id,household_id,tour_id,primary_purpose,trip_num,outbound,trip_count,purpose,destination,origin,destination_logsum,chunk_id,earliest,latest,tour_hour,outbound_departure,max_outbound_departure,next_trip_id,HR5,HR6,HR7,HR8,HR9,HR10,HR11,HR12,HR13,HR14,HR15,HR16,HR17,HR18,HR19,HR20,HR21,HR22,HR23
+25248775,76977,76977,3156096,work,3,False,4,shopping,279,281,10.248015566846886,16,8.0,8.0,8,,8.0,25248774,0.0,0.337495318,0.662504682,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+59488695,181367,181367,7436086,work,3,False,4,othmaint,1224,1069,3.756598566995918,130,8.0,8.0,8,,8.0,59488694,0.0,0.337495318,0.662504682,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0

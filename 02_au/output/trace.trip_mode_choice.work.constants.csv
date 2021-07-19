@@ -1,0 +1,3529 @@
+NONE,0
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0464810>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a6a410>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0a6ad50>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a4fb50>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0c70f10>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0c70e50>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0c88d10>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a62dd0>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0a62810>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a62a90>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0c9b750>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0c9ba50>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e09cb950>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a4cf10>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0a4c810>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a5cbd0>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a36710>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0a36b50>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a2ba10>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0c9e810>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0c9ec10>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e09dc890>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e09fbd50>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e09fbb90>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e08d2790>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e09d5b10>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e09d5a50>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a44fd0>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94d84edb50>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94d84eded0>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a6dfd0>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e08e7d10>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e08e7b10>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a56950>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0c75650>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0c75850>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a65f90>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e09c8ed0>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e09c8e50>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e09d16d0>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a27650>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0a27890>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e09d1e90>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0c76ed0>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0c76e90>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e09d2c50>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a706d0>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0a70d10>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0c75b90>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e09d3bd0>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e09d3b10>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a03c90>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e09f9d50>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e09f9ad0>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a6a550>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a55b50>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0a55ed0>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a64890>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e08c3690>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e08c3790>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94d8453b90>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e09c5b10>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e09c5d10>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a218d0>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a79910>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0a79c50>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e09e87d0>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e08d7dd0>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e08d7a10>
+c_ivt,-0.022
+c_ivt_lrt,-0.019799999999999998
+c_ivt_ferry,-0.0176
+c_ivt_exp,-0.0175
+c_ivt_hvy,-0.0176
+c_ivt_com,-0.0176
+c_short_i_wait,-0.044
+c_long_i_wait,-0.022
+c_wacc,-0.044
+c_wegr,-0.044
+c_waux,-0.044
+c_dtim,-0.044
+c_xfers_wlk,-0.10999999999999999
+c_xfers_drv,-0.32999999999999996
+c_xwait,-0.044
+c_walktimeshort,-0.044
+c_walktimelong,-0.21999999999999997
+c_biketimeshort,-0.088
+c_biketimelong,-0.43999999999999995
+c_dacc_ratio,0
+c_topology_walk,-0.32999999999999996
+c_topology_bike,-0.43999999999999995
+c_topology_trn,-0.0484
+c_density_index,0.004399999999999999
+c_origin_density_index,0.013199999999999998
+c_origin_density_index_max,0.32999999999999996
+origin_density_applied,False
+c_age1619_da,0
+c_age010_trn,0
+c_age16p_sr,0
+c_hhsize1_sr,-0.7346
+c_hhsize2_sr,0
+sov_ASC_sr2,-999
+sov_ASC_sr3p,-999
+sov_ASC_walk,-0.8398
+sov_ASC_rh,-7.0
+sr2_ASC_sr2,0.0149
+sr2_ASC_sr3p,-999
+sr2_ASC_walk,0.126
+sr2_ASC_rh,-7.0
+sr3p_ASC_sr2,-1.1956
+sr3p_ASC_sr3p,-0.1836
+sr3p_ASC_walk,0.2171
+sr3p_ASC_rh,-71.9177
+walk_ASC_rh,-7.0
+bike_ASC_walk,-1.8333
+bike_ASC_rh,-7.0
+walk_transit_ASC_lightrail,0.4621
+walk_transit_ASC_ferry,0.5277
+walk_transit_ASC_express,-0.3554
+walk_transit_ASC_heavyrail,0.3538
+walk_transit_ASC_commuter,0.4012
+walk_transit_ASC_sr2,-3.6631
+walk_transit_ASC_sr3p,-4.1314
+walk_transit_ASC_walk,0.4432
+walk_transit_ASC_rh,-3.7408
+drive_transit_ASC_lightrail,0.4621
+drive_transit_ASC_ferry,0.5277
+drive_transit_ASC_express,-0.3554
+drive_transit_ASC_heavyrail,0.3538
+drive_transit_ASC_commuter,0.4012
+drive_transit_ASC_rh,-4.25
+ride_hail_ASC_sr2,-6.108
+ride_hail_ASC_sr3p,-7
+ride_hail_ASC_walk,0.2858
+ride_hail_ASC_walk_transit,0
+ride_hail_ASC_taxi,-2.385
+ride_hail_ASC_tnc_single,0.735
+ride_hail_ASC_tnc_shared,0
+joint_auto_ASC_sr2,0
+joint_auto_ASC_sr3p,0
+joint_auto_ASC_walk,0
+joint_auto_ASC_rh,0
+joint_walk_ASC_rh,0
+joint_bike_ASC_walk,0
+joint_bike_ASC_rh,0
+joint_walk_transit_ASC_lightrail,0
+joint_walk_transit_ASC_ferry,0
+joint_walk_transit_ASC_express,0
+joint_walk_transit_ASC_heavyrail,0
+joint_walk_transit_ASC_commuter,0
+joint_walk_transit_ASC_sr2,0
+joint_walk_transit_ASC_sr3p,0
+joint_walk_transit_ASC_walk,0
+joint_walk_transit_ASC_rh,0
+joint_drive_transit_ASC_lightrail,0
+joint_drive_transit_ASC_ferry,0
+joint_drive_transit_ASC_express,0
+joint_drive_transit_ASC_heavyrail,0
+joint_drive_transit_ASC_commuter,0
+joint_drive_transit_ASC_rh,0
+joint_ride_hail_ASC_sr2,0
+joint_ride_hail_ASC_sr3p,0
+joint_ride_hail_ASC_walk,0
+joint_ride_hail_ASC_walk_transit,0
+joint_ride_hail_ASC_taxi,0
+joint_ride_hail_ASC_tnc_single,0
+joint_ride_hail_ASC_tnc_shared,0
+c_walk_express_penalty,-0.21999999999999997
+adjust_tnc_shared,-0.6599999999999999
+orig_col_name,origin
+dest_col_name,destination
+costPerMile,18.29
+costShareSr2,1.75
+costShareSr3,2.5
+waitThresh,10.0
+walkThresh,1.0
+shortWalk,0.333
+longWalk,0.667
+walkSpeed,3.0
+bikeThresh,6.0
+bikeSpeed,12.0
+I_MODE_MAP,"{'DRIVEALONEFREE': 1, 'DRIVEALONEPAY': 2, 'SHARED2FREE': 3, 'SHARED2PAY': 4, 'SHARED3FREE': 5, 'SHARED3PAY': 6, 'WALK': 7, 'BIKE': 8, 'WALK_LOC': 9, 'WALK_LRF': 10, 'WALK_EXP': 11, 'WALK_HVY': 12, 'WALK_COM': 13, 'DRIVE_LOC': 14, 'DRIVE_LRF': 15, 'DRIVE_EXP': 16, 'DRIVE_HVY': 17, 'DRIVE_COM': 18, 'TAXI': 19, 'TNC_SINGLE': 20, 'TNC_SHARED': 21}"
+I_SOV_MODES,"[1, 2]"
+I_SR2_MODES,"[3, 4]"
+I_SR3P_MODES,"[5, 6]"
+I_AUTO_MODES,"[1, 2, 3, 4, 5, 6]"
+I_WALK_MODE,7
+I_BIKE_MODE,8
+I_WALK_TRANSIT_MODES,"[9, 10, 11, 12, 13]"
+I_DRIVE_TRANSIT_MODES,"[14, 15, 16, 17, 18]"
+I_RIDE_HAIL_MODES,"[19, 20, 21]"
+Taxi_baseFare,2.2
+Taxi_costPerMile,2.3
+Taxi_costPerMinute,0.1
+Taxi_waitTime_mean,"{1: 5.5, 2: 9.5, 3: 13.3, 4: 17.3, 5: 26.5}"
+Taxi_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_single_baseFare,2.2
+TNC_single_costPerMile,1.33
+TNC_single_costPerMinute,0.24
+TNC_single_costMinimum,7.2
+TNC_single_waitTime_mean,"{1: 3.0, 2: 6.3, 3: 8.4, 4: 8.5, 5: 10.3}"
+TNC_single_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+TNC_shared_baseFare,2.2
+TNC_shared_costPerMile,0.53
+TNC_shared_costPerMinute,0.1
+TNC_shared_costMinimum,3.0
+TNC_shared_IVTFactor,1.5
+TNC_shared_waitTime_mean,"{1: 5.0, 2: 8.0, 3: 11.0, 4: 15.0, 5: 15.0}"
+TNC_shared_waitTime_sd,"{1: 0, 2: 0, 3: 0, 4: 0, 5: 0}"
+min_waitTime,0
+max_waitTime,50
+ORIGIN,origin
+DESTINATION,destination
+odt_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0a52b50>
+dot_skims,<activitysim.core.skim.SkimStackWrapper object at 0x7f94e0b8d750>
+od_skims,<activitysim.core.skim.SkimDictWrapper object at 0x7f94e0b8d950>
