@@ -12,7 +12,7 @@ household_median_value_of_time:
   2: 8.81
   3: 10.44
   4: 12.86
-households_sample_size: 1000
+households_sample_size: 200000
 inherit_settings: true
 input_table_list:
 - column_map:
@@ -123,5 +123,5 @@ urban_threshold: 4
 use_shadow_pricing: false
 usim_data_store: model_data.h5
 usim_zone_geoms: Transportation_Analysis_Zones.shp
-usim_zone_index: objectid
+usim_zone_index: taz1454
 year: 2010

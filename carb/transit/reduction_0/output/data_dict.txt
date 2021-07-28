@@ -91,7 +91,7 @@ work_high        int64
 work_veryhigh    int64
 dtype: object
 
-### person_windows (2519, 21)
+### person_windows (516308, 21)
 index: person_id int64
 4     int8
 5     int8
@@ -116,7 +116,7 @@ index: person_id int64
 24    int8
 dtype: object
 
-### households (1000, 43)
+### households (200000, 43)
 index: household_id int64
 serialno                              float64
 hhsize                                  int64
@@ -163,7 +163,7 @@ joint_tour_frequency                   object
 num_hh_joint_tours                       int8
 dtype: object
 
-### persons (2519, 73)
+### persons (516308, 73)
 index: person_id int64
 age                                int64
 earning                            int64
@@ -240,7 +240,7 @@ num_social_tours                    int8
 num_non_escort_tours                int8
 dtype: object
 
-### tours (3580, 23)
+### tours (703283, 23)
 index: tour_id int64
 person_id                     int64
 tour_type                    object
@@ -267,15 +267,15 @@ stop_frequency               object
 primary_purpose              object
 dtype: object
 
-### joint_tour_participants (153, 4)
+### joint_tour_participants (33156, 4)
 index: participant_id int64
-tour_id            object
-household_id       object
-person_id          object
-participant_num    object
+tour_id            int64
+household_id       int64
+person_id          int64
+participant_num    int64
 dtype: object
 
-### trips (9084, 14)
+### trips (1781517, 14)
 index: trip_id int64
 person_id               int64
 household_id            int64
@@ -293,7 +293,7 @@ trip_mode              object
 mode_choice_logsum    float64
 dtype: object
 
-### plans (20437, 10)
+### plans (4021065, 10)
 index: None int64
 trip_id                   float64
 person_id                 float64
