@@ -22,4 +22,4 @@ ENV PATH $FULL_CONDA_PATH/bin:$PATH
 ENV CONDA_DEFAULT_ENV $CONDA_ENV
 
 WORKDIR $ASIM_PATH/$ASIM_SUBDIR
-ENTRYPOINT ["python", "simulation.py"]
+ENTRYPOINT ["python", "-u", "simulation.py"]
