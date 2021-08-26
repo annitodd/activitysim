@@ -101,6 +101,12 @@ if __name__ == '__main__':
     parser.add_argument(
         "-c", "--chunk_size", action="store",
         help="batch size for processing choosers")
+    parser.add_argument(
+        "-r", "--resume_after", action="store",
+        help="re-run activitysim starting after specified model step.")
+    parser.add_argument(
+        "-k", "--skim_cache", action="store_true",
+        help="use skim cache. default is False.")
 
     args = parser.parse_args()
 
@@ -132,6 +138,11 @@ if __name__ == '__main__':
 
     if args.num_processes:
         config.override_setting('chunk_size', int(args.chunk_size))
+
+    if args.resume_after:
+        config.override_setting('resume_after', args.resume_after)
+
+    config.override_setting('read_skim_cache', args.skim_cache)
 
     injectables = ['data_dir', 'configs_dir', 'output_dir']
     inject.add_injectable('data_dir', 'data')

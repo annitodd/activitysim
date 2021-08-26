@@ -90,6 +90,12 @@ if __name__ == '__main__':
         help="url of urbansim .h5 model data")
     parser.add_argument(
         "-w", "--write_to_s3", action="store_true", help="write output to s3?")
+    parser.add_argument(
+        "-r", "--resume_after", action="store",
+        help="re-run activitysim starting after specified model step.")
+    parser.add_argument(
+        "-k", "--skim_cache", action="store_true",
+        help="use skim cache. default is False.")
 
     args = parser.parse_args()
 
@@ -111,6 +117,11 @@ if __name__ == '__main__':
 
     if args.write_to_s3:
         inject.add_injectable('s3_output', True)
+
+    if args.resume_after:
+        config.override_setting('resume_after', args.resume_after)
+
+    config.override_setting('read_skim_cache', args.skim_cache)
 
     inject.add_injectable('data_dir', 'data')
     inject.add_injectable('configs_dir', ['configs', 'configs/configs'])
