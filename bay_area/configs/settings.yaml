@@ -2,9 +2,6 @@
 #   UAL SETTINGS   #
 ####################
 
-# output
-s3_output: False
-
 # geographic settings
 state_fips: 06
 local_crs: EPSG:7131 
