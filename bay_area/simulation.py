@@ -40,19 +40,22 @@ def run(run_list, injectables=None, warm_start=False):
         'school_location', 'workplace_location', 'auto_ownership_simulate']
 
     if run_list['multiprocess']:
-        
         if warm_start:
-            run_list['multiprocess_steps'][1]['models'] = warm_start_steps
+            run_list['multiprocess_steps'][1].update(
+                {'models': warm_start_steps})
+            run_list['multiprocess_steps'][2].update(
+                {'begin': 'write_tables', 'models': ['write_tables']})
             logger.info("run multiprocess warm start simulation")
         else:
             logger.info("run multiprocess simulation")
         mp_tasks.run_multiprocess(run_list, injectables)
+
     else:
-        
         if warm_start:
-            last_model_index = run_list['models'].index(warm_start_steps[-1])
-            run_list['models'] = run_list[
-                'models'][:last_model_index] + ['write_tables']
+            last_step_index = run_list['models'].index(warm_start_steps[-1])
+            init_and_warm_start_steps = run_list['models'][:last_step_index]
+            all_warm_start_steps = init_and_warm_start_steps + ['write_tables']
+            run_list.update({'models': all_warm_start_steps})
             logger.info("run single process warm start simulation")
         else:
             logger.info("run single process simulation")
@@ -103,7 +106,7 @@ if __name__ == '__main__':
     warm_start = args.warm_start
     if args.warm_start:
         output_tables = config.setting('output_tables')
-        output_tables['prefix'] = 'warm_start'
+        output_tables['prefix'] = 'warm_start_'
         output_tables['tables'] = ['households', 'persons']
         config.override_setting('output_tables', output_tables)
 

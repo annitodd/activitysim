@@ -9,7 +9,7 @@ ENV ASIM_PATH /activitysim
 ENV ASIM_SUBDIR example
 ENV EXEC_NAME simulation.py
 
-RUN apt-get update \
+RUN apt-get --allow-releaseinfo-change update \
 	&& apt-get install -y build-essential zip unzip
 RUN conda update conda --yes
 
