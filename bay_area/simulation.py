@@ -155,6 +155,8 @@ if __name__ == '__main__':
     else:
         injectables = None
 
+    os.environ['MKL_NUM_THREADS'] = '1'
+
     run(run_list, injectables, warm_start=warm_start)
 
     # pipeline will be closed after run if multiprocessing
