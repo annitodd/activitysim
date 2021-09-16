@@ -1,21 +1,3 @@
-# input tables 
-input_table_list:
-  - tablename: households
-    filename: households.csv
-    index_col: household_id
-    column_map:
-      household_id: household_id
-  - tablename: persons
-    filename: persons.csv
-    index_col: person_id
-    column_map:
-      person_id: person_id
-  - tablename: land_use
-    filename: land_use.csv
-    index_col: TAZ
-    column_map:
-      ZONE: TAZ
-
 # input skims
 skims_file: skims.omx
 
