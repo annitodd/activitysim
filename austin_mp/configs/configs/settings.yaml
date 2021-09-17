@@ -3,18 +3,22 @@ input_table_list:
   - tablename: households
     filename: households.csv
     index_col: household_id
-    column_map:
+    rename_columns:
       household_id: household_id
+      PERSONS: hhsize
+      workers: num_workers
   - tablename: persons
     filename: persons.csv
     index_col: person_id
-    column_map:
+    rename_columns:
       person_id: person_id
+      member_id: PNUM
   - tablename: land_use
     filename: land_use.csv
     index_col: TAZ
-    column_map:
+    rename_columns:
       ZONE: TAZ
+      COUNTY: county_id
 
 # input skims
 skims_file: skims.omx
