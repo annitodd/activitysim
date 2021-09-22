@@ -15,7 +15,6 @@ from activitysim.core import config
 from activitysim.core import pipeline
 from activitysim.core import mp_tasks
 from activitysim.core import chunk
-# from activitysim.cli import run
 
 logger = logging.getLogger('activitysim')
 
@@ -129,8 +128,6 @@ if __name__ == '__main__':
     inject.add_injectable('data_dir', 'data')
     inject.add_injectable('configs_dir', ['configs', 'configs/configs'])
 
-#     injectables = config.handle_standard_args()
-
     config.filter_warnings()
     tracing.config_logger()
 
@@ -145,12 +142,6 @@ if __name__ == '__main__':
     run_list = mp_tasks.get_run_list()
 
     if run_list['multiprocess']:
-
-        # do this after config.handle_standard_args,
-        # as command line args may override injectables
-        # injectables = list(
-        #     set(injectables) | set(
-        #     ['data_dir', 'configs_dir', 'output_dir']))
         injectables = {k: inject.get_injectable(k) for k in injectables}
     else:
         injectables = None
