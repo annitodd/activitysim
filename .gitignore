@@ -22,7 +22,8 @@ austin/data/*
 austin/output/*
 austin/tmp/*
 austin/pilates/*
-
+!austin/output/activitysim.log
+!austin/data/land_use.csv
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
