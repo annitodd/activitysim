@@ -1,5 +1,7 @@
 sandbox/
 example/data/*
+
+# Bay area data
 bay_area_urbansim/data/*
 bay_area_urbansim/output/*
 bay_area/data/*
@@ -24,6 +26,7 @@ austin/tmp/*
 austin/pilates/*
 !austin/output/activitysim.log
 !austin/data/land_use.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
