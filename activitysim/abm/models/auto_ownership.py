@@ -7,6 +7,7 @@ from activitysim.core import tracing
 from activitysim.core import pipeline
 from activitysim.core import config
 from activitysim.core import inject
+# from activitysim.abm.auto_ownership_calibration import run_calibration
 
 from .util import estimation
 
@@ -26,7 +27,7 @@ def auto_ownership_simulate(households,
     trace_label = 'auto_ownership_simulate'
     model_settings_file_name = 'auto_ownership.yaml'
     model_settings = config.read_model_settings(model_settings_file_name)
-
+    
     estimator = estimation.manager.begin_estimation('auto_ownership')
 
     model_spec = simulate.read_model_spec(file_name=model_settings['SPEC'])
