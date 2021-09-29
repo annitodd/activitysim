@@ -15,7 +15,6 @@ from activitysim.core import config
 from activitysim.core import pipeline
 from activitysim.core import mp_tasks
 from activitysim.core import chunk
-# from activitysim.cli import run
 
 logger = logging.getLogger('activitysim')
 
@@ -34,27 +33,31 @@ def cleanup_output_files():
     tracing.delete_output_files('prof')
 
 
-def run(run_list, injectables=None):
+def run(run_list, injectables=None, warm_start=False):
 
-    # TO DO: move these pre-processing steps to PILATES
-
-    # Create a new skims.omx file from BEAM (http://beam.lbl.gov/) skims
-    # if skims do not already exist in the input data directory
-    if config.setting('create_skims_from_beam', False):
-        pipeline.run(models=['create_skims_from_beam'])
-        pipeline.close_pipeline()
-
-    # Create persons, households, and land use .csv files from UrbanSim
-    # data if these files do not already exist in the input data directory
-    if config.setting('create_inputs_from_usim_data', False):
-        pipeline.run(models=['create_inputs_from_usim_data'])
-        pipeline.close_pipeline()
+    warm_start_steps = [
+        'school_location', 'workplace_location', 'auto_ownership_simulate']
 
     if run_list['multiprocess']:
-        logger.info("run multiprocess simulation")
+        if warm_start:
+            run_list['multiprocess_steps'][1].update(
+                {'models': warm_start_steps})
+            run_list['multiprocess_steps'][2].update(
+                {'begin': 'write_tables', 'models': ['write_tables']})
+            logger.info("run multiprocess warm start simulation")
+        else:
+            logger.info("run multiprocess simulation")
         mp_tasks.run_multiprocess(run_list, injectables)
+
     else:
-        logger.info("run single process simulation")
+        if warm_start:
+            last_step_index = run_list['models'].index(warm_start_steps[-1])
+            init_and_warm_start_steps = run_list['models'][:last_step_index]
+            all_warm_start_steps = init_and_warm_start_steps + ['write_tables']
+            run_list.update({'models': all_warm_start_steps})
+            logger.info("run single process warm start simulation")
+        else:
+            logger.info("run single process simulation")
         pipeline.run(
             models=run_list['models'], resume_after=run_list['resume_after'])
         pipeline.close_pipeline()
@@ -78,20 +81,9 @@ def log_settings():
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(add_help=False)
-
     parser.add_argument(
-        "-b", "--bucket_name", action="store", help="s3 bucket name")
-    parser.add_argument(
-        "-y", "--year", action="store", type=int, help="data year")
-    parser.add_argument(
-        "-s", "--scenario", action="store", help="scenario")
-    parser.add_argument(
-        "-u", "--skims_url", action="store", help="url of skims .csv")
-    parser.add_argument(
-        "-x", "--path_to_remote_data", action="store",
-        help="url of urbansim .h5 model data")
-    parser.add_argument(
-        "-w", "--write_to_s3", action="store_true", help="write output to s3?")
+        "-w", "--warm_start", action="store_true",
+        help="only run mandatory location choice models")
     parser.add_argument(
         "-h", "--household_sample_size", action="store",
         help="household sample size")
@@ -101,27 +93,21 @@ if __name__ == '__main__':
     parser.add_argument(
         "-c", "--chunk_size", action="store",
         help="batch size for processing choosers")
+    parser.add_argument(
+        "-r", "--resume_after", action="store",
+        help="re-run activitysim starting after specified model step.")
+    parser.add_argument(
+        "-k", "--skim_cache", action="store_true",
+        help="use skim cache. default is False.")
 
     args = parser.parse_args()
 
-    if args.skims_url:
-        config.override_setting('beam_skims_url', args.skims_url)
-
-    if args.bucket_name:
-        config.override_setting('bucket_name', args.bucket_name)
-
-    if args.scenario:
-        config.override_setting('scenario', args.scenario)
-
-    if args.year:
-        config.override_setting('year', args.year)
-
-    if args.path_to_remote_data:
-        config.override_setting(
-            'remote_data_full_path', args.path_to_remote_data)
-
-    if args.write_to_s3:
-        config.override_setting('s3_output', True)
+    warm_start = args.warm_start
+    if args.warm_start:
+        output_tables = config.setting('output_tables')
+        output_tables['prefix'] = 'warm_start_'
+        output_tables['tables'] = ['households', 'persons']
+        config.override_setting('output_tables', output_tables)
 
     if args.household_sample_size:
         config.override_setting(
@@ -133,11 +119,14 @@ if __name__ == '__main__':
     if args.num_processes:
         config.override_setting('chunk_size', int(args.chunk_size))
 
+    if args.resume_after:
+        config.override_setting('resume_after', args.resume_after)
+
+    config.override_setting('read_skim_cache', args.skim_cache)
+
     injectables = ['data_dir', 'configs_dir', 'output_dir']
     inject.add_injectable('data_dir', 'data')
     inject.add_injectable('configs_dir', ['configs', 'configs/configs'])
-
-#     injectables = config.handle_standard_args()
 
     config.filter_warnings()
     tracing.config_logger()
@@ -153,17 +142,13 @@ if __name__ == '__main__':
     run_list = mp_tasks.get_run_list()
 
     if run_list['multiprocess']:
-
-        # do this after config.handle_standard_args,
-        # as command line args may override injectables
-        # injectables = list(
-        #     set(injectables) | set(
-        #     ['data_dir', 'configs_dir', 'output_dir']))
         injectables = {k: inject.get_injectable(k) for k in injectables}
     else:
         injectables = None
 
-    run(run_list, injectables)
+    os.environ['MKL_NUM_THREADS'] = '1'
+
+    run(run_list, injectables, warm_start=warm_start)
 
     # pipeline will be closed after run if multiprocessing
     # if you want access to tables, BE SURE TO OPEN
