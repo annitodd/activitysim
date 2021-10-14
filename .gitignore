@@ -8,6 +8,7 @@ bay_area/data/*
 bay_area/output/*
 bay_area/tmp/*
 bay_area/pilates/*
+bay_area/*.ipynb
 
 *.h5
 .ipynb_checkpoints
@@ -16,16 +17,11 @@ bay_area/pilates/*
 .vagrant
 
 #Austin data
-austin/Accessibilities.ipynb
-austin/mode_choice_calibration.ipynb
-austin/new_calibration_probaflow.ipynb
-austin/validation_results.ipynb
+austin/*.ipynb
 austin/data/*
 austin/output/*
 austin/tmp/*
 austin/pilates/*
-!austin/output/activitysim.log
-!austin/data/land_use.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
