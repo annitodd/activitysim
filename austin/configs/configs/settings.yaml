@@ -20,7 +20,6 @@ input_table_list:
       ZONE: TAZ
       COUNTY: county_id
 
-
 # input skims
 skims_file: skims.omx
 

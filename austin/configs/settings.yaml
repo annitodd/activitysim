@@ -1,31 +1,3 @@
-inherit_settings: True
-
-# input tables 
-input_table_list:
-  - tablename: households
-    filename: households.csv
-    index_col: household_id
-    rename_columns:
-      household_id: household_id
-      PERSONS: hhsize
-      workers: num_workers
-  - tablename: persons
-    filename: persons.csv
-    index_col: person_id
-    rename_columns:
-      person_id: person_id
-      member_id: PNUM
-  - tablename: land_use
-    filename: land_use.csv
-    index_col: TAZ
-    rename_columns:
-      ZONE: TAZ
-      COUNTY: county_id
-
-# geographic settings
-state_fips: 48
-local_crs: EPSG:7131 
-
 #####################
 #   ASIM SETTINGS   #
 #####################
@@ -39,18 +11,21 @@ input_table_list:
     index_col: household_id
     column_map:
       household_id: household_id
-      zone_id_block_group: TAZ
+      persons: hhsize
+      workers: num_workers
+      cars: VEHICL
   - tablename: persons
     filename: persons.csv
     index_col: person_id
     column_map:
       person_id: person_id
-      zone_id_block_group: TAZ
+      member_id: PNUM
   - tablename: land_use
     filename: land_use.csv
     index_col: TAZ
     column_map:
-      zone_id_block_group: TAZ
+      ZONE: TAZ
+      COUNTY: county_id
 
 # input skims
 skims_file: skims.omx
