@@ -34,13 +34,10 @@ def cleanup_output_files():
     tracing.delete_output_files('prof')
 
 
-def run(run_list, injectables=None, warm_start=False, calibration = False):
+def run(run_list, injectables=None, warm_start=False):
 
     warm_start_steps = [
         'school_location', 'workplace_location', 'auto_ownership_simulate']
-    
-    if calibration:
-        warm_start = True
 
     if run_list['multiprocess']:
         if warm_start:
@@ -67,9 +64,6 @@ def run(run_list, injectables=None, warm_start=False, calibration = False):
         pipeline.close_pipeline()
         chunk.log_write_hwm()
     
-    if calibration:
-        run_auto_ownwership_calibration(injectables)
-
 def log_settings():
 
     settings = [

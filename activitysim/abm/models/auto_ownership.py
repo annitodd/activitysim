@@ -7,7 +7,6 @@ from activitysim.core import tracing
 from activitysim.core import pipeline
 from activitysim.core import config
 from activitysim.core import inject
-# from activitysim.abm.auto_ownership_calibration import run_calibration
 
 from .util import estimation
 
