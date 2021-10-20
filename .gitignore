@@ -1,15 +1,27 @@
 sandbox/
 example/data/*
+
+# Bay area data
 bay_area_urbansim/data/*
 bay_area_urbansim/output/*
 bay_area/data/*
 bay_area/output/*
+bay_area/tmp/*
+bay_area/pilates/*
+bay_area/*.ipynb
+
 *.h5
 .ipynb_checkpoints
 .coverage*
 .pytest_cache
 .vagrant
 
+#Austin data
+austin/*.ipynb
+austin/data/*
+austin/output/*
+austin/tmp/*
+austin/pilates/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
