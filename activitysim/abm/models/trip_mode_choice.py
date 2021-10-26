@@ -12,6 +12,7 @@ from activitysim.core import tracing
 from activitysim.core import config
 from activitysim.core import inject
 from activitysim.core import pipeline
+from activitysim.core import orca
 from activitysim.core.mem import force_garbage_collect
 
 from .util.expressions import annotate_preprocessors
@@ -98,8 +99,10 @@ def trip_mode_choice(
 
     choices_list = []
     for primary_purpose, trips_segment in trips_merged.groupby('primary_purpose'):
+#         print(primary_purpose, trips_segment)
 
         segment_trace_label = tracing.extend_trace_label(trace_label, primary_purpose)
+#         print(segment_trace_label)
 
         logger.info("trip_mode_choice tour_type '%s' (%s trips)" %
                     (primary_purpose, len(trips_segment.index), ))
@@ -165,6 +168,11 @@ def trip_mode_choice(
     assert not trips_df[mode_column_name].isnull().any()
 
     pipeline.replace_table("trips", trips_df)
+    
+    #Save trip raw trip data
+    trip_data = orca.get_table('trip_mode_choice_values').to_frame().T
+    pipeline.replace_table("trip_mode_choice_values", trip_data)
+
 
     if trace_hh_id:
         tracing.trace_df(trips_df,

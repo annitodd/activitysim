@@ -52,7 +52,7 @@ households_sample_size: 0
 # multiprocessing controls
 multiprocess: True
 chunk_size: 4000000000
-num_processes: 24
+num_processes: 2
 stagger: 0
 
 # tracing
@@ -123,6 +123,17 @@ output_tables:
     - trips
     - joint_tour_participants
     - plans
+    - trip_mode_choice_values
+    - trip_mode_choice_specs_atwork
+    - trip_mode_choice_specs_eatout
+    - trip_mode_choice_specs_escort
+    - trip_mode_choice_specs_othdiscr
+    - trip_mode_choice_specs_othmaint
+    - trip_mode_choice_specs_school
+    - trip_mode_choice_specs_shopping
+    - trip_mode_choice_specs_social
+    - trip_mode_choice_specs_univ
+    - trip_mode_choice_specs_work
 
 # area_types less than this are considered urban
 urban_threshold: 4
