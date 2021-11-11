@@ -376,33 +376,30 @@ def eval_utilities(spec, choosers, locals_d=None, trace_label=None,
     # - compute_utilities
     utilities = np.dot(expression_values.transpose(), spec.astype(np.float64).values)
     utilities = pd.DataFrame(data=utilities, index=choosers.index, columns=spec.columns)
-    # Orca table for trip mode choice raw data. 
     
-    ## How to print specs for each user? For each user, we have a different matrix :/ 
+    ##### print tables for Anna's team - INEXUS
     if trace_label == 'trip_mode_choice.simple_simulate.eval_nl':
+        
         values = pd.DataFrame(data = expression_values, columns = choosers.index, index = spec.index)
+        u = utilities.T
         
         primary_purpose = choosers['primary_purpose'].unique()
         trip_purpose = pd.DataFrame(data = np.tile([primary_purpose], len(choosers.index)), 
                                     columns = choosers.index, 
                                     index = ['primary_purpose'])
-#         print(trip_purpose.shape, trip_purpose)
         values = values.append(trip_purpose)
-#         print (values.head())
-                                    
-                                                  
-#         values['primary_purpose'] = primary_purpose
         specs = pd.DataFrame(data = spec.astype(np.float64).values, columns = spec.columns, index = spec.index)
         
         # Raw data
         if 'trip_mode_choice_values' in orca.list_tables():
             for column in values.columns:
                 orca.add_column('trip_mode_choice_values', column, values[column])
+                
+            for columns in utilities.columns:
+                orca.add_column('mode_choice_utilities', column, u[column])
         else:
             orca.add_table('trip_mode_choice_values', values)
-        
-#         print(spec.astype(np.float64).values.shape)
-#         print(spec.astype(np.float64).values)
+            orca.add_table('mode_choice_utilities', u)
         
 #         # Raw specs  
         specs_table_name = 'trip_mode_choice_specs_' + primary_purpose[0]

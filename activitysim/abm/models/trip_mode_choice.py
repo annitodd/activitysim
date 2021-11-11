@@ -171,7 +171,9 @@ def trip_mode_choice(
     
     #Save trip raw trip data
     trip_data = orca.get_table('trip_mode_choice_values').to_frame().T
+    utility_data = orca.get_table('mode_choice_utilities').to_frame().T
     pipeline.replace_table("trip_mode_choice_values", trip_data)
+    pipeline.replace_table("mode_choice_utilities", utility_data)
 
 
     if trace_hh_id:
