@@ -34,10 +34,13 @@ def cleanup_output_files():
     tracing.delete_output_files('prof')
 
 
-def run(run_list, injectables=None, warm_start=False):
+def run(run_list, injectables=None, warm_start=False, replanning=False):
 
+    initialization_steps = [
+        'initialize_landuse', 'compute_accessibility', 'initialize_households']
     warm_start_steps = [
         'school_location', 'workplace_location', 'auto_ownership_simulate']
+    replanning_steps = ['trip_mode_choice']
 
     if run_list['multiprocess']:
         if warm_start:
@@ -46,16 +49,27 @@ def run(run_list, injectables=None, warm_start=False):
             run_list['multiprocess_steps'][2].update(
                 {'begin': 'write_tables', 'models': ['write_tables']})
             logger.info("run multiprocess warm start simulation")
+        elif replanning:
+            run_list['multiprocess_steps'][1].update(
+                {'models': replanning_steps})
+            run_list['multiprocess_steps'][2].update({
+                'begin': 'generate_beam_plans',
+                'models': ['generate_beam_plans', 'write_tables']})
+            logger.info("run multiprocess warm start simulation")
         else:
             logger.info("run multiprocess simulation")
         mp_tasks.run_multiprocess(run_list, injectables)
 
     else:
         if warm_start:
-            last_step_index = run_list['models'].index(warm_start_steps[-1])
-            init_and_warm_start_steps = run_list['models'][:last_step_index]
-            all_warm_start_steps = init_and_warm_start_steps + ['write_tables']
+            all_warm_start_steps = initialization_steps + warm_start_steps + [
+                'write_tables']
             run_list.update({'models': all_warm_start_steps})
+            logger.info("run single process warm start simulation")
+        elif replanning:
+            all_replanning_steps = initialization_steps + replanning_steps + [
+                'generate_beam_plans', 'write_tables']
+            run_list.update({'models': all_replanning_steps})
             logger.info("run single process warm start simulation")
         else:
             logger.info("run single process simulation")
@@ -63,7 +77,8 @@ def run(run_list, injectables=None, warm_start=False):
             models=run_list['models'], resume_after=run_list['resume_after'])
         pipeline.close_pipeline()
         chunk.log_write_hwm()
-    
+
+
 def log_settings():
 
     settings = [
@@ -71,7 +86,7 @@ def log_settings():
         'chunk_size',
         'multiprocess',
         'num_processes',
-        'resume_after',
+        'replanning',
     ]
 
     for k in settings:
@@ -94,11 +109,14 @@ if __name__ == '__main__':
         "-c", "--chunk_size", action="store",
         help="batch size for processing choosers")
     parser.add_argument(
-        "-r", "--resume_after", action="store",
-        help="re-run activitysim starting after specified model step.")
+        "-r", "--replanning", action="store_true",
+        help="re-generate activity plans with partial asim run")
     parser.add_argument(
         "-k", "--skim_cache", action="store_true",
         help="use skim cache. default is False.")
+    parser.add_argument(
+        "-s", "--random_seed", action="store",
+        help="global random seed")
 
     args = parser.parse_args()
 
@@ -119,13 +137,26 @@ if __name__ == '__main__':
     if args.num_processes:
         config.override_setting('chunk_size', int(args.chunk_size))
 
-    if args.resume_after:
-        config.override_setting('resume_after', args.resume_after)
+    replanning = args.replanning
+    if replanning:
+        data_dir = 'output'
+        input_tables = config.setting('input_table_list')
+        output_prefix = config.setting('output_tables')['prefix']
+        new_input_tables = []
+        for table_dict in input_tables:
+            table_dict['filename'] = output_prefix + table_dict['filename']
+            new_input_tables.append(table_dict)
+        config.override_setting('input_table_list', new_input_tables)
+    else:
+        data_dir = 'data'
+
+    if args.random_seed:
+        config.override_setting('rng_base_seed', int(args.random_seed))
 
     config.override_setting('read_skim_cache', args.skim_cache)
 
     injectables = ['data_dir', 'configs_dir', 'output_dir']
-    inject.add_injectable('data_dir', 'data')
+    inject.add_injectable('data_dir', data_dir)
     inject.add_injectable('configs_dir', ['configs', 'configs/configs'])
 
 #     injectables = config.handle_standard_args()
@@ -154,7 +185,7 @@ if __name__ == '__main__':
     else:
         injectables = None
 
-    run(run_list, injectables, warm_start=warm_start)
+    run(run_list, injectables, warm_start, replanning)
 
     # pipeline will be closed after run if multiprocessing
     # if you want access to tables, BE SURE TO OPEN
