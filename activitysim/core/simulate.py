@@ -10,6 +10,8 @@ from collections import OrderedDict
 import numpy as np
 import pandas as pd
 
+from activitysim.core import orca
+
 from .skim import SkimDictWrapper, SkimStackWrapper
 from . import logit
 from . import tracing
@@ -374,6 +376,51 @@ def eval_utilities(spec, choosers, locals_d=None, trace_label=None,
     # - compute_utilities
     utilities = np.dot(expression_values.transpose(), spec.astype(np.float64).values)
     utilities = pd.DataFrame(data=utilities, index=choosers.index, columns=spec.columns)
+    
+    ##### print tables for Anna's team - INEXUS
+    if trace_label == 'trip_mode_choice.simple_simulate.eval_nl':
+        
+        raw = pd.DataFrame(data = expression_values, columns = choosers.index)
+        utils = utilities.T
+        
+        primary_purpose = choosers['primary_purpose'].unique()
+        trip_purpose = pd.DataFrame(data = np.tile([primary_purpose], len(choosers.index)), 
+                                    columns = choosers.index, 
+                                    index = ['trip_purpose'])
+        
+        segment_dct = {'othdiscr': 0,'school': 1,'shopping': 2,'social': 3, 
+               'work': 4, 'atwork': 5,'othmaint': 6, 'eatout': 7,
+               'escort': 8, 'univ': 9}
+        
+        trip_purpose[choosers.index] = trip_purpose[choosers.index].replace(segment_dct)
+        raw = raw.append(trip_purpose)
+        
+        # Specification
+        specs = pd.DataFrame(data = spec.astype(np.float64).values, columns = spec.columns)
+    
+        #Create data dictionary
+        idx = spec.index#.str.replace("@",'')
+        data_dict = pd.DataFrame({'Expression': idx})
+        
+        # Raw data
+        if 'trip_mode_choice_raw' in orca.list_tables():
+            for column in raw.columns:
+                orca.add_column('trip_mode_choice_raw', column, raw[column])
+                
+            for column in utils.columns:
+                orca.add_column('trip_mode_choice_utilities', column, utils[column])
+        else:
+            orca.add_table('trip_mode_choice_raw', raw)
+            orca.add_table('trip_mode_choice_utilities', utils)
+            orca.add_table('trip_mode_choice_data_dict', data_dict)
+   
+        
+        # Raw specs  
+        specs_table_name = 'trip_mode_choice_specs_' + primary_purpose[0]
+        if specs_table_name in orca.list_tables():
+            pass
+        else:
+            orca.add_table(specs_table_name, specs)
 
     t0 = tracing.print_elapsed_time(" eval_utilities", t0)
 
