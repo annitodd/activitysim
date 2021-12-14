@@ -170,11 +170,22 @@ def trip_mode_choice(
     pipeline.replace_table("trips", trips_df)
     
     #Save trip raw trip data
-    trip_data = orca.get_table('trip_mode_choice_values').to_frame().T
-    utility_data = orca.get_table('mode_choice_utilities').to_frame().T
-    pipeline.replace_table("trip_mode_choice_values", trip_data)
-    pipeline.replace_table("mode_choice_utilities", utility_data)
-
+    trip_mode_choice_raw = orca.get_table('trip_mode_choice_raw').to_frame().T
+    
+    trip_mode_choice_utilities = orca.get_table('trip_mode_choice_utilities').to_frame().T
+#     trip_mode_choice_utilities.index.rename('Expression_id', inplace = True)
+    
+    trip_mode_choice_specs = orca.get_table('trip_mode_choice_specs_work').to_frame()
+    trip_mode_choice_specs.index.rename('Expression_id', inplace = True)
+    
+    trip_mode_choice_data_dict = orca.get_table('trip_mode_choice_data_dict').to_frame()
+    trip_mode_choice_data_dict.index.rename('Expression_id', inplace = True)
+    #trip_mode_choice_data_dict = trip_mode_choice_data_dict.rename.index('Expression_id').reset_index()
+    
+    pipeline.replace_table("trip_mode_choice_raw", trip_mode_choice_raw)
+    pipeline.replace_table("trip_mode_choice_utilities", trip_mode_choice_utilities)
+    pipeline.replace_table('trip_mode_choice_specs', trip_mode_choice_specs)
+    pipeline.replace_table('trip_mode_choice_data_dict', trip_mode_choice_data_dict)
 
     if trace_hh_id:
         tracing.trace_df(trips_df,
