@@ -116,6 +116,10 @@ output_tables:
     - trips
     - joint_tour_participants
     - plans
+    - trip_mode_choice_raw
+    - trip_mode_choice_utilities
+    - trip_mode_choice_specs
+    - trip_mode_choice_data_dict
 
 # area_types less than this are considered urban
 urban_threshold: 4
