@@ -379,48 +379,88 @@ def eval_utilities(spec, choosers, locals_d=None, trace_label=None,
     
     ##### print tables for Anna's team - INEXUS
     if trace_label == 'trip_mode_choice.simple_simulate.eval_nl':
+#         print(orca.list_tables())
         
-        raw = pd.DataFrame(data = expression_values, columns = choosers.index)
-        utils = utilities.T
+        raw = pd.DataFrame(data = expression_values.transpose(), index = choosers.index)
+#         utils = utilities
         
-        primary_purpose = choosers['primary_purpose'].unique()
-        trip_purpose = pd.DataFrame(data = np.tile([primary_purpose], len(choosers.index)), 
-                                    columns = choosers.index, 
-                                    index = ['trip_purpose'])
+#         primary_purpose = choosers['primary_purpose'].unique()
+#         trip_purpose = pd.DataFrame(data = np.tile([primary_purpose], len(choosers.index)), 
+#                                     columns = choosers.index, 
+#                                     index = ['trip_purpose'])
         
         segment_dct = {'othdiscr': 0,'school': 1,'shopping': 2,'social': 3, 
                'work': 4, 'atwork': 5,'othmaint': 6, 'eatout': 7,
                'escort': 8, 'univ': 9}
         
-        trip_purpose[choosers.index] = trip_purpose[choosers.index].replace(segment_dct)
-        raw = raw.append(trip_purpose)
+#         trip_purpose[choosers.index] = trip_purpose[choosers.index].replace(segment_dct)
+#         raw = raw.append(trip_purpose)
+        
+        raw['trip_purpose'] = choosers['primary_purpose'].replace(segment_dct)
         
         # Specification
         specs = pd.DataFrame(data = spec.astype(np.float64).values, columns = spec.columns)
     
         #Create data dictionary
-        idx = spec.index#.str.replace("@",'')
-        data_dict = pd.DataFrame({'Expression': idx})
+        col_names = spec.index#.str.replace("@",'')
+        data_dict = pd.DataFrame({'Expression': col_names})
         
-        # Raw data
-        if 'trip_mode_choice_raw' in orca.list_tables():
-            for column in raw.columns:
-                orca.add_column('trip_mode_choice_raw', column, raw[column])
+        #Saving files to disk 
+        
+        if os.path.isdir('output/trip_mode_choice/'):
+            pass 
+        else: 
+            os.mkdir('output/trip_mode_choice/')
+            
+        #Comment: "choosers.index[0]" is the ID of the first trip in the given for loop. 
+        # we choose this as the name of the csv file to print out because it will be unique
+        # for any given loop. This avoids replacing finals csv files. 
+        raw_fname = str(choosers.index[0]) + '_raw.csv'
+        utils_fname = str(choosers.index[0]) + '_utilities.csv'
+        raw.to_csv('output/trip_mode_choice/' + raw_fname)
+        utilities.to_csv('output/trip_mode_choice/' + utils_fname)
+        
+        if os.path.isfile('output/trip_mode_choice/trip_mode_choice_specs.csv'):
+            pass 
+        else: 
+            specs.to_csv('output/trip_mode_choice/trip_mode_choice_specs.csv')
+            
+        if os.path.isfile('output/trip_mode_choice/trip_mode_choice_data_dict.csv'):
+            pass 
+        else: 
+            data_dict.to_csv('output/trip_mode_choice/trip_mode_choice_data_dict.csv')
+            
+        del(raw)
+        del(specs)
+        del(data_dict)
+        
+#         # Raw data
+#         if 'trip_mode_choice_raw' in orca.list_tables():
+# #             raw_df = orca.get_table('trip_mode_choice_raw').to_frame()
+# #             raw_df = pd.concat([raw_df, raw])
+# #             orca.add_table('trip_mode_choice_raw', raw_df)
+            
+# #             utils_df = orca.get_table('trip_mode_choice_utilities').to_frame()
+# #             utils_df = pd.concat([utils_df, utils])
+# #             orca.add_table('trip_mode_choice_utilities', utils_df)
+            
+#             for column in raw.columns:
+#                 orca.add_column('trip_mode_choice_raw', column, raw[column])
                 
-            for column in utils.columns:
-                orca.add_column('trip_mode_choice_utilities', column, utils[column])
-        else:
-            orca.add_table('trip_mode_choice_raw', raw)
-            orca.add_table('trip_mode_choice_utilities', utils)
-            orca.add_table('trip_mode_choice_data_dict', data_dict)
-   
+#             for column in utils.columns:
+#                 orca.add_column('trip_mode_choice_utilities', column, utils[column])
+#         else:
+#             orca.add_table('trip_mode_choice_raw', raw)
+#             orca.add_table('trip_mode_choice_utilities', utils)
+#             orca.add_table('trip_mode_choice_data_dict', data_dict)
         
-        # Raw specs  
-        specs_table_name = 'trip_mode_choice_specs_' + primary_purpose[0]
-        if specs_table_name in orca.list_tables():
-            pass
-        else:
-            orca.add_table(specs_table_name, specs)
+#         # Raw specs  
+# #         specs_table_name = 'trip_mode_choice_specs_' + primary_purpose[0]
+#         specs_table_name = 'trip_mode_choice_specs'
+#         if specs_table_name in orca.list_tables():
+#             pass
+#         else:
+#             orca.add_table(specs_table_name, specs)
 
     t0 = tracing.print_elapsed_time(" eval_utilities", t0)
 

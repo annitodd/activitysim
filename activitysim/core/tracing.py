@@ -68,7 +68,7 @@ def delete_output_files(file_type, ignore=None, subdir=None):
 
     output_dir = inject.get_injectable('output_dir')
 
-    directories = ['', 'log', 'trace']
+    directories = ['', 'log', 'trace', 'trip_mode_choice']
 
     for subdir in directories:
 

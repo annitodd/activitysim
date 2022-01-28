@@ -44,7 +44,7 @@ households_sample_size: 0
 
 # multiprocessing controls
 multiprocess: True
-chunk_size: 4000000000
+chunk_size: 10_000_000_000
 num_processes: 94
 stagger: 0
 
@@ -53,7 +53,7 @@ trace_hh_id:
 trace_od:
 
 # to resume after last successful checkpoint, specify resume_after: _
-# resume_after: trip_scheduling
+# resume_after: _
 
 models:
   ### mp_initialize step
@@ -116,8 +116,10 @@ output_tables:
     - trips
     - joint_tour_participants
     - plans
-    - trip_mode_choice_values
-    - mode_choice_utilities
+#     - trip_mode_choice_raw
+#     - trip_mode_choice_utilities
+#     - trip_mode_choice_specs
+#     - trip_mode_choice_data_dict
 
 # area_types less than this are considered urban
 urban_threshold: 4
