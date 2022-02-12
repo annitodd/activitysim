@@ -1,5 +1,7 @@
 import os
+import sys
 import yaml
+import time 
 import numpy as np
 import openmatrix as omx
 from shutil import copytree, rmtree
@@ -7,8 +9,12 @@ from activitysim.core import config
 
 
 import logging
+logging.basicConfig(level=logging.INFO, stream=sys.stdout,
+                    format='%(asctime)s %(name)s - %(levelname)s - %(message)s',
+                    datefmt='%m/%d/%Y %I:%M:%S %p')
+
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO, format='%(message)s')
+
 
 ##############################
 ### RUN BASE YEAR SCENARIO ###
@@ -25,7 +31,24 @@ logging.basicConfig(level=logging.INFO, format='%(message)s')
 #2. Modify whatever input needed 
 #3. Run scenarios with input modfies
 
-def copy_directory(source, destination):
+RESULTS_DIR = 'policy_analysis'
+
+def formatted_print(string, width=50, fill_char='#'):
+    print('\n')
+    if len(string) + 2 > width:
+        width = len(string) + 4
+    string = string.upper()
+    print(fill_char * width)
+    print('{:#^{width}}'.format(' ' + string + ' ', width=width))
+    print(fill_char * width, '\n')
+    
+def run_time(func):
+    start = time.time
+    func
+    end = time.time
+    logging.info(('Simulation Finished. Total time: {:. 2f} minutes').format((end - start)/60))
+
+def copy_directory(source, destination, replace = False):
     """ Creates a copy of source (directory) in destination (another directory):
     Parameters
     -----------
@@ -36,39 +59,21 @@ def copy_directory(source, destination):
     None 
     """
     try:
-#         logging.info('Create new model directory in {}'.format(destination))
+        logging.info('Creating directory {} '.format(destination))
         copytree(source, destination)
     except FileExistsError:
-        print ('File {} already exist - Replacing file'.format(destination))
-        rmtree(destination)
-        copytree(source, destination)
-        
-
-def create_policy_directory(policy_name, replace = False):
-    """ Create the directory and subdirectores to run all possible analysis """
-    
-    scenarios = ['scenario_1','scenario_2','scenario_3']
-    base_directory = 'bay_area_base'
-    paths = [os.path.join('policy_analysis',policy_name, scenario) for scenario in scenarios]
-    
-    directory_exist = all([os.path.isdir(path) for path in paths])
-
-    if directory_exist:  
-        
         if replace:
-            [copy_directory(base_directory, path) for path in paths]
+            logging.info('Directory {} already exist - Replacing file'.format(destination))
+            rmtree(destination)
+            copytree(source, destination)
         else:
-            logging.info('Directory for policy {} already exist'.format(policy_name))
-    else:
-        logging.info('Creating directory for {} policy'.format(policy_name))
-#         [os.makedirs(path) for path in paths]
-        [copy_directory(base_directory, path) for path in paths]
-
+            logging.info('Directory {} already exist - Skip'.format(destination))
+        
 def overrride_settings(settings_path, new_settings_dict):
     ''' Modifies the settings.yaml file in the configs files'''
     
     #Reads settings file
-    logging.info('Modifying settings.yaml file')
+    logging.debug('Modifying settings.yaml file')
     a_yaml_file = open(settings_path)
     settings = yaml.load(a_yaml_file, Loader=yaml.FullLoader)
     
@@ -80,6 +85,36 @@ def overrride_settings(settings_path, new_settings_dict):
     with open(settings_path, 'w') as outfile:
         yaml.dump(settings, outfile, default_flow_style=False)
 
+def read_policy_settings():
+    a_yaml_file = open('policies.yaml')
+    settings = yaml.load(a_yaml_file, Loader=yaml.FullLoader)
+    return settings
+
+def input_transformation(policy_name, scenario, settings):
+    if policy_name == 'transit_reduction':
+        input_transit_reduction(policy_name, scenario, settings)
+    elif policy_name == 'share_moblity':
+        logging.info('Policy {} cannot be run at this time').format(reduction*100)
+
+def run_scenario(policy_name, settings):
+    """ Runs scenarios for a given policy"""
+    
+    scenarios = settings['policies'][policy_name]['scenarios']
+    replace = settings['policies'][policy_name]['replace']
+    for scenario in scenarios.keys():
+        start = time.time()
+        formatted_print(('Simulation for Policy {} - {}').format(policy_name, scenario))
+        logging.info(('Simulation for Policy {} - {}').format(policy_name, scenario))
+        path = os.path.join('policy_analysis', policy_name, scenario)
+        copy_directory('bay_area_base', path, replace)
+        os.chdir(path)
+        input_transformation(policy_name, scenario, settings)
+        os.system('python simulation.py')
+        os.chdir('../../..')
+        end = time.time()
+        running_time_message = "Simulation Finished. Total time: {:.2f} minutes".format((end - start)/60)
+        logging.info(running_time_message)
+        
 ##########################################
 ## Public transportation fare reduction ##
 
@@ -110,27 +145,25 @@ def transit_fare_reduction(skims_path, reduction, modes = None):
     skims.close()
     skims_modified.close()
     
-def modify_transit_fare(transit_fare_scenarios):
-    for scenario, reduction in transit_fare_scenarios.items():
-        
-        skim_path = os.path.join('policy_analysis',policy_name, scenario, 'data','skims.omx')
-        transit_fare_reduction(skim_path, reduction, modes = None)
-        
-        settings_path = os.path.join('policy_analysis',policy_name, scenario, 'configs','settings.yaml')
-        overrride_settings(settings_path, {'skims_file': 'skims_transit_fare_reduction.omx', 
-                                           'sample_size':100, 
-                                           'chunck_size':2})
-        
+def input_transit_reduction(policy_name, scenario, settings):
+    logging.info('Creating transit skims for {}'.format(scenario))
     
-
+    file_exist = os.path.exists('data/skims_transit_fare_reduction.omx')
+    
+    if file_exist:
+        logging.info('Modified transit skims for {} already exist - Skip'.format(scenario))
+    else:
+        reduction = settings['policies'][policy_name]['scenarios'][scenario]
+        skim_path = os.path.join('data','skims.omx')
+        settings_path = os.path.join('configs','settings.yaml')
+        
+        transit_fare_reduction(skim_path, reduction, modes = None)
+        overrride_settings(settings_path, {'skims_file': 'skims_transit_fare_reduction.omx'})
+        overrride_settings(settings_path, settings['asim_settings'])
+        
+settings = read_policy_settings()
 policy_name = 'transit_reduction'
-transit_fare_scenarios = {'scenario_1': 1, 'scenario_2': 0.5, 'scenario_3': 0}
-create_policy_directory(policy_name, replace = False)
-modify_transit_fare(transit_fare_scenarios)
-
-os.chdir('policy_analysis/transit_reduction/scenario_1')
-os.system('python simulation.py')
-
+run_scenario(policy_name, settings)
 
 #########################
 ### SUMARIZE RESULTS ###

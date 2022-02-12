@@ -1,0 +1,19 @@
+policies:
+    transit_reduction:
+        scenarios: 
+            scenario_1: 1.0 # 100% transit fare reduction
+            scenario_2: 0.5 # 50% transit fare reduction
+            scenario_3: 0.0 # 0% transit fare reduction
+        replace: False
+    
+    share_moblity:
+        scenarios: 
+            scenario_1: 1.0 # 100% transit fare reduction
+            scenario_2: 0.5 # 50% transit fare reduction
+            scenario_3: 0.0 # 0% transit fare reduction
+
+## ActicitySim seetings
+asim_settings:
+    households_sample_size: 100
+    num_processes: 2 
+    chunk_size: 10_000_000_000
