@@ -13,7 +13,7 @@ input_table_list:
       household_id: household_id
       persons: hhsize
       workers: num_workers
-      cars: VEHICL
+      cars: auto_ownership
   - tablename: persons
     filename: persons.csv
     index_col: person_id
@@ -40,12 +40,12 @@ mem_tick: 0
 use_shadow_pricing: False
 
 # sample size
-households_sample_size: 0
+households_sample_size: 100
 
 # multiprocessing controls
 multiprocess: True
 chunk_size: 10_000_000_000
-num_processes: 94
+num_processes: 2
 stagger: 0
 
 # tracing
@@ -63,7 +63,7 @@ models:
   ### mp_households step
   - school_location
   - workplace_location
-  - auto_ownership_simulate
+#   - auto_ownership_simulate
   - free_parking
   - cdap_simulate
   - mandatory_tour_frequency

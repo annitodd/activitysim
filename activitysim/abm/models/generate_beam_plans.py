@@ -219,13 +219,13 @@ def generate_beam_plans():
     pipeline.replace_table("plans", final_plans)
 
     # summary stats
-    input_cars_per_hh = np.round(
-        households['VEHICL'].sum() / len(households), 2)
+#     input_cars_per_hh = np.round(
+#         households['VEHICL'].sum() / len(households), 2)
     simulated_cars_per_hh = np.round(
         households['auto_ownership'].sum() / len(households), 2)
     logger.warning(
-        "AUTO OWNERSHIP -- input: {0} cars/hh // output: {1} cars/hh".format(
-            input_cars_per_hh, simulated_cars_per_hh))
+        "AUTO OWNERSHIP -- output: {0} cars/hh".format(
+            simulated_cars_per_hh))
 
     trips['number_of_participants'] = trips['tour_id'].map(
         tours['number_of_participants'])
