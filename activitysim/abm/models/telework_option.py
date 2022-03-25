@@ -105,7 +105,7 @@ def telework_option(
 
     # telework_option_anotate = pd.read_csv('annotate_telework_option.csv', comment = "#" )
     telework_option_anotate = pd.read_csv(annotate_path, comment='#')
-    telework_option_rates = pd.read(rates_path)
+    telework_option_rates = pd.read_csv(rates_path)
 
     #Choosers
     choosers = persons_merged.to_frame()
@@ -133,7 +133,7 @@ def telework_option(
     persons['ptype'] = persons['ptype'].mask(persons['telework_option'], 4)
 
     pipeline.replace_table("persons", persons)
-    tracing.print_summary('telework', persons.telework, value_counts=True)
+    tracing.print_summary('telework_option', persons.telework_option, value_counts=True)
 
     if trace_hh_id:
         tracing.trace_df(persons,
