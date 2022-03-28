@@ -18,7 +18,6 @@ from activitysim.core import chunk
 
 logger = logging.getLogger('activitysim')
 
-
 def cleanup_output_files():
 
     active_log_files = \
