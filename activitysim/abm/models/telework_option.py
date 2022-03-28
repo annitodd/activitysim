@@ -130,8 +130,6 @@ def telework_option(
     # Simulation Result. Who telecommutes today. 
     persons = persons.to_frame()
     persons['telework_option'] = choices.reindex(persons.index).fillna(0).astype(bool)
-    persons['ptype'] = persons['ptype'].mask(persons['telework_option'], 4)
-
     pipeline.replace_table("persons", persons)
     tracing.print_summary('telework_option', persons.telework_option, value_counts=True)
 

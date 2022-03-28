@@ -66,6 +66,7 @@ models:
   - auto_ownership_simulate
   - free_parking
   - telework_option
+  - telework
   - cdap_simulate
   - mandatory_tour_frequency
   - mandatory_tour_scheduling

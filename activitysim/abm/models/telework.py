@@ -17,7 +17,7 @@ from activitysim.core import logit
 
 logger = logging.getLogger(__name__)
 
-# @inject.step()
+@inject.step()
 def telework(
         persons_merged, persons, households,
         skim_dict, skim_stack,
@@ -40,7 +40,7 @@ def telework(
 
     # telework_option_anotate = pd.read_csv('annotate_telework_option.csv', comment = "#" )
     telework_frequency_rates = pd.read_csv(frequency_rates_path, comment='#')
-    telework_daily_rates = pd.read(day_rates_path, comment='#')
+    telework_daily_rates = pd.read_csv(day_rates_path, comment='#')
 
     #Choosers
     persons_merged = persons_merged.to_frame()
@@ -56,10 +56,11 @@ def telework(
     # Simulation Telework daily
     prob_telecommute = telework_daily_rates['rate'].to_dict()
     choosers['telework_rate'] = choosers['telework_frequency'].replace(prob_telecommute)
-    telework_probs = choosers[['telework_Rate']]
+    telework_probs = choosers[['telework_rate']]
     telework_probs.insert(0,'0', 1 - telework_probs.telework_rate)
     choices, rands = logit.make_choices(telework_probs, trace_label='telework_daily')
-
+    
+    persons = persons.to_frame()
     persons['telework'] = choices.reindex(persons.index).fillna(0).astype(bool)
     persons['ptype'] = persons['ptype'].mask(persons['telework'], 4)
 
