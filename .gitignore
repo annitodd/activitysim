@@ -25,7 +25,7 @@ austin/tmp/*
 austin/pilates/*
 
 #Carb data
-carb/NHTS_2017/*
+carb/jupyter_notebooks/NHTS_2017/*
 carb/policy_analysis/*
 carb/NHTS_2017_data/*
 carb/bay_area_base/output/*
