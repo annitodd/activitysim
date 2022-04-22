@@ -37,6 +37,7 @@ def bootsratp(df, choice, category = None,n = 1000, confidence_level = 0.95, fun
 
         if func == 'value_counts':
             rates = df[choice].value_counts(normalize = True)
+            count = df[choice].value_counts()
             for _ in range(n):
                 sample = df.sample(r, replace = True)
                 group_pcts = sample[choice].value_counts(normalize = True)
@@ -53,17 +54,25 @@ def bootsratp(df, choice, category = None,n = 1000, confidence_level = 0.95, fun
         # assert 'count_col' in df.columns
         if func == 'value_counts':
             rates = df.groupby(category)[choice].value_counts(normalize=True)
+            count = df.groupby(category)[choice].value_counts()
             for _ in range(n):
                 group_pcts = df.sample(r, replace = True).groupby(category)[choice].value_counts(normalize=True)
                 pcts.append(group_pcts)
         elif func == 'mean':
             rates = df.groupby(category)[choice].mean()
+            rates = df.groupby(category).agg({choice:'mean', 'count_col':'count'})
             for _ in range(n):
                 group_pcts = df.sample(r, replace = True).groupby(category)[choice].mean()
                 pcts.append(group_pcts)
 
     pcts = pd.concat(pcts, axis = 1)
     pcts['mean'] , pcts['std']= pcts.mean(axis = 1), pcts.std(axis = 1)
+
+    if func == 'mean':
+        pcts['count'] = rates['count_col']
+
+    if func == 'value_counts':
+        pcts['count'] = count
     
     # pcts[['mean','std']] = mean , std
     pcts['lower_bound'] = norm.ppf((alpha/2), pcts['mean'], pcts['std'])
@@ -77,7 +86,7 @@ def bootsratp(df, choice, category = None,n = 1000, confidence_level = 0.95, fun
     # rates_final = pd.concat((rates, ci), axis = 1)
     # rates_final
     
-    return pcts[['mean', 'lower_bound', 'upper_bound']] #rates_final
+    return pcts[['mean', 'count','lower_bound', 'upper_bound']]
 
 
 # %%
