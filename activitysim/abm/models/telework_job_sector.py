@@ -110,6 +110,7 @@ def telework_job_sector(
     #Choosers
     choosers = persons_merged.to_frame()
     choosers = choosers[choosers.ptype.isin([1,2])] # Choosers are full- or part-time workers only
+    print(choosers.columns)
     choosers = annotate(choosers, job_sector_anotate)
     
     logger.info("Running %s with %d persons", trace_label, len(choosers))
@@ -131,7 +132,7 @@ def telework_job_sector(
     persons = persons.to_frame()
     persons['job_sector'] = choices.reindex(persons.index).fillna(0).astype(bool)
     pipeline.replace_table("persons", persons)
-    tracing.print_summary('telework_job_sector', persons.telework_option, value_counts=True)
+    tracing.print_summary('telework_job_sector', persons.job_sector, value_counts=True)
 
     if trace_hh_id:
         tracing.trace_df(persons,

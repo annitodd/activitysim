@@ -65,6 +65,7 @@ models:
   - workplace_location
   - auto_ownership_simulate
   - free_parking
+  - telework_job_sector
   - telework_option
   - telework
   - cdap_simulate

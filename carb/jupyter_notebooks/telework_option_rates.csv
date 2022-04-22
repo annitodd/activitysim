@@ -1,4 +1,4 @@
-job_sector,income_cat,age_cat,rate
+job_sector,income_category,age_category,rate
 0,0,0,0.0
 0,0,1,0.09298558722823122
 0,0,2,0.09584431303544437

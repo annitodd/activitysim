@@ -116,8 +116,8 @@ def telework_option(
 
 
     # Preprocessing: Add rates to choosers. 
-    telework_rate_categories = list(telework_option_anotate.Target)
-    category, category_index = np.unique(choosers[telework_rate_categories].to_numpy(), axis=0, return_inverse=True)
+    telework_rate_categories = list(telework_option_rates.columns[:-1])
+    category, category_index = np.unique(choosers[telework_rate_categories].astype(int).to_numpy(), axis=0, return_inverse=True)
     choosers['telework_option_category'] = category_index
     dict_cat_rate = create_dict_rate(telework_option_rates, category) #Dict categories and rates
     choosers['telework_option_rate'] = choosers.telework_option_category.replace(dict_cat_rate)
