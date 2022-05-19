@@ -9,15 +9,10 @@ example/data/*
 .vagrant
 
 #Data Folder 
-data/*.h5
-data/*.csv
+data/*
 
 #OutpUt Folder
-output/*.yaml
-outout/*.csv
-output/*.txt
-output/*.h5
-output/trip_mode_choice/*
+output/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
