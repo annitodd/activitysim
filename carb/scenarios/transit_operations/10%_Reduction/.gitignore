@@ -15,7 +15,7 @@ data/*.csv
 #OutpUt Folder
 output/*.yaml
 outout/*.csv
-outout/*.csv
+output/*.txt
 output/*.h5
 output/trip_mode_choice/*
 
