@@ -1,0 +1,980 @@
+mp_tasks - MainProcess - Setting num_processes = 0 for step mp_households
+mp_tasks - MainProcess - num_processes setting (70) greater than cpu count (32)
+mp_tasks - MainProcess - run_multiprocess fail_fast: True
+mp_tasks - MainProcess - allocate_shared_skim_buffer
+mp_tasks - MainProcess - allocate_shared_shadow_pricing_buffers
+mp_tasks - MainProcess - running sub_process mp_setup_skims
+mp_tasks - MainProcess - run_sub_simulations step mp_initialize models resume_after None
+mp_tasks - MainProcess - create_process mp_initialize target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_initialize arg spokesman=True
+mp_tasks - MainProcess - create_process mp_initialize arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9fd430>
+mp_tasks - MainProcess - create_process mp_initialize arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_initialize arg step_info={'begin': 'initialize_landuse', 'name': 'mp_initialize', 'step_num': 0, 'num_processes': 1, 'chunk_size': 10000000000, 'models': ['initialize_landuse', 'compute_accessibility', 'initialize_households']}
+mp_tasks - MainProcess - create_process mp_initialize arg resume_after=None
+mp_tasks - MainProcess - create_process mp_initialize shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_initialize shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_initialize shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - start process mp_initialize
+mp_tasks - MainProcess - mp_initialize initialize_landuse : 0.791 seconds (0.0 minutes)
+mp_tasks - MainProcess - mp_initialize compute_accessibility : 2.166 seconds (0.0 minutes)
+mp_tasks - MainProcess - mp_initialize initialize_households : 24.37 seconds (0.4 minutes)
+mp_tasks - MainProcess - process mp_initialize completed
+mp_tasks - MainProcess - Process mp_initialize completed with exitcode 0
+mp_tasks - MainProcess - running sub_process mp_households_apportion
+mp_tasks - mp_households_apportion - apportion_pipeline pipeline_path: output/pipeline.h5
+mp_tasks - mp_households_apportion - loaded table land_use (1454, 44)
+mp_tasks - mp_households_apportion - loaded table accessibility (1454, 10)
+mp_tasks - mp_households_apportion - loaded table person_windows (52310, 21)
+mp_tasks - mp_households_apportion - loaded table households (20000, 49)
+mp_tasks - mp_households_apportion - loaded table persons (52310, 48)
+mp_tasks - mp_households_apportion - loaded table school_destination_size (1454, 3)
+mp_tasks - mp_households_apportion - loaded table workplace_destination_size (1454, 4)
+mp_tasks - mp_households_apportion - build_slice_rules tables ['households', 'persons', 'land_use', 'accessibility', 'person_windows', 'school_destination_size', 'workplace_destination_size']
+mp_tasks - mp_households_apportion - build_slice_rules primary_slicer households
+mp_tasks - mp_households_apportion - build_slice_rules slicer_table_names ['households', 'persons']
+mp_tasks - mp_households_apportion - build_slice_rules slicer_table_exceptions []
+mp_tasks - mp_households_apportion - table_name: {'slice_by': 'primary'}
+mp_tasks - mp_households_apportion - table_name: {'slice_by': 'column', 'column': 'household_id', 'source': 'households'}
+mp_tasks - mp_households_apportion - table_name: {'slice_by': None}
+mp_tasks - mp_households_apportion - table_name: {'slice_by': None}
+mp_tasks - mp_households_apportion - table_name: {'slice_by': 'index', 'source': 'persons'}
+mp_tasks - mp_households_apportion - table_name: {'slice_by': None}
+mp_tasks - mp_households_apportion - table_name: {'slice_by': None}
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_0-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_1-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_2-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_3-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_4-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_5-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_6-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_7-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_8-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_9-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_10-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_11-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_12-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_13-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_14-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_15-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_16-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_17-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_18-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_19-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_20-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_21-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_22-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_23-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_24-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_25-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_26-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_27-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_28-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_29-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_30-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_31-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_32-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_33-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_34-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_35-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_36-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_37-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_38-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_39-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_40-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_41-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_42-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_43-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_44-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_45-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_46-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_47-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_48-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_49-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_50-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_51-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_52-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_53-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_54-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_55-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_56-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_57-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_58-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_59-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_60-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_61-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_62-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_63-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_64-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_65-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_66-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_67-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_68-pipeline.h5
+mp_tasks - mp_households_apportion - writing checkpoints ((1, 9)) to checkpoints in output/mp_households_69-pipeline.h5
+mp_tasks - MainProcess - run_sub_simulations step mp_households models resume_after None
+mp_tasks - MainProcess - create_process mp_households_0 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_0 arg spokesman=True
+mp_tasks - MainProcess - create_process mp_households_0 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9fd370>
+mp_tasks - MainProcess - create_process mp_households_0 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_0 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_0 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_0 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_0 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_0 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_1 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_1 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_1 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9e3820>
+mp_tasks - MainProcess - create_process mp_households_1 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_1 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_1 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_1 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_1 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_1 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_2 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_2 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_2 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9fe6a0>
+mp_tasks - MainProcess - create_process mp_households_2 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_2 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_2 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_2 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_2 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_2 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_3 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_3 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_3 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9feee0>
+mp_tasks - MainProcess - create_process mp_households_3 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_3 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_3 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_3 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_3 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_3 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_4 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_4 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_4 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9fee50>
+mp_tasks - MainProcess - create_process mp_households_4 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_4 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_4 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_4 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_4 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_4 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_5 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_5 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_5 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9fe9a0>
+mp_tasks - MainProcess - create_process mp_households_5 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_5 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_5 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_5 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_5 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_5 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_6 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_6 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_6 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba1b130>
+mp_tasks - MainProcess - create_process mp_households_6 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_6 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_6 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_6 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_6 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_6 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_7 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_7 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_7 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba1b400>
+mp_tasks - MainProcess - create_process mp_households_7 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_7 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_7 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_7 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_7 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_7 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_8 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_8 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_8 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba1b6d0>
+mp_tasks - MainProcess - create_process mp_households_8 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_8 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_8 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_8 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_8 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_8 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_9 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_9 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_9 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba1b9a0>
+mp_tasks - MainProcess - create_process mp_households_9 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_9 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_9 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_9 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_9 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_9 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_10 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_10 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_10 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba1bc70>
+mp_tasks - MainProcess - create_process mp_households_10 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_10 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_10 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_10 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_10 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_10 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_11 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_11 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_11 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba1bf70>
+mp_tasks - MainProcess - create_process mp_households_11 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_11 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_11 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_11 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_11 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_11 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_12 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_12 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_12 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba1a2b0>
+mp_tasks - MainProcess - create_process mp_households_12 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_12 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_12 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_12 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_12 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_12 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_13 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_13 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_13 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba1a5b0>
+mp_tasks - MainProcess - create_process mp_households_13 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_13 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_13 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_13 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_13 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_13 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_14 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_14 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_14 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba1a8b0>
+mp_tasks - MainProcess - create_process mp_households_14 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_14 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_14 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_14 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_14 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_14 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_15 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_15 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_15 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba1abb0>
+mp_tasks - MainProcess - create_process mp_households_15 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_15 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_15 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_15 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_15 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_15 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_16 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_16 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_16 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba1aeb0>
+mp_tasks - MainProcess - create_process mp_households_16 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_16 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_16 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_16 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_16 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_16 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_17 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_17 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_17 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba241f0>
+mp_tasks - MainProcess - create_process mp_households_17 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_17 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_17 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_17 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_17 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_17 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_18 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_18 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_18 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba244f0>
+mp_tasks - MainProcess - create_process mp_households_18 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_18 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_18 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_18 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_18 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_18 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_19 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_19 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_19 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba247f0>
+mp_tasks - MainProcess - create_process mp_households_19 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_19 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_19 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_19 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_19 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_19 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_20 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_20 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_20 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba24af0>
+mp_tasks - MainProcess - create_process mp_households_20 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_20 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_20 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_20 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_20 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_20 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_21 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_21 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_21 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba24df0>
+mp_tasks - MainProcess - create_process mp_households_21 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_21 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_21 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_21 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_21 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_21 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_22 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_22 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_22 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba2f130>
+mp_tasks - MainProcess - create_process mp_households_22 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_22 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_22 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_22 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_22 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_22 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_23 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_23 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_23 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba2f430>
+mp_tasks - MainProcess - create_process mp_households_23 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_23 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_23 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_23 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_23 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_23 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_24 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_24 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_24 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba2f730>
+mp_tasks - MainProcess - create_process mp_households_24 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_24 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_24 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_24 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_24 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_24 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_25 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_25 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_25 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba2fa30>
+mp_tasks - MainProcess - create_process mp_households_25 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_25 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_25 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_25 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_25 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_25 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_26 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_26 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_26 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba2fd30>
+mp_tasks - MainProcess - create_process mp_households_26 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_26 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_26 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_26 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_26 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_26 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_27 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_27 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_27 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba37070>
+mp_tasks - MainProcess - create_process mp_households_27 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_27 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_27 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_27 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_27 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_27 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_28 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_28 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_28 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba37370>
+mp_tasks - MainProcess - create_process mp_households_28 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_28 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_28 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_28 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_28 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_28 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_29 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_29 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_29 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba37670>
+mp_tasks - MainProcess - create_process mp_households_29 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_29 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_29 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_29 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_29 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_29 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_30 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_30 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_30 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba37970>
+mp_tasks - MainProcess - create_process mp_households_30 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_30 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_30 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_30 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_30 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_30 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_31 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_31 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_31 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba37c70>
+mp_tasks - MainProcess - create_process mp_households_31 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_31 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_31 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_31 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_31 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_31 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_32 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_32 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_32 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7ba37f70>
+mp_tasks - MainProcess - create_process mp_households_32 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_32 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_32 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_32 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_32 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_32 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_33 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_33 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_33 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9982b0>
+mp_tasks - MainProcess - create_process mp_households_33 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_33 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_33 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_33 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_33 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_33 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_34 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_34 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_34 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9985b0>
+mp_tasks - MainProcess - create_process mp_households_34 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_34 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_34 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_34 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_34 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_34 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_35 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_35 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_35 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9988b0>
+mp_tasks - MainProcess - create_process mp_households_35 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_35 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_35 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_35 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_35 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_35 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_36 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_36 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_36 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b998bb0>
+mp_tasks - MainProcess - create_process mp_households_36 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_36 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_36 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_36 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_36 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_36 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_37 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_37 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_37 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b998eb0>
+mp_tasks - MainProcess - create_process mp_households_37 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_37 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_37 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_37 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_37 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_37 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_38 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_38 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_38 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9b61f0>
+mp_tasks - MainProcess - create_process mp_households_38 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_38 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_38 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_38 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_38 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_38 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_39 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_39 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_39 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9b64f0>
+mp_tasks - MainProcess - create_process mp_households_39 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_39 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_39 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_39 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_39 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_39 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_40 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_40 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_40 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9b67f0>
+mp_tasks - MainProcess - create_process mp_households_40 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_40 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_40 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_40 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_40 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_40 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_41 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_41 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_41 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9b6af0>
+mp_tasks - MainProcess - create_process mp_households_41 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_41 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_41 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_41 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_41 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_41 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_42 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_42 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_42 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9b6df0>
+mp_tasks - MainProcess - create_process mp_households_42 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_42 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_42 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_42 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_42 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_42 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_43 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_43 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_43 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9b4130>
+mp_tasks - MainProcess - create_process mp_households_43 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_43 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_43 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_43 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_43 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_43 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_44 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_44 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_44 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9b4430>
+mp_tasks - MainProcess - create_process mp_households_44 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_44 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_44 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_44 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_44 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_44 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_45 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_45 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_45 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9b4730>
+mp_tasks - MainProcess - create_process mp_households_45 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_45 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_45 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_45 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_45 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_45 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_46 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_46 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_46 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9b4a30>
+mp_tasks - MainProcess - create_process mp_households_46 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_46 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_46 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_46 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_46 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_46 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_47 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_47 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_47 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9b4d30>
+mp_tasks - MainProcess - create_process mp_households_47 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_47 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_47 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_47 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_47 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_47 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_48 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_48 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_48 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b97d070>
+mp_tasks - MainProcess - create_process mp_households_48 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_48 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_48 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_48 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_48 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_48 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_49 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_49 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_49 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b97d370>
+mp_tasks - MainProcess - create_process mp_households_49 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_49 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_49 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_49 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_49 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_49 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_50 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_50 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_50 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b97d670>
+mp_tasks - MainProcess - create_process mp_households_50 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_50 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_50 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_50 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_50 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_50 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_51 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_51 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_51 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b97d970>
+mp_tasks - MainProcess - create_process mp_households_51 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_51 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_51 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_51 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_51 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_51 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_52 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_52 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_52 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b97dcd0>
+mp_tasks - MainProcess - create_process mp_households_52 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_52 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_52 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_52 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_52 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_52 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_53 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_53 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_53 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b97dfd0>
+mp_tasks - MainProcess - create_process mp_households_53 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_53 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_53 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_53 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_53 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_53 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_54 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_54 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_54 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b985310>
+mp_tasks - MainProcess - create_process mp_households_54 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_54 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_54 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_54 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_54 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_54 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_55 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_55 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_55 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b985610>
+mp_tasks - MainProcess - create_process mp_households_55 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_55 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_55 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_55 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_55 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_55 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_56 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_56 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_56 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b985910>
+mp_tasks - MainProcess - create_process mp_households_56 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_56 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_56 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_56 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_56 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_56 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_57 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_57 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_57 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b985c10>
+mp_tasks - MainProcess - create_process mp_households_57 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_57 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_57 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_57 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_57 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_57 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_58 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_58 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_58 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b985f10>
+mp_tasks - MainProcess - create_process mp_households_58 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_58 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_58 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_58 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_58 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_58 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_59 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_59 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_59 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b98b250>
+mp_tasks - MainProcess - create_process mp_households_59 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_59 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_59 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_59 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_59 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_59 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_60 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_60 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_60 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b98b550>
+mp_tasks - MainProcess - create_process mp_households_60 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_60 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_60 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_60 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_60 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_60 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_61 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_61 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_61 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b98b850>
+mp_tasks - MainProcess - create_process mp_households_61 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_61 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_61 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_61 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_61 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_61 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_62 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_62 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_62 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b98bb50>
+mp_tasks - MainProcess - create_process mp_households_62 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_62 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_62 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_62 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_62 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_62 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_63 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_63 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_63 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b98be50>
+mp_tasks - MainProcess - create_process mp_households_63 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_63 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_63 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_63 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_63 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_63 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_64 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_64 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_64 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b99a190>
+mp_tasks - MainProcess - create_process mp_households_64 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_64 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_64 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_64 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_64 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_64 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_65 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_65 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_65 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b99a490>
+mp_tasks - MainProcess - create_process mp_households_65 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_65 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_65 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_65 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_65 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_65 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_66 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_66 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_66 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b99a790>
+mp_tasks - MainProcess - create_process mp_households_66 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_66 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_66 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_66 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_66 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_66 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_67 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_67 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_67 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b99aa90>
+mp_tasks - MainProcess - create_process mp_households_67 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_67 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_67 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_67 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_67 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_67 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_68 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_68 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_68 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b99ad90>
+mp_tasks - MainProcess - create_process mp_households_68 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_68 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_68 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_68 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_68 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_68 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - create_process mp_households_69 target=<function mp_run_simulation at 0x7f1e7bb96040>
+mp_tasks - MainProcess - create_process mp_households_69 arg spokesman=False
+mp_tasks - MainProcess - create_process mp_households_69 arg queue=<multiprocessing.queues.Queue object at 0x7f1e7b9a10d0>
+mp_tasks - MainProcess - create_process mp_households_69 arg injectables={'data_dir': 'data', 'configs_dir': ['configs', 'configs/configs'], 'output_dir': 'output'}
+mp_tasks - MainProcess - create_process mp_households_69 arg step_info={'begin': 'school_location', 'name': 'mp_households', 'slice': {'tables': ['households', 'persons']}, 'step_num': 1, 'num_processes': 70, 'chunk_size': 142857143, 'models': ['school_location', 'workplace_location', 'auto_ownership_simulate', 'free_parking', 'cdap_simulate', 'mandatory_tour_frequency', 'mandatory_tour_scheduling', 'joint_tour_frequency', 'joint_tour_composition', 'joint_tour_participation', 'joint_tour_destination', 'joint_tour_scheduling', 'non_mandatory_tour_frequency', 'non_mandatory_tour_destination', 'non_mandatory_tour_scheduling', 'tour_mode_choice_simulate', 'atwork_subtour_frequency', 'atwork_subtour_destination', 'atwork_subtour_scheduling', 'atwork_subtour_mode_choice', 'stop_frequency', 'trip_purpose', 'trip_destination', 'trip_purpose_and_destination', 'trip_scheduling', 'trip_mode_choice']}
+mp_tasks - MainProcess - create_process mp_households_69 arg resume_after=_
+mp_tasks - MainProcess - create_process mp_households_69 shared_data_buffers skim_skims_0=<multiprocessing.sharedctypes.c_float_Array_1797066250 object at 0x7f1e7b975240>
+mp_tasks - MainProcess - create_process mp_households_69 shared_data_buffers school=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_5816 object at 0x7f1e7b975940>>
+mp_tasks - MainProcess - create_process mp_households_69 shared_data_buffers workplace=<SynchronizedArray wrapper for <multiprocessing.sharedctypes.c_long_Array_7270 object at 0x7f1e7b975ac0>>
+mp_tasks - MainProcess - start process mp_households_0
+mp_tasks - MainProcess - start process mp_households_1
+mp_tasks - mp_households_0 - resume_after _
+mp_tasks - MainProcess - start process mp_households_2
+mp_tasks - mp_households_1 - resume_after _
+mp_tasks - MainProcess - start process mp_households_3
+mp_tasks - mp_households_2 - resume_after _
+mp_tasks - MainProcess - start process mp_households_4
+mp_tasks - mp_households_3 - resume_after _
+mp_tasks - MainProcess - start process mp_households_5
+mp_tasks - mp_households_4 - resume_after _
+mp_tasks - MainProcess - start process mp_households_6
+mp_tasks - mp_households_5 - resume_after _
+mp_tasks - MainProcess - start process mp_households_7
+mp_tasks - mp_households_6 - resume_after _
+mp_tasks - MainProcess - start process mp_households_8
+mp_tasks - mp_households_7 - resume_after _
+mp_tasks - MainProcess - start process mp_households_9
+mp_tasks - mp_households_8 - resume_after _
+mp_tasks - MainProcess - start process mp_households_10
+mp_tasks - mp_households_9 - resume_after _
+mp_tasks - MainProcess - start process mp_households_11
+mp_tasks - mp_households_10 - resume_after _
+mp_tasks - mp_households_11 - resume_after _
+mp_tasks - MainProcess - start process mp_households_12
+mp_tasks - MainProcess - start process mp_households_13
+mp_tasks - mp_households_12 - resume_after _
+mp_tasks - MainProcess - start process mp_households_14
+mp_tasks - mp_households_13 - resume_after _
+mp_tasks - MainProcess - start process mp_households_15
+mp_tasks - mp_households_14 - resume_after _
+mp_tasks - MainProcess - start process mp_households_16
+mp_tasks - mp_households_15 - resume_after _
+mp_tasks - MainProcess - start process mp_households_17
+mp_tasks - mp_households_16 - resume_after _
+mp_tasks - MainProcess - start process mp_households_18
+mp_tasks - mp_households_17 - resume_after _
+mp_tasks - MainProcess - start process mp_households_19
+mp_tasks - mp_households_18 - resume_after _
+mp_tasks - MainProcess - start process mp_households_20
+mp_tasks - mp_households_19 - resume_after _
+mp_tasks - MainProcess - start process mp_households_21
+mp_tasks - MainProcess - start process mp_households_22
+mp_tasks - mp_households_20 - resume_after _
+mp_tasks - mp_households_21 - resume_after _
+mp_tasks - MainProcess - start process mp_households_23
+mp_tasks - mp_households_22 - resume_after _
+mp_tasks - mp_households_23 - resume_after _
+mp_tasks - MainProcess - start process mp_households_24
+mp_tasks - MainProcess - start process mp_households_25
+mp_tasks - mp_households_24 - resume_after _
+mp_tasks - MainProcess - start process mp_households_26
+mp_tasks - mp_households_25 - resume_after _
+mp_tasks - MainProcess - start process mp_households_27
+mp_tasks - mp_households_26 - resume_after _
+mp_tasks - MainProcess - start process mp_households_28
+mp_tasks - mp_households_27 - resume_after _
+mp_tasks - MainProcess - start process mp_households_29
+mp_tasks - mp_households_28 - resume_after _
+mp_tasks - MainProcess - start process mp_households_30
+mp_tasks - mp_households_29 - resume_after _
+mp_tasks - MainProcess - start process mp_households_31
+mp_tasks - mp_households_30 - resume_after _
+mp_tasks - MainProcess - start process mp_households_32
+mp_tasks - mp_households_31 - resume_after _
+mp_tasks - MainProcess - start process mp_households_33
+mp_tasks - mp_households_32 - resume_after _
+mp_tasks - MainProcess - start process mp_households_34
+mp_tasks - mp_households_33 - resume_after _
+mp_tasks - MainProcess - start process mp_households_35
+mp_tasks - mp_households_34 - resume_after _
+mp_tasks - MainProcess - start process mp_households_36
+mp_tasks - mp_households_35 - resume_after _
+mp_tasks - MainProcess - start process mp_households_37
+mp_tasks - mp_households_36 - resume_after _
+mp_tasks - MainProcess - start process mp_households_38
+mp_tasks - mp_households_37 - resume_after _
+mp_tasks - MainProcess - start process mp_households_39
+mp_tasks - MainProcess - start process mp_households_40
+mp_tasks - mp_households_38 - resume_after _
+mp_tasks - mp_households_39 - resume_after _
+mp_tasks - MainProcess - start process mp_households_41
+mp_tasks - mp_households_40 - resume_after _
+mp_tasks - MainProcess - start process mp_households_42
+mp_tasks - mp_households_41 - resume_after _
+mp_tasks - MainProcess - start process mp_households_43
+mp_tasks - mp_households_42 - resume_after _
+mp_tasks - MainProcess - start process mp_households_44
+mp_tasks - mp_households_43 - resume_after _
+mp_tasks - mp_households_44 - resume_after _
+mp_tasks - MainProcess - start process mp_households_45
+mp_tasks - MainProcess - start process mp_households_46
+mp_tasks - mp_households_45 - resume_after _
+mp_tasks - MainProcess - start process mp_households_47
+mp_tasks - MainProcess - start process mp_households_48
+mp_tasks - mp_households_46 - resume_after _
+mp_tasks - mp_households_47 - resume_after _
+mp_tasks - MainProcess - start process mp_households_49
+mp_tasks - mp_households_48 - resume_after _
+mp_tasks - mp_households_49 - resume_after _
+mp_tasks - MainProcess - start process mp_households_50
+mp_tasks - mp_households_50 - resume_after _
+mp_tasks - MainProcess - start process mp_households_51
+mp_tasks - mp_households_51 - resume_after _
+mp_tasks - MainProcess - start process mp_households_52
+mp_tasks - MainProcess - start process mp_households_53
+mp_tasks - mp_households_52 - resume_after _
+mp_tasks - MainProcess - start process mp_households_54
+mp_tasks - mp_households_53 - resume_after _
+mp_tasks - MainProcess - start process mp_households_55
+mp_tasks - mp_households_54 - resume_after _
+mp_tasks - MainProcess - start process mp_households_56
+mp_tasks - mp_households_55 - resume_after _
+mp_tasks - MainProcess - start process mp_households_57
+mp_tasks - mp_households_56 - resume_after _
+mp_tasks - mp_households_57 - resume_after _
+mp_tasks - MainProcess - start process mp_households_58
+mp_tasks - mp_households_58 - resume_after _
+mp_tasks - MainProcess - start process mp_households_59
+mp_tasks - MainProcess - start process mp_households_60
+mp_tasks - mp_households_59 - resume_after _
+mp_tasks - mp_households_60 - resume_after _
+mp_tasks - MainProcess - start process mp_households_61
+mp_tasks - MainProcess - start process mp_households_62
+mp_tasks - mp_households_61 - resume_after _
+mp_tasks - MainProcess - start process mp_households_63
+mp_tasks - mp_households_62 - resume_after _
+mp_tasks - mp_households_63 - resume_after _
+mp_tasks - MainProcess - start process mp_households_64
+mp_tasks - mp_households_64 - resume_after _
+mp_tasks - MainProcess - start process mp_households_65
+mp_tasks - MainProcess - start process mp_households_66
+mp_tasks - mp_households_65 - resume_after _
+mp_tasks - MainProcess - start process mp_households_67
+mp_tasks - mp_households_66 - resume_after _
+mp_tasks - MainProcess - start process mp_households_68
+mp_tasks - mp_households_67 - resume_after _
+mp_tasks - MainProcess - start process mp_households_69
+mp_tasks - mp_households_68 - resume_after _
+mp_tasks - mp_households_69 - resume_after _
+mp_tasks - mp_households_0 - ValueError exception running school_location model: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+---
+mp_tasks - mp_households_0 - ValueError exception caught in mp_run_simulation: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+Traceback (most recent call last):
+  File "/home/ubuntu/ual_asim/activitysim/activitysim/core/mp_tasks.py", line 796, in mp_run_simulation
+    run_simulation(queue, step_info, resume_after, shared_data_buffer)
+  File "/home/ubuntu/ual_asim/activitysim/activitysim/core/mp_tasks.py", line 749, in run_simulation
+    raise e
+  File "/home/ubuntu/ual_asim/activitysim/activitysim/core/mp_tasks.py", line 746, in run_simulation
+    pipeline.run_model(model)
+  File "/home/ubuntu/ual_asim/activitysim/activitysim/core/pipeline.py", line 465, in run_model
+    orca.run([step_name])
+  File "/home/ubuntu/ual_asim/activitysim/activitysim/core/orca.py", line 2033, in run
+    step()
+  File "/home/ubuntu/ual_asim/activitysim/activitysim/core/orca.py", line 842, in __call__
+    return self._func(**kwargs)
+  File "/home/ubuntu/ual_asim/activitysim/activitysim/abm/models/location_choice.py", line 650, in school_location
+    iterate_location_choice(
+  File "/home/ubuntu/ual_asim/activitysim/activitysim/abm/models/location_choice.py", line 504, in iterate_location_choice
+    choices_df, save_sample_df = run_location_choice(
+  File "/home/ubuntu/ual_asim/activitysim/activitysim/abm/models/location_choice.py", line 384, in run_location_choice
+    run_location_logsums(
+  File "/home/ubuntu/ual_asim/activitysim/activitysim/abm/models/location_choice.py", line 212, in run_location_logsums
+    logsums = logsum.compute_logsums(
+ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+---
+mp_tasks - MainProcess - process mp_households_0 failed with exitcode 1
+mp_tasks - MainProcess - fail_fast terminating remaining running processes
+mp_tasks - MainProcess - terminating process mp_households_1
+mp_tasks - MainProcess - terminating process mp_households_2
+mp_tasks - MainProcess - terminating process mp_households_3
+mp_tasks - MainProcess - terminating process mp_households_4
+mp_tasks - MainProcess - terminating process mp_households_5
+mp_tasks - MainProcess - terminating process mp_households_6
+mp_tasks - MainProcess - terminating process mp_households_7
+mp_tasks - MainProcess - terminating process mp_households_8
+mp_tasks - MainProcess - terminating process mp_households_9
+mp_tasks - MainProcess - terminating process mp_households_10
+mp_tasks - MainProcess - terminating process mp_households_11
+mp_tasks - MainProcess - terminating process mp_households_12
+mp_tasks - MainProcess - terminating process mp_households_13
+mp_tasks - MainProcess - terminating process mp_households_14
+mp_tasks - MainProcess - terminating process mp_households_15
+mp_tasks - MainProcess - terminating process mp_households_16
+mp_tasks - MainProcess - terminating process mp_households_17
+mp_tasks - MainProcess - terminating process mp_households_18
+mp_tasks - MainProcess - terminating process mp_households_19
+mp_tasks - MainProcess - terminating process mp_households_20
+mp_tasks - MainProcess - terminating process mp_households_21
+mp_tasks - MainProcess - terminating process mp_households_22
+mp_tasks - MainProcess - terminating process mp_households_23
+mp_tasks - MainProcess - terminating process mp_households_24
+mp_tasks - MainProcess - terminating process mp_households_25
+mp_tasks - MainProcess - terminating process mp_households_26
+mp_tasks - MainProcess - terminating process mp_households_27
+mp_tasks - MainProcess - terminating process mp_households_28
+mp_tasks - MainProcess - terminating process mp_households_29
+mp_tasks - MainProcess - terminating process mp_households_30
+mp_tasks - MainProcess - terminating process mp_households_31
+mp_tasks - MainProcess - terminating process mp_households_32
+mp_tasks - MainProcess - terminating process mp_households_33
+mp_tasks - MainProcess - terminating process mp_households_34
+mp_tasks - MainProcess - terminating process mp_households_35
+mp_tasks - MainProcess - terminating process mp_households_36
+mp_tasks - MainProcess - terminating process mp_households_37
+mp_tasks - MainProcess - terminating process mp_households_38
+mp_tasks - MainProcess - terminating process mp_households_39
+mp_tasks - MainProcess - terminating process mp_households_40
+mp_tasks - MainProcess - terminating process mp_households_41
+mp_tasks - MainProcess - terminating process mp_households_42
+mp_tasks - MainProcess - terminating process mp_households_43
+mp_tasks - MainProcess - terminating process mp_households_44
+mp_tasks - MainProcess - terminating process mp_households_45
+mp_tasks - MainProcess - terminating process mp_households_46
+mp_tasks - MainProcess - terminating process mp_households_47
+mp_tasks - MainProcess - terminating process mp_households_48
+mp_tasks - MainProcess - terminating process mp_households_49
+mp_tasks - MainProcess - terminating process mp_households_50
+mp_tasks - MainProcess - terminating process mp_households_51
+mp_tasks - MainProcess - terminating process mp_households_52
+mp_tasks - MainProcess - terminating process mp_households_53
+mp_tasks - MainProcess - terminating process mp_households_54
+mp_tasks - MainProcess - terminating process mp_households_55
+mp_tasks - MainProcess - terminating process mp_households_56
+mp_tasks - MainProcess - terminating process mp_households_57
+mp_tasks - MainProcess - terminating process mp_households_58
+mp_tasks - MainProcess - terminating process mp_households_59
+mp_tasks - MainProcess - terminating process mp_households_60
+mp_tasks - MainProcess - terminating process mp_households_61
+mp_tasks - MainProcess - terminating process mp_households_62
+mp_tasks - MainProcess - terminating process mp_households_63
+mp_tasks - MainProcess - terminating process mp_households_64
+mp_tasks - MainProcess - terminating process mp_households_65
+mp_tasks - MainProcess - terminating process mp_households_66
+mp_tasks - MainProcess - terminating process mp_households_67
+mp_tasks - MainProcess - terminating process mp_households_68
+mp_tasks - MainProcess - terminating process mp_households_69
