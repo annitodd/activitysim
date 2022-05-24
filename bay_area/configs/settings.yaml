@@ -40,7 +40,7 @@ mem_tick: 0
 use_shadow_pricing: False
 
 # sample size
-households_sample_size: 0
+households_sample_size: 100
 
 # multiprocessing controls
 multiprocess: True
@@ -65,6 +65,9 @@ models:
   - workplace_location
 #   - auto_ownership_simulate
   - free_parking
+  - telework_job_sector
+  - telework_option
+  - telework
   - cdap_simulate
   - mandatory_tour_frequency
   - mandatory_tour_scheduling
