@@ -1,5 +1,0 @@
-checkpoint_name,timestamp,land_use,accessibility,school_destination_size,workplace_destination_size,school_modeled_size,workplace_modeled_size,person_windows,households,persons,tours,joint_tour_participants,trips,plans
-init,2022-03-04 21:50:55.259529,init,,,,,,,,,,,,
-trip_mode_choice,2022-03-04 21:50:55.982641,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,
-generate_beam_plans,2022-03-04 21:52:04.904637,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,generate_beam_plans
-write_data_dictionary,2022-03-04 21:52:05.121597,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,trip_mode_choice,generate_beam_plans
