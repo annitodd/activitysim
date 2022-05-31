@@ -45,11 +45,11 @@ households_sample_size: 0
 # multiprocessing controls
 multiprocess: True
 chunk_size: 10_000_000_000
-num_processes: 94
+num_processes: 60
 stagger: 0
 
 # tracing
-trace_hh_id: 456291
+trace_hh_id: 
 trace_od:
 
 # to resume after last successful checkpoint, specify resume_after: _

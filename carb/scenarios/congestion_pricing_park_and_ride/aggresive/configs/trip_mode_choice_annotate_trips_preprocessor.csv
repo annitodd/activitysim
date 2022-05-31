@@ -58,8 +58,10 @@ dest terminal time not counted at home,_dest_terminal_time,"np.where(inbound & l
 ,origin_zone_sharedTNC_wait_time_sd,"origin_density.map({k: v for k, v in TNC_shared_waitTime_sd.items()})"
 ,origSharedTNCWaitTime,"rng.lognormal_for_df(df, mu=origin_zone_sharedTNC_wait_time_mean, sigma=origin_zone_sharedTNC_wait_time_sd, broadcast=True, scale=True).clip(min_waitTime, max_waitTime)"
 #,,
-,congestion_destination,df[dest_col_name].isin((land_use.cordon == True).index)
-,congestion_origin,df[orig_col_name].isin((land_use.cordon == True).index)
+#,congestion_destination,df[dest_col_name].isin((land_use.cordon == True).index)
+,congestion_destination,"reindex(land_use.cordon, df[dest_col_name])"
+#,congestion_origin,df[orig_col_name].isin((land_use.cordon == True).index)
+,congestion_origin,"reindex(land_use.cordon, df[orig_col_name])"
 ,sov_available,odt_skims['SOV_TIME']>0
 ,hov2_available,odt_skims['HOV2_TIME']>0
 ,hov3_available,odt_skims['HOV3_TIME']>0
