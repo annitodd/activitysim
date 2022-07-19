@@ -61,6 +61,7 @@ models:
   - compute_accessibility
   - initialize_households
   ### mp_households step
+  - autonomous_vehicles
   - school_location
   - workplace_location
   - auto_ownership_simulate
@@ -99,7 +100,7 @@ multiprocess_steps:
   - name: mp_initialize
     begin: initialize_landuse
   - name: mp_households
-    begin: school_location
+    begin: autonomous_vehicles
     slice:
       tables:
         - households
