@@ -1204,29 +1204,6 @@ def run_multiprocess(run_list, injectables):
     injectables : dict
         dict of values to inject in sub-processes
     """
-    print ('hola') 
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola') 
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-    print ('hola')
-
     mem.init_trace(setting('mem_tick'), write_header=True)
     mem.trace_memory_info("run_multiprocess.start")
 
