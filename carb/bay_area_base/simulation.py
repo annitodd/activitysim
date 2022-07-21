@@ -18,6 +18,7 @@ from activitysim.core import chunk
 
 logger = logging.getLogger('activitysim')
 
+
 def cleanup_output_files():
 
     active_log_files = \
@@ -46,7 +47,10 @@ def run(run_list, injectables=None, warm_start=False):
             logger.info("run multiprocess warm start simulation")
         else:
             logger.info("run multiprocess simulation")
+#         print(run_list) 
+#         print(injectables)
         mp_tasks.run_multiprocess(run_list, injectables)
+#         mp_tasks.run_multiprocess(run_list)
 
     else:
         if warm_start:
@@ -98,6 +102,12 @@ if __name__ == '__main__':
     parser.add_argument(
         "-k", "--skim_cache", action="store_true",
         help="use skim cache. default is False.")
+    parser.add_argument(
+        "-y", "--year", action="store", 
+        help="year of simulation. default is 2010") 
+    parser.add_argument(
+        "-s", "--scenario", action="store", 
+        help="scenario. One of 'conservative', 'core', or 'aggressive'. Default is 'core' ") 
 
     args = parser.parse_args()
 
@@ -126,6 +136,12 @@ if __name__ == '__main__':
     injectables = ['data_dir', 'configs_dir', 'output_dir']
     inject.add_injectable('data_dir', 'data')
     inject.add_injectable('configs_dir', ['configs', 'configs/configs'])
+    
+    #Adding scenario arguments
+    year = args.year if args.year else 2010
+    scenario = args.scenario if args.scenario else 'core'
+    inject.add_injectable('year', args.year)
+    inject.add_injectable('scenario', args.scenario)
 
     config.filter_warnings()
     tracing.config_logger()
