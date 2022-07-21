@@ -1180,7 +1180,6 @@ def drop_breadcrumb(step_name, crumb, value=True):
 
 
 def run_multiprocess(run_list, injectables):
-    
     """
     run the steps in run_list, possibly resuming after checkpoint specified by resume_after
 
@@ -1204,6 +1203,7 @@ def run_multiprocess(run_list, injectables):
     injectables : dict
         dict of values to inject in sub-processes
     """
+    
     mem.init_trace(setting('mem_tick'), write_header=True)
     mem.trace_memory_info("run_multiprocess.start")
 
