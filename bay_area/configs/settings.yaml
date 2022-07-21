@@ -61,14 +61,10 @@ models:
   - compute_accessibility
   - initialize_households
   ### mp_households step
-  - autonomous_vehicles
   - school_location
   - workplace_location
   - auto_ownership_simulate
   - free_parking
-  - telework_job_sector
-  - telework_option
-  - telework
   - cdap_simulate
   - mandatory_tour_frequency
   - mandatory_tour_scheduling
@@ -100,7 +96,7 @@ multiprocess_steps:
   - name: mp_initialize
     begin: initialize_landuse
   - name: mp_households
-    begin: autonomous_vehicles
+    begin: school_location
     slice:
       tables:
         - households
@@ -120,10 +116,6 @@ output_tables:
     - trips
     - joint_tour_participants
     - plans
-#     - trip_mode_choice_raw
-#     - trip_mode_choice_utilities
-#     - trip_mode_choice_specs
-#     - trip_mode_choice_data_dict
 
 # area_types less than this are considered urban
 urban_threshold: 4
@@ -147,7 +139,6 @@ skim_time_periods:
         - EV
 
 # - value of time
-
 # value_of_time = lognormal(np.log(median_value_of_time * mu), sigma).clip(min_vot, max_vot)
 
 min_value_of_time: 1
