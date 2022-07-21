@@ -47,10 +47,7 @@ def run(run_list, injectables=None, warm_start=False):
             logger.info("run multiprocess warm start simulation")
         else:
             logger.info("run multiprocess simulation")
-#         print(run_list) 
-#         print(injectables)
         mp_tasks.run_multiprocess(run_list, injectables)
-#         mp_tasks.run_multiprocess(run_list)
 
     else:
         if warm_start:
