@@ -1,0 +1,17 @@
+label,value_1,value_2,value_3,value_4
+tour_id,20976574,20976615,20976697,20976787
+person_id,511623,511624,511626,511628
+tour_type,school,school,school,work
+tour_type_count,1,1,1,1
+tour_type_num,1,1,1,1
+tour_num,1,1,1,1
+tour_count,1,1,1,1
+tour_category,mandatory,mandatory,mandatory,mandatory
+number_of_participants,1,1,1,1
+destination,878,961,961,17
+origin,961,961,961,961
+household_id,203307,203307,203307,203307
+tdd,65,60,44,49
+start,8,8,7,7
+end,19,14,14,19
+duration,11,6,7,12

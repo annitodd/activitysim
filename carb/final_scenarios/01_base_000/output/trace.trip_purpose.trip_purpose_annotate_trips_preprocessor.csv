@@ -1,0 +1,12 @@
+label,value
+trip_id,167812597
+person_id,511623
+household_id,203307
+tour_id,20976574
+primary_purpose,school
+trip_num,1
+outbound,False
+trip_count,2
+ptype,7
+person_type,PTYPE_SCHOOL
+start,8

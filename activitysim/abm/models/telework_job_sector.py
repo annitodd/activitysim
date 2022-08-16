@@ -110,7 +110,6 @@ def telework_job_sector(
     #Choosers
     choosers = persons_merged.to_frame()
     choosers = choosers[choosers.ptype.isin([1,2])] # Choosers are full- or part-time workers only
-    print(choosers.columns)
     choosers = annotate(choosers, job_sector_anotate)
     
     logger.info("Running %s with %d persons", trace_label, len(choosers))

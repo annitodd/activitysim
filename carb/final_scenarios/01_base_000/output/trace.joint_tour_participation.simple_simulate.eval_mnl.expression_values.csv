@@ -1,0 +1,53 @@
+Expression,Label,0,1,2
+person_is_full & tour_composition_is_mixed,util_full_time_worker_mixed_party,0.0,0.0,0.0
+person_is_part & tour_composition_is_adults,util_part_time_worker_adults_only_party,0.0,0.0,0.0
+person_is_part & tour_composition_is_mixed,util_part_time_worker_mixed_party,0.0,0.0,0.0
+person_is_univ & tour_composition_is_mixed,util_university_student_mixed_party,0.0,0.0,0.0
+person_is_nonwork & tour_composition_is_adults,util_non_worker_adults_only_party,0.0,0.0,0.0
+person_is_nonwork & tour_composition_is_mixed,util_non_worker_mixed_party,0.0,0.0,0.0
+person_is_preschool & tour_composition_is_children,util_child_too_young_for_school_children_only_party,0.0,0.0,0.0
+person_is_preschool & tour_composition_is_mixed,util_child_too_young_for_school_mixed_party,0.0,0.0,0.0
+person_is_school & tour_composition_is_children,util_pre_driving_age_student_children_only_party,1.0,1.0,1.0
+person_is_school & tour_composition_is_mixed,util_pre_driving_age_student_mixed_party,0.0,0.0,0.0
+person_is_driving & tour_composition_is_children,util_driving_age_student_children_only_party,0.0,0.0,0.0
+person_is_driving & tour_composition_is_mixed,util_driving_age_student_mixed_party,0.0,0.0,0.0
+person_is_full & tour_type_is_eat,util_full_time_worker_specific_to_eating_out_joint_tours,0.0,0.0,0.0
+person_is_full & tour_type_is_disc,util_full_time_worker_specific_to_discretionary_joint_tours,0.0,0.0,0.0
+person_is_part & tour_type_is_eat,util_part_time_worker_specific_to_eating_out_joint_tours,0.0,0.0,0.0
+person_is_part & tour_type_is_disc,util_part_time_worker_specific_to_discretionary_joint_tours,0.0,0.0,0.0
+person_is_univ & tour_type_is_eat,util_university_student_specific_to_eating_out_joint_tours,0.0,0.0,0.0
+person_is_nonwork & tour_type_is_eat,util_non_worker_specific_to_eating_out_joint_tours,0.0,0.0,0.0
+person_is_nonwork & tour_type_is_disc,util_non_worker_specific_to_discretionary_joint_tours,0.0,0.0,0.0
+person_is_preschool & tour_type_is_eat,util_child_too_young_for_school_specific_to_eating_out_joint_tours,0.0,0.0,0.0
+person_is_preschool & tour_type_is_disc,util_child_too_young_for_school_specific_to_discretionary_joint_tours,0.0,0.0,0.0
+person_is_school & tour_type_is_eat,util_pre_driving_age_student_specific_to_eating_out_joint_tours,0.0,0.0,0.0
+person_is_school & tour_type_is_disc,util_pre_driving_age_student_specific_to_discretionary_joint_tours,0.0,0.0,0.0
+person_is_driving & tour_type_is_eat,util_driving_age_student_specific_to_eating_out_joint_tours,0.0,0.0,0.0
+person_is_driving & tour_type_is_disc,util_driving_age_student_specific_to_discretionary_joint_tours,0.0,0.0,0.0
+home_is_urban & adult & tour_composition_is_mixed,util_household_in_urban_area_adult_mixed_party,0.0,0.0,0.0
+home_is_urban & ~adult & tour_composition_is_children,util_household_in_urban_area_child_child_only_party,0.0,0.0,0.0
+home_is_urban & ~adult & tour_composition_is_mixed,util_household_in_urban_area_child_mixed_party,0.0,0.0,0.0
+home_is_suburban & adult & tour_composition_is_mixed,util_household_in_suburban_area_adult_mixed_party,0.0,0.0,0.0
+adult & more_cars_than_workers & tour_composition_is_adults,util_adult_more_automobiles_than_workers_adult_only_party,0.0,0.0,0.0
+adult & more_cars_than_workers & tour_composition_is_mixed,util_adult_more_automobiles_than_workers_mixed_party,0.0,0.0,0.0
+adult & more_cars_than_workers & tour_composition_is_children,util_child_more_automobiles_than_workers_child_only_party,0.0,0.0,0.0
+adult & more_cars_than_workers & tour_composition_is_mixed # (2),util_child_more_automobiles_than_workers_mixed_party,0.0,0.0,0.0
+high_income & tour_composition_is_adults,util_dummy_for_high_income_for_adult_in_adult_party,0.0,0.0,0.0
+high_income & tour_composition_is_mixed,util_dummy_for_high_income_for_adult_in_mixed_party,0.0,0.0,0.0
+high_income & tour_composition_is_children,util_dummy_for_high_income_for_child_in_children_party,1.0,1.0,1.0
+high_income & tour_composition_is_mixed # (2),util_dummy_for_high_income_for_child_in_mixed_party,0.0,0.0,0.0
+(adult & tour_composition_is_adults) * num_hh_joint_tours,util_adult_number_of_joint_tours_adult_only,0.0,0.0,0.0
+(adult & tour_composition_is_mixed) * num_hh_joint_tours,util_adult_number_of_joint_tours_mixed,0.0,0.0,0.0
+(~adult & tour_composition_is_children) * num_hh_joint_tours,util_child_number_of_joint_tours_child_only,1.0,1.0,1.0
+(~adult & tour_composition_is_mixed) * num_hh_joint_tours,util_child_number_of_joint_tours_mixed,0.0,0.0,0.0
+(adult & tour_composition_is_adults) * log_time_window_overlap_adult,util_adult_log_of_max_window_overlap_with_an_adult_adult_only_party,0.0,0.0,0.0
+(adult & tour_composition_is_mixed) * log_time_window_overlap_adult,util_adult_log_of_max_window_overlap_with_a_child_mixed,0.0,0.0,0.0
+(~adult & tour_composition_is_mixed) * log_time_window_overlap_adult,util_child_log_of_max_window_overlap_with_an_adult_mixed,0.0,0.0,0.0
+(~adult & tour_composition_is_children) * log_time_window_overlap_adult,util_child_log_of_max_window_overlap_with_a_child_child,0.0,0.0,0.0
+adult & tour_composition_is_children,util_adults_are_prohibited_in_participating_in_child_only_tours,0.0,0.0,0.0
+~adult & tour_composition_is_adults,util_children_are_prohibited_in_participating_in_adult_only_tours,0.0,0.0,0.0
+~travel_active,util_persons_with_home_activity_patterns_are_prohibilted_from_participating,0.0,0.0,0.0
+adult & travel_active & tour_composition_is_adults & (num_travel_active_adults<3),util_if_only_two_available_adults_both_must_participate_in_adult_only_tour,0.0,0.0,0.0
+adult & travel_active & tour_composition_is_mixed & (num_travel_active_adults<2),util_if_only_one_available_adult_traveler_must_participate_in_mixed_tour,0.0,0.0,0.0
+~adult & travel_active & tour_composition_is_children & (num_travel_active_children<3),util_if_only_two_available_children_both_must_participate_in_child_only_tour,0.0,0.0,0.0
+~adult & travel_active & tour_composition_is_mixed & (num_travel_active_children<2),util_if_only_one_available_child_traveler_must_participate_in_mixed_tour,0.0,0.0,0.0

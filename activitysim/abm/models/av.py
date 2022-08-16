@@ -27,25 +27,30 @@ def autonomous_vehicles(persons_merged, persons, households,
     
     #Settings
     model_settings = config.read_model_settings('av.yaml')
-    av_rates_path = config.config_file_path(model_settings['av_rates'])
-    av_rates = pd.read_csv(av_rates_path, index_col = 'year')
-    year = inject.get_injectable('year')
-    scenario = inject.get_injectable('scenario')
+    rate = model_settings['av_rate']
+    vot_reduction = model_settings['vot_reduction']
+    
+#     av_rates_path = config.config_file_path(model_settings['av_rates'])
+#     av_rates = pd.read_csv(av_rates_path, index_col = 'year')
+#     year = inject.get_injectable('year')
+#     scenario = inject.get_injectable('scenario')
+#     print(year)
+#     print(scenario) 
     
     #Choosers
     households = households.to_frame()
     persons = persons.to_frame()
 #     persons_merged = persons_merged.to_frame()
     
-    try: 
-        rate = av_rates.loc[year, scenario]
-        vot_reduction = av_rates.loc['vot_reduction',scenario]
-    except KeyError:
-        rate = 0
-        vot_reduction = 0
+#     try: 
+#         rate = av_rates.loc[year, scenario]
+#         vot_reduction = av_rates.loc['vot_reduction',scenario]
+#     except KeyError:
+#         rate = 0
+#         vot_reduction = 0
         
-    logger.info('Simulation year: {}'.format(year))
-    logger.info('Simulation scenario: {}.'.format(scenario))
+#     logger.info('Simulation year: {}'.format(year))
+#     logger.info('Simulation scenario: {}.'.format(scenario))
     logger.info('Autonomous Vehicles penetration rate:{}'.format(rate))
     logger.info('Value of time Reduction :{}'.format(vot_reduction))
     

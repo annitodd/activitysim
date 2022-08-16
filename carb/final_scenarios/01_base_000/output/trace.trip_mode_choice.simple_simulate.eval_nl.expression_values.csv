@@ -1,0 +1,1521 @@
+Expression,0,1
+sov_available == False,0.0,0.0
+auto_ownership == 0,0.0,0.0
+age < 16,1.0,1.0
+is_joint == True,1.0,1.0
+is_atwork_subtour & ~work_tour_is_SOV,0.0,0.0
+@c_ivt*odt_skims['SOV_TIME'],-0.46341899037361145,-0.492713987827301
+@c_walktimeshort * df.total_terminal_time,-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['SOV_DIST'],-0.536177384385684,-0.5418612533738845
+c_cost * total_parking_cost,-0.0,-0.06525543011784946
+@df.c_cost * odt_skims['SOV_BTOLL'],-0.04585483911813944,-0.04585483911813944
+@c_age1619_da * ((df.age >= 16) & (df.age <= 19)),0.0,0.0
+sovtoll_available == False,1.0,1.0
+auto_ownership == 0 # (2),0.0,0.0
+age < 16 # (2),1.0,1.0
+is_joint == True # (2),1.0,1.0
+is_atwork_subtour & ~work_tour_is_SOV # (2),0.0,0.0
+@c_ivt*odt_skims['SOVTOLL_TIME'],-0.46341899037361145,-0.492713987827301
+@c_walktimeshort * df.total_terminal_time # (2),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['SOVTOLL_DIST'],-0.536177384385684,-0.5418612533738845
+c_cost * total_parking_cost # (2),-0.0,-0.06525543011784946
+@df.c_cost * odt_skims['SOVTOLL_BTOLL'],-0.04585483911813944,-0.04585483911813944
+@df.c_cost * odt_skims['SOVTOLL_VTOLL'],-0.0,-0.0
+@c_age1619_da * ((df.age >= 16) & (df.age <= 19)) # (2),0.0,0.0
+hov2_available == False,0.0,0.0
+is_joint & (number_of_participants > 2),0.0,0.0
+@c_ivt * odt_skims['HOV2_TIME'],-0.46341899037361145,-0.492713987827301
+@c_walktimeshort * df.total_terminal_time # (3),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV2_DIST'],-0.536177384385684,-0.5418612533738845
+@df.c_cost * df.total_parking_cost / costShareSr2,-0.0,-0.037288817210199686
+@df.c_cost * odt_skims['HOV2_BTOLL'] / costShareSr2,-0.02620276521036539,-0.02620276521036539
+@c_hhsize1_sr * (df.hhsize == 1),-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2),0.0,0.0
+@c_age16p_sr * (df.age >= 16),0.0,0.0
+hov2toll_available == False,1.0,1.0
+is_joint & (number_of_participants > 2) # (2),0.0,0.0
+@c_ivt * odt_skims['HOV2TOLL_TIME'],-0.46341899037361145,-0.492713987827301
+@c_walktimeshort * df.total_terminal_time # (4),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV2TOLL_DIST'],-0.536177384385684,-0.5418612533738845
+@df.c_cost * df.total_parking_cost / costShareSr2 # (2),-0.0,-0.037288817210199686
+@df.c_cost * odt_skims['HOV2TOLL_BTOLL'] / costShareSr2,-0.02620276521036539,-0.02620276521036539
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'] / costShareSr2,-0.0,-0.0
+@c_hhsize1_sr * (df.hhsize == 1) # (2),-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2) # (2),0.0,0.0
+@c_age16p_sr * (df.age >= 16) # (2),0.0,0.0
+hov3_available == False,0.0,0.0
+@c_ivt * odt_skims['HOV3_TIME'],-0.46341899037361145,-0.492713987827301
+@c_walktimeshort * df.total_terminal_time # (5),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV3_DIST'],-0.536177384385684,-0.5418612533738845
+@df.c_cost *  df.total_parking_cost / costShareSr3,-0.0,-0.02610217204713978
+@df.c_cost * odt_skims['HOV3_BTOLL'] / costShareSr3,-0.018341935647255773,-0.018341935647255773
+@c_hhsize1_sr * (df.hhsize == 1) # (3),-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2) # (3),0.0,0.0
+@c_age16p_sr * (df.age >= 16) # (3),0.0,0.0
+hov3toll_available == False,1.0,1.0
+@c_ivt * odt_skims['HOV3TOLL_TIME'],-0.46341899037361145,-0.492713987827301
+@c_walktimeshort * df.total_terminal_time # (6),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV3TOLL_DIST'],-0.536177384385684,-0.5418612533738845
+@df.c_cost * df.total_parking_cost / costShareSr3,-0.0,-0.02610217204713978
+@df.c_cost * odt_skims['HOV3TOLL_BTOLL'] / costShareSr3,-0.018341935647255773,-0.018341935647255773
+@df.c_cost * odt_skims['HOV3TOLL_VTOLL'] / costShareSr3,-0.0,-0.0
+@c_hhsize1_sr * (df.hhsize == 1) # (4),-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2) # (4),0.0,0.0
+@c_age16p_sr * (df.age >= 16) # (4),0.0,0.0
+@c_walktimeshort * od_skims['DISTWALK'].clip(upper=walkThresh) * 60/walkSpeed,-1.1159999370574951,-1.1159999370574951
+@c_walktimelong * (od_skims['DISTWALK'] - walkThresh).clip(lower=0) * 60/walkSpeed,-39.394805908203125,-38.948402404785156
+@c_density_index * df.density_index,0.0037753206561347585,0.0037753206561347585
+@c_topology_walk * df.trip_topology,-0.41850000000000004,-0.41850000000000004
+is_atwork_subtour & ~work_tour_is_bike,0.0,0.0
+@c_biketimeshort * od_skims['DISTBIKE'].clip(upper=bikeThresh)*60/bikeSpeed,-3.3480002880096436,-3.3480002880096436
+@c_biketimelong * (od_skims['DISTBIKE']-bikeThresh).clip(lower=0)*60/bikeSpeed,-5.747401714324951,-5.524200439453125
+@c_density_index*df.density_index,0.0037753206561347585,0.0037753206561347585
+@c_topology_bike * df.trip_topology,-0.558,-0.558
+walk_local_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_LOC_WLK_TOTIVT']/100,-0.0,-0.0
+@c_short_i_wait * (odt_skims['WLK_LOC_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@c_long_i_wait * (odt_skims['WLK_LOC_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@c_xwait * odt_skims['WLK_LOC_WLK_XWAIT']/100,-0.0,-0.0
+@c_xfers_wlk * (odt_skims['WLK_LOC_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@c_wacc * df.origin_walk_time,-0.371628,-0.371628
+@c_wegr * df.destination_walk_time,-0.371628,-0.371628
+@c_waux * odt_skims['WLK_LOC_WLK_WAUX']/100,-0.0,-0.0
+@df.c_cost * odt_skims['WLK_LOC_WLK_FAR'],-0.0,-0.0
+@c_density_index * df.density_index # (2),0.0037753206561347585,0.0037753206561347585
+@c_topology_trn * df.trip_topology,-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age <= 10),0.0,0.0
+walk_lrf_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_LRF_WLK_TOTIVT']/100,-0.0,-0.0
+@(c_ivt_lrt-c_ivt) * odt_skims['WLK_LRF_WLK_KEYIVT']/100,0.0,0.0
+@(c_ivt_ferry-c_ivt_lrt) * odt_skims['WLK_LRF_WLK_FERRYIVT']/100,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_LRF_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@c_long_i_wait * (odt_skims['WLK_LRF_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@c_xwait * odt_skims['WLK_LRF_WLK_XWAIT']/100,-0.0,-0.0
+@c_xfers_wlk * (odt_skims['WLK_LRF_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@c_wacc * df.origin_walk_time # (2),-0.371628,-0.371628
+@c_wegr * df.destination_walk_time # (2),-0.371628,-0.371628
+@c_waux * odt_skims['WLK_LRF_WLK_WAUX']/100,-0.0,-0.0
+@df.c_cost * odt_skims['WLK_LRF_WLK_FAR'],-0.0,-0.0
+@c_density_index * df.density_index # (3),0.0037753206561347585,0.0037753206561347585
+@c_topology_trn * df.trip_topology # (2),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age <= 10) # (2),0.0,0.0
+walk_express_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_EXP_WLK_TOTIVT']/100,-0.0,-0.0
+@(c_ivt_exp-c_ivt) * odt_skims['WLK_EXP_WLK_KEYIVT']/100,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_EXP_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@c_long_i_wait * (odt_skims['WLK_EXP_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@c_xwait * odt_skims['WLK_EXP_WLK_XWAIT']/100,-0.0,-0.0
+@c_xfers_wlk * (odt_skims['WLK_EXP_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@c_wacc * df.origin_walk_time # (3),-0.371628,-0.371628
+@c_wegr * df.destination_walk_time # (3),-0.371628,-0.371628
+@c_waux * odt_skims['WLK_EXP_WLK_WAUX']/100,-0.0,-0.0
+@df.c_cost * odt_skims['WLK_EXP_WLK_FAR'],-0.0,-0.0
+@c_density_index * df.density_index # (4),0.0037753206561347585,0.0037753206561347585
+@c_topology_trn * df.trip_topology # (3),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age <= 10) # (3),0.0,0.0
+walk_heavyrail_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_HVY_WLK_TOTIVT']/100,-0.0,-0.0
+@(c_ivt_hvy-c_ivt) * odt_skims['WLK_HVY_WLK_KEYIVT']/100,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_HVY_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@c_long_i_wait * (odt_skims['WLK_HVY_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@c_xwait * odt_skims['WLK_HVY_WLK_XWAIT']/100,-0.0,-0.0
+@c_xfers_wlk * (odt_skims['WLK_HVY_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@c_wacc * df.origin_walk_time # (4),-0.371628,-0.371628
+@c_wegr * df.destination_walk_time # (4),-0.371628,-0.371628
+@c_waux * odt_skims['WLK_HVY_WLK_WAUX']/100,-0.0,-0.0
+@df.c_cost * odt_skims['WLK_HVY_WLK_FAR'],-0.0,-0.0
+@c_density_index * df.density_index # (5),0.0037753206561347585,0.0037753206561347585
+@c_topology_trn * df.trip_topology # (4),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age <= 10) # (4),0.0,0.0
+walk_commuter_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_COM_WLK_TOTIVT']/100,-0.0,-0.0
+@(c_ivt_com-c_ivt) * odt_skims['WLK_COM_WLK_KEYIVT']/100,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_COM_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@c_long_i_wait * (odt_skims['WLK_COM_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@c_xwait * odt_skims['WLK_COM_WLK_XWAIT']/100,-0.0,-0.0
+@c_xfers_wlk * (odt_skims['WLK_COM_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@c_wacc * df.origin_walk_time # (5),-0.371628,-0.371628
+@c_wegr * df.destination_walk_time # (5),-0.371628,-0.371628
+@c_waux * odt_skims['WLK_COM_WLK_WAUX']/100,-0.0,-0.0
+@df.c_cost * odt_skims['WLK_COM_WLK_FAR'],-0.0,-0.0
+@c_density_index * df.density_index # (6),0.0037753206561347585,0.0037753206561347585
+@c_topology_trn * df.trip_topology # (5),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age < 10),0.0,0.0
+auto_ownership == 0 # (3),0.0,0.0
+age < 16 # (3),1.0,1.0
+@c_density_index * df.density_index # (7),0.0037753206561347585,0.0037753206561347585
+@c_topology_trn * df.trip_topology # (6),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age < 10) # (2),0.0,0.0
+outbound & ~drive_local_available_outbound,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_LOC_WLK_TOTIVT']/100,-0.0,-0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_LOC_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_LOC_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_LOC_WLK_XWAIT']/100,-0.0,-0.0
+@df.outbound * c_xfers_wlk * (odt_skims['DRV_LOC_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_LOC_WLK_DTIM']/100,-0.0,-0.0
+@df.outbound * c_wegr * df.destination_walk_time,-0.371628,-0.0
+@df.outbound * c_waux * odt_skims['DRV_LOC_WLK_WAUX']/100,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_LOC_WLK_FAR'] + costPerMile*odt_skims['DRV_LOC_WLK_DDIST']/100),-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_LOC_WLK_DDIST']/100)/ (od_skims['DIST']),0.0,0.0
+inbound & ~drive_local_available_inbound,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_LOC_DRV_TOTIVT']/100,-0.0,-0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_LOC_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@df.inbound * c_long_i_wait * (odt_skims['WLK_LOC_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_LOC_DRV_XWAIT']/100,-0.0,-0.0
+@df.inbound * c_xfers_wlk * (odt_skims['WLK_LOC_DRV_BOARDS']-1).clip(0),-0.0,-0.0
+@df.inbound * c_dtim * odt_skims['WLK_LOC_DRV_DTIM']/100,-0.0,-0.0
+@df.inbound * c_wacc * df.origin_walk_time,-0.0,-0.371628
+@df.inbound * c_waux * odt_skims['WLK_LOC_DRV_WAUX']/100,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_LOC_DRV_FAR'] + costPerMile*odt_skims['WLK_LOC_DRV_DDIST']/100),-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['WLK_LOC_DRV_DDIST']/100)/ (od_skims['DIST']),0.0,0.0
+auto_ownership == 0 # (4),0.0,0.0
+age < 16 # (4),1.0,1.0
+@c_density_index * df.density_index # (8),0.0037753206561347585,0.0037753206561347585
+@c_topology_trn * df.trip_topology # (7),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age < 10) # (3),0.0,0.0
+outbound & ~drive_lrf_available_outbound,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_LRF_WLK_TOTIVT']/100,-0.0,-0.0
+@df.outbound * (c_ivt_lrt-c_ivt)*odt_skims['DRV_LRF_WLK_KEYIVT']/100,0.0,0.0
+@df.outbound * (c_ivt_ferry-c_ivt_lrt)*odt_skims['DRV_LRF_WLK_FERRYIVT']/100,0.0,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_LRF_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_LRF_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_LRF_WLK_XWAIT']/100,-0.0,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_LRF_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_LRF_WLK_DTIM']/100,-0.0,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (2),-0.371628,-0.0
+@df.outbound * c_waux * odt_skims['DRV_LRF_WLK_WAUX']/100,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_LRF_WLK_FAR'] + costPerMile * odt_skims['DRV_LRF_WLK_DDIST']/100),-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_LRF_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0
+inbound & ~drive_lrf_available_inbound,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_LRF_DRV_TOTIVT']/100,-0.0,-0.0
+@df.inbound * (c_ivt_lrt-c_ivt)*odt_skims['WLK_LRF_DRV_KEYIVT']/100,0.0,0.0
+@df.inbound * (c_ivt_ferry-c_ivt_lrt)*odt_skims['WLK_LRF_DRV_FERRYIVT']/100,0.0,0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_LRF_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@df.inbound * c_long_i_wait * (odt_skims['WLK_LRF_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_LRF_DRV_XWAIT']/100,-0.0,-0.0
+@df.inbound * c_xfers_drv * (odt_skims['WLK_LRF_DRV_BOARDS']-1).clip(0),-0.0,-0.0
+@df.inbound * c_dtim * odt_skims['WLK_LRF_DRV_DTIM']/100,-0.0,-0.0
+@df.inbound * c_wacc * df.origin_walk_time # (2),-0.0,-0.371628
+@df.inbound * c_waux * odt_skims['WLK_LRF_DRV_WAUX']/100,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_LRF_DRV_FAR'] + costPerMile * odt_skims['WLK_LRF_DRV_DDIST']/100),-0.0,-0.0
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_LRF_DRV_DDIST']/100)/ od_skims['DIST'],0.0,0.0
+auto_ownership == 0 # (5),0.0,0.0
+age < 16 # (5),1.0,1.0
+@c_density_index * df.density_index # (9),0.0037753206561347585,0.0037753206561347585
+@c_topology_trn * df.trip_topology # (8),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age < 10) # (4),0.0,0.0
+outbound & ~drive_express_available_outbound,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_EXP_WLK_TOTIVT']/100,-0.0,-0.0
+@df.outbound * (c_ivt_exp-c_ivt) * odt_skims['DRV_EXP_WLK_KEYIVT']/100,0.0,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_EXP_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_EXP_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_EXP_WLK_XWAIT']/100,-0.0,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_EXP_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_EXP_WLK_DTIM']/100,-0.0,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (3),-0.371628,-0.0
+@df.outbound * c_waux * odt_skims['DRV_EXP_WLK_WAUX']/100,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_EXP_WLK_FAR'] + costPerMile * odt_skims['DRV_EXP_WLK_DDIST']/100),-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_EXP_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0
+inbound & ~drive_express_available_inbound,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_EXP_DRV_TOTIVT']/100,-0.0,-0.0
+@df.inbound * (c_ivt_exp-c_ivt) * odt_skims['WLK_EXP_DRV_KEYIVT']/100,0.0,0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_EXP_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@df.inbound * c_long_i_wait * (odt_skims['WLK_EXP_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_EXP_DRV_XWAIT']/100,-0.0,-0.0
+@df.inbound * c_xfers_drv * (odt_skims['WLK_EXP_DRV_BOARDS']-1).clip(0),-0.0,-0.0
+@df.inbound * c_dtim * odt_skims['WLK_EXP_DRV_DTIM']/100,-0.0,-0.0
+@df.inbound * c_wacc * df.origin_walk_time # (3),-0.0,-0.371628
+@df.inbound * c_waux * odt_skims['WLK_EXP_DRV_WAUX']/100,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_EXP_DRV_FAR'] + costPerMile * odt_skims['WLK_EXP_DRV_DDIST']/100),-0.0,-0.0
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_EXP_DRV_DDIST']/100) / od_skims['DIST'],0.0,0.0
+auto_ownership == 0 # (6),0.0,0.0
+age < 16 # (6),1.0,1.0
+@c_density_index * df.density_index # (10),0.0037753206561347585,0.0037753206561347585
+@c_topology_trn * df.trip_topology # (9),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age < 10) # (5),0.0,0.0
+outbound & ~drive_heavyrail_available_outbound,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_HVY_WLK_TOTIVT']/100,-0.0,-0.0
+@df.outbound * (c_ivt_hvy-c_ivt) * odt_skims['DRV_HVY_WLK_KEYIVT']/100,0.0,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_HVY_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_HVY_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_HVY_WLK_XWAIT']/100,-0.0,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_HVY_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_HVY_WLK_DTIM']/100,-0.0,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (4),-0.371628,-0.0
+@df.outbound * c_waux * odt_skims['DRV_HVY_WLK_WAUX']/100,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_HVY_WLK_FAR'] + costPerMile * odt_skims['DRV_HVY_WLK_DDIST']/100),-0.0,-0.0
+@df.outbound * df.c_cost * park_ride_cost,-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_HVY_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0
+inbound & ~drive_heavyrail_available_inbound,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_HVY_DRV_TOTIVT']/100,-0.0,-0.0
+@df.inbound * (c_ivt_hvy-c_ivt) * odt_skims['WLK_HVY_DRV_KEYIVT']/100,0.0,0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_HVY_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@df.inbound * c_long_i_wait * (odt_skims['WLK_HVY_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_HVY_DRV_XWAIT']/100,-0.0,-0.0
+@df.inbound * c_xfers_drv * (odt_skims['WLK_HVY_DRV_BOARDS']-1).clip(0),-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_HVY_WLK_DTIM']/100 # (2),-0.0,-0.0
+@df.inbound * c_wacc * df.origin_walk_time # (4),-0.0,-0.371628
+@c_waux * odt_skims['WLK_HVY_DRV_WAUX']/100,-0.7588800191879272,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_HVY_DRV_FAR'] + costPerMile * odt_skims['WLK_HVY_DRV_DDIST']/100),-0.0,-0.0
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_HVY_DRV_DDIST']/100)/ od_skims['DIST'],0.0,0.0
+auto_ownership == 0 # (7),0.0,0.0
+age < 16 # (7),1.0,1.0
+@c_density_index * df.density_index # (11),0.0037753206561347585,0.0037753206561347585
+@c_topology_trn * df.trip_topology # (10),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age < 10) # (6),0.0,0.0
+outbound & ~drive_commuter_available_outbound,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_COM_WLK_TOTIVT']/100,-0.0,-0.0
+@df.outbound * (c_ivt_com-c_ivt) * odt_skims['DRV_COM_WLK_KEYIVT']/100,0.0,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_COM_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_COM_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_COM_WLK_XWAIT']/100,-0.0,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_COM_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_COM_WLK_DTIM']/100,-0.0,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (5),-0.371628,-0.0
+@df.outbound * c_waux * odt_skims['DRV_COM_WLK_WAUX']/100,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_COM_WLK_FAR'] + costPerMile * odt_skims['DRV_COM_WLK_DDIST']/100),-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_COM_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0
+inbound & ~drive_commuter_available_inbound,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_COM_DRV_TOTIVT']/100,-0.0,-0.0
+@df.inbound * (c_ivt_com-c_ivt) * odt_skims['WLK_COM_DRV_KEYIVT']/100,0.0,0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_COM_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@df.inbound * c_long_i_wait * (odt_skims['WLK_COM_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_COM_DRV_XWAIT']/100,-0.0,-0.0
+@df.inbound * c_xfers_drv * (odt_skims['WLK_COM_DRV_BOARDS']-1).clip(0),-0.0,-0.0
+@df.inbound * c_dtim * odt_skims['WLK_COM_DRV_DTIM']/100,-0.0,-0.0
+@df.inbound * c_wacc * df.origin_walk_time # (5),-0.0,-0.371628
+@df.inbound * c_waux * odt_skims['WLK_COM_DRV_WAUX']/100,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_COM_DRV_FAR'] + costPerMile * odt_skims['WLK_COM_DRV_DDIST']/100),-0.0,-0.0
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_COM_DRV_DDIST']/100) / od_skims['DIST'],0.0,0.0
+@c_ivt * odt_skims['HOV2TOLL_TIME'] # (2),-0.46341899037361145,-0.492713987827301
+@c_ivt * 1.5 * df.origTaxiWaitTime,-0.39757500000000007,-0.5566050000000001
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'],-0.0,-0.0
+@df.c_cost * odt_skims['HOV2TOLL_BTOLL'],-0.04585483911813944,-0.04585483911813944
+@df.c_cost * (Taxi_baseFare + odt_skims['HOV2TOLL_DIST'] * Taxi_costPerMile + odt_skims['HOV2TOLL_TIME'] * Taxi_costPerMinute)*100,-8.075699802623369,-8.183431806750685
+@c_ivt * odt_skims['HOV2TOLL_TIME'] ,-0.46341899037361145,-0.492713987827301
+@c_ivt * 1.5 * df.origSingleTNCWaitTime,-0.2636549999999999,-0.35154
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'] # (2),-0.0,-0.0
+@df.c_cost * (odt_skims['HOV2TOLL_BTOLL'] + dot_skims['HOV2TOLL_BTOLL']),-0.09170967823627887,-0.09170967823627887
+"@df.c_cost * np.maximum(TNC_single_baseFare + odt_skims['HOV2TOLL_DIST'] * TNC_single_costPerMile + odt_skims['HOV2TOLL_TIME'] * TNC_single_costPerMinute, TNC_single_costMinimum) * 100",-6.035056261970599,-6.163401572189655
+@c_ivt * odt_skims['HOV2TOLL_TIME'] * TNC_shared_IVTFactor,-0.6951285004615784,-0.7390710115432739
+@c_ivt  * 1.5 * df.origSharedTNCWaitTime,-0.33479999999999993,-0.46035000000000004
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'] # (3),-0.0,-0.0
+@df.c_cost * (odt_skims['HOV2TOLL_BTOLL'] + dot_skims['HOV2TOLL_BTOLL']) # (2),-0.09170967823627887,-0.09170967823627887
+"@df.c_cost * np.maximum(TNC_shared_baseFare + odt_skims['HOV2TOLL_DIST'] * TNC_shared_costPerMile + odt_skims['HOV2TOLL_TIME']* TNC_shared_costPerMinute, TNC_shared_costMinimum) * 100",-2.8868866358501495,-2.939612613221491
+tour_mode_is_auto,1.0,1.0
+tour_mode_is_walk,0.0,0.0
+tour_mode_is_bike,0.0,0.0
+tour_mode_is_walk_transit,0.0,0.0
+tour_mode_is_drive_transit,0.0,0.0
+tour_mode_is_ride_hail,0.0,0.0
+@sov_ASC_sr2 * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),0.0,0.0
+@sov_ASC_sr3p * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),0.0,0.0
+@sov_ASC_walk * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),-0.0,-0.0
+@sov_ASC_rh * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),0.0,0.0
+@sr2_ASC_sr2 * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),0.0,0.0
+@sr2_ASC_sr3p * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),0.0,0.0
+@sr2_ASC_walk * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),-0.0,-0.0
+@sr2_ASC_rh * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),-0.0,-0.0
+@sr3p_ASC_sr2 * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-0.0,-0.0
+@sr3p_ASC_sr3p * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),0.0,0.0
+@sr3p_ASC_walk * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-0.0,-0.0
+@sr3p_ASC_rh * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-0.0,-0.0
+@walk_ASC_rh * df.is_indiv * (df.i_tour_mode == I_WALK_MODE),-0.0,-0.0
+@bike_ASC_walk * df.is_indiv * (df.i_tour_mode == I_BIKE_MODE),-0.0,-0.0
+@bike_ASC_rh * df.is_indiv * (df.i_tour_mode == I_BIKE_MODE),-0.0,-0.0
+@walk_transit_ASC_lightrail * (df.is_indiv & df.tour_mode_is_walk_transit & ~df.walk_ferry_available),0.0,0.0
+@walk_transit_ASC_ferry * (df.is_indiv & df.tour_mode_is_walk_transit & df.walk_ferry_available),0.0,0.0
+@walk_transit_ASC_express * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0
+@walk_transit_ASC_heavyrail * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0
+@walk_transit_ASC_commuter * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0
+@walk_transit_ASC_sr2 * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0
+@walk_transit_ASC_sr3p * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0
+@walk_transit_ASC_walk * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0
+@walk_transit_ASC_rh * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0
+@drive_transit_ASC_lightrail * (df.is_indiv & df.tour_mode_is_drive_transit & ~df.drive_ferry_available),0.0,0.0
+@drive_transit_ASC_ferry * (df.is_indiv & df.tour_mode_is_drive_transit & df.drive_ferry_available),0.0,0.0
+@drive_transit_ASC_express * (df.is_indiv & df.tour_mode_is_drive_transit),0.0,0.0
+@drive_transit_ASC_heavyrail * (df.is_indiv & df.tour_mode_is_drive_transit),0.0,0.0
+@drive_transit_ASC_commuter * (df.is_indiv & df.tour_mode_is_drive_transit),0.0,0.0
+@drive_transit_ASC_rh * (df.is_indiv & df.tour_mode_is_drive_transit),-0.0,-0.0
+@ride_hail_ASC_sr2 * (df.is_indiv & df.tour_mode_is_ride_hail),-0.0,-0.0
+@ride_hail_ASC_sr3p * (df.is_indiv & df.tour_mode_is_ride_hail),-0.0,-0.0
+@ride_hail_ASC_walk * (df.is_indiv & df.tour_mode_is_ride_hail),-0.0,-0.0
+@ride_hail_ASC_walk_transit * (df.is_indiv & df.tour_mode_is_ride_hail),0.0,0.0
+@ride_hail_ASC_taxi * (df.is_indiv & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),-0.0,-0.0
+@ride_hail_ASC_tnc_single * (df.is_indiv & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@ride_hail_ASC_tnc_shared * (df.is_indiv & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@joint_auto_ASC_sr2 * (df.is_joint & df.i_tour_mode.isin(I_AUTO_MODES)),-0.0634,-0.0634
+@joint_auto_ASC_sr3p * (df.is_joint & df.i_tour_mode.isin(I_AUTO_MODES)),-0.1625,-0.1625
+@joint_auto_ASC_walk * (df.is_joint & df.i_tour_mode.isin(I_AUTO_MODES)),-0.7144,-0.7144
+@joint_auto_ASC_rh * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),-0.0,-0.0
+@joint_walk_ASC_rh * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),-0.0,-0.0
+@joint_bike_ASC_walk * df.is_joint * (df.i_tour_mode == I_BIKE_MODE),-0.0,-0.0
+@joint_bike_ASC_rh * df.is_joint * (df.i_tour_mode == I_BIKE_MODE),-0.0,-0.0
+@joint_walk_transit_ASC_lightrail * (df.is_joint & df.tour_mode_is_walk_transit & ~df.walk_ferry_available),0.0,0.0
+@joint_walk_transit_ASC_ferry * (df.is_joint & df.tour_mode_is_walk_transit & df.walk_ferry_available),0.0,0.0
+@joint_walk_transit_ASC_express * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_heavyrail * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_commuter * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_sr2 * (df.is_joint & df.tour_mode_is_walk_transit),-0.0,-0.0
+@joint_walk_transit_ASC_sr3p * (df.is_joint & df.tour_mode_is_walk_transit),-0.0,-0.0
+@joint_walk_transit_ASC_walk * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_rh * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_drive_transit_ASC_lightrail * (df.is_joint & df.tour_mode_is_drive_transit & ~df.drive_ferry_available),0.0,0.0
+@joint_drive_transit_ASC_ferry * (df.is_joint & df.tour_mode_is_drive_transit & df.drive_ferry_available),0.0,0.0
+@joint_drive_transit_ASC_express * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0
+@joint_drive_transit_ASC_heavyrail * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0
+@joint_drive_transit_ASC_commuter * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0
+@joint_drive_transit_ASC_rh * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0
+@joint_ride_hail_ASC_sr2 * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0
+@joint_ride_hail_ASC_sr3p * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0
+@joint_ride_hail_ASC_walk * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0
+@joint_ride_hail_ASC_walk_transit * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0
+@joint_ride_hail_ASC_taxi * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@joint_ride_hail_ASC_tnc_single * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),-0.0,-0.0
+@joint_ride_hail_ASC_tnc_shared * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@df.tour_mode_is_walk & (od_skims['DISTWALK'] > 3),0.0,0.0
+@df.tour_mode_is_walk & (od_skims['DISTBIKE'] > 8),0.0,0.0
+@(c_origin_density_index*df.origin_density_index).clip(c_origin_density_index_max) if origin_density_applied else 0,0.41850000000000004,0.41850000000000004
+@c_walk_express_penalty * ~(df.first_trip | df.first_trip),-0.0,-0.0
+@adjust_tnc_shared,-0.8370000000000001,-0.8370000000000001
+sov_available == False,0.0,0.0
+auto_ownership == 0,0.0,0.0
+age < 16,0.0,0.0
+is_joint == True,0.0,0.0
+is_atwork_subtour & ~work_tour_is_SOV,0.0,0.0
+@c_ivt*odt_skims['SOV_TIME'],-0.12722399830818176,-0.12722399830818176
+@c_walktimeshort * df.total_terminal_time,-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['SOV_DIST'],-0.07455897155192369,-0.07455897155192369
+c_cost * total_parking_cost,-0.0,-0.021370343668985547
+@df.c_cost * odt_skims['SOV_BTOLL'],-0.005596535039705464,-0.005596535039705464
+@c_age1619_da * ((df.age >= 16) & (df.age <= 19)),0.0,0.0
+sovtoll_available == False,1.0,1.0
+auto_ownership == 0 # (2),0.0,0.0
+age < 16 # (2),0.0,0.0
+is_joint == True # (2),0.0,0.0
+is_atwork_subtour & ~work_tour_is_SOV # (2),0.0,0.0
+@c_ivt*odt_skims['SOVTOLL_TIME'],-0.12722399830818176,-0.12722399830818176
+@c_walktimeshort * df.total_terminal_time # (2),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['SOVTOLL_DIST'],-0.07455897155192369,-0.07455897155192369
+c_cost * total_parking_cost # (2),-0.0,-0.021370343668985547
+@df.c_cost * odt_skims['SOVTOLL_BTOLL'],-0.005596535039705464,-0.005596535039705464
+@df.c_cost * odt_skims['SOVTOLL_VTOLL'],-0.0,-0.0
+@c_age1619_da * ((df.age >= 16) & (df.age <= 19)) # (2),0.0,0.0
+hov2_available == False,0.0,0.0
+is_joint & (number_of_participants > 2),0.0,0.0
+@c_ivt * odt_skims['HOV2_TIME'],-0.12722399830818176,-0.12722399830818176
+@c_walktimeshort * df.total_terminal_time # (3),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV2_DIST'],-0.07455897155192369,-0.07455897155192369
+@df.c_cost * df.total_parking_cost / costShareSr2,-0.0,-0.012211624953706026
+@df.c_cost * odt_skims['HOV2_BTOLL'] / costShareSr2,-0.0031980200226888367,-0.0031980200226888367
+@c_hhsize1_sr * (df.hhsize == 1),-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2),0.0,0.0
+@c_age16p_sr * (df.age >= 16),0.0,0.0
+hov2toll_available == False,1.0,1.0
+is_joint & (number_of_participants > 2) # (2),0.0,0.0
+@c_ivt * odt_skims['HOV2TOLL_TIME'],-0.12722399830818176,-0.12722399830818176
+@c_walktimeshort * df.total_terminal_time # (4),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV2TOLL_DIST'],-0.07455897155192369,-0.07455897155192369
+@df.c_cost * df.total_parking_cost / costShareSr2 # (2),-0.0,-0.012211624953706026
+@df.c_cost * odt_skims['HOV2TOLL_BTOLL'] / costShareSr2,-0.0031980200226888367,-0.0031980200226888367
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'] / costShareSr2,-0.0,-0.0
+@c_hhsize1_sr * (df.hhsize == 1) # (2),-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2) # (2),0.0,0.0
+@c_age16p_sr * (df.age >= 16) # (2),0.0,0.0
+hov3_available == False,0.0,0.0
+@c_ivt * odt_skims['HOV3_TIME'],-0.12722399830818176,-0.12722399830818176
+@c_walktimeshort * df.total_terminal_time # (5),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV3_DIST'],-0.07455897155192369,-0.07455897155192369
+@df.c_cost *  df.total_parking_cost / costShareSr3,-0.0,-0.00854813746759422
+@df.c_cost * odt_skims['HOV3_BTOLL'] / costShareSr3,-0.0022386140158821856,-0.0022386140158821856
+@c_hhsize1_sr * (df.hhsize == 1) # (3),-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2) # (3),0.0,0.0
+@c_age16p_sr * (df.age >= 16) # (3),0.0,0.0
+hov3toll_available == False,1.0,1.0
+@c_ivt * odt_skims['HOV3TOLL_TIME'],-0.12722399830818176,-0.12722399830818176
+@c_walktimeshort * df.total_terminal_time # (6),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV3TOLL_DIST'],-0.07455897155192369,-0.07455897155192369
+@df.c_cost * df.total_parking_cost / costShareSr3,-0.0,-0.00854813746759422
+@df.c_cost * odt_skims['HOV3TOLL_BTOLL'] / costShareSr3,-0.0022386140158821856,-0.0022386140158821856
+@df.c_cost * odt_skims['HOV3TOLL_VTOLL'] / costShareSr3,-0.0,-0.0
+@c_hhsize1_sr * (df.hhsize == 1) # (4),-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2) # (4),0.0,0.0
+@c_age16p_sr * (df.age >= 16) # (4),0.0,0.0
+@c_walktimeshort * od_skims['DISTWALK'].clip(upper=walkThresh) * 60/walkSpeed,-1.1159999370574951,-1.1159999370574951
+@c_walktimelong * (od_skims['DISTWALK'] - walkThresh).clip(lower=0) * 60/walkSpeed,-4.296600341796875,-4.296600341796875
+@c_density_index * df.density_index,0.011342120574693575,0.011342120574693575
+@c_topology_walk * df.trip_topology,-0.41850000000000004,-0.41850000000000004
+is_atwork_subtour & ~work_tour_is_bike,0.0,0.0
+@c_biketimeshort * od_skims['DISTBIKE'].clip(upper=bikeThresh)*60/bikeSpeed,-0.9876599907875061,-0.9876599907875061
+@c_biketimelong * (od_skims['DISTBIKE']-bikeThresh).clip(lower=0)*60/bikeSpeed,-0.0,-0.0
+@c_density_index*df.density_index,0.011342120574693575,0.011342120574693575
+@c_topology_bike * df.trip_topology,-0.558,-0.558
+walk_local_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_LOC_WLK_TOTIVT']/100,-0.0,-0.0
+@c_short_i_wait * (odt_skims['WLK_LOC_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@c_long_i_wait * (odt_skims['WLK_LOC_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@c_xwait * odt_skims['WLK_LOC_WLK_XWAIT']/100,-0.0,-0.0
+@c_xfers_wlk * (odt_skims['WLK_LOC_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@c_wacc * df.origin_walk_time,-0.371628,-0.371628
+@c_wegr * df.destination_walk_time,-0.371628,-0.371628
+@c_waux * odt_skims['WLK_LOC_WLK_WAUX']/100,-0.0,-0.0
+@df.c_cost * odt_skims['WLK_LOC_WLK_FAR'],-0.0,-0.0
+@c_density_index * df.density_index # (2),0.011342120574693575,0.011342120574693575
+@c_topology_trn * df.trip_topology,-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age <= 10),0.0,0.0
+walk_lrf_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_LRF_WLK_TOTIVT']/100,-0.49530312418937683,-0.5235685706138611
+@(c_ivt_lrt-c_ivt) * odt_skims['WLK_LRF_WLK_KEYIVT']/100,0.027899999171495438,0.027899999171495438
+@(c_ivt_ferry-c_ivt_lrt) * odt_skims['WLK_LRF_WLK_FERRYIVT']/100,0.027899999171495438,0.027899999171495438
+@c_short_i_wait * (odt_skims['WLK_LRF_WLK_IWAIT']/100).clip(upper=waitThresh),-0.5579999685287476,-0.3417972922325134
+@c_long_i_wait * (odt_skims['WLK_LRF_WLK_IWAIT']/100-waitThresh).clip(0),-0.42199864983558655,-0.0
+@c_xwait * odt_skims['WLK_LRF_WLK_XWAIT']/100,-0.33480000495910645,-2.0924999713897705
+@c_xfers_wlk * (odt_skims['WLK_LRF_WLK_BOARDS']-1).clip(0),-0.13950000703334808,-0.13950000703334808
+@c_wacc * df.origin_walk_time # (2),-0.371628,-0.371628
+@c_wegr * df.destination_walk_time # (2),-0.371628,-0.371628
+@c_waux * odt_skims['WLK_LRF_WLK_WAUX']/100,-0.30131998658180237,-0.36827999353408813
+@df.c_cost * odt_skims['WLK_LRF_WLK_FAR'],-0.24182558149196481,-0.5527441862673481
+@c_density_index * df.density_index # (3),0.011342120574693575,0.011342120574693575
+@c_topology_trn * df.trip_topology # (2),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age <= 10) # (2),0.0,0.0
+walk_express_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_EXP_WLK_TOTIVT']/100,-0.49530312418937683,-0.5235685706138611
+@(c_ivt_exp-c_ivt) * odt_skims['WLK_EXP_WLK_KEYIVT']/100,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_EXP_WLK_IWAIT']/100).clip(upper=waitThresh),-0.5579999685287476,-0.3417972922325134
+@c_long_i_wait * (odt_skims['WLK_EXP_WLK_IWAIT']/100-waitThresh).clip(0),-0.42199864983558655,-0.0
+@c_xwait * odt_skims['WLK_EXP_WLK_XWAIT']/100,-0.33480000495910645,-2.0924999713897705
+@c_xfers_wlk * (odt_skims['WLK_EXP_WLK_BOARDS']-1).clip(0),-0.13950000703334808,-0.13950000703334808
+@c_wacc * df.origin_walk_time # (3),-0.371628,-0.371628
+@c_wegr * df.destination_walk_time # (3),-0.371628,-0.371628
+@c_waux * odt_skims['WLK_EXP_WLK_WAUX']/100,-0.30131998658180237,-0.36827999353408813
+@df.c_cost * odt_skims['WLK_EXP_WLK_FAR'],-0.24182558149196481,-0.5527441862673481
+@c_density_index * df.density_index # (4),0.011342120574693575,0.011342120574693575
+@c_topology_trn * df.trip_topology # (3),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age <= 10) # (3),0.0,0.0
+walk_heavyrail_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_HVY_WLK_TOTIVT']/100,-0.49530312418937683,-0.5235685706138611
+@(c_ivt_hvy-c_ivt) * odt_skims['WLK_HVY_WLK_KEYIVT']/100,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_HVY_WLK_IWAIT']/100).clip(upper=waitThresh),-0.5579999685287476,-0.3417972922325134
+@c_long_i_wait * (odt_skims['WLK_HVY_WLK_IWAIT']/100-waitThresh).clip(0),-0.42199864983558655,-0.0
+@c_xwait * odt_skims['WLK_HVY_WLK_XWAIT']/100,-0.33480000495910645,-2.0924999713897705
+@c_xfers_wlk * (odt_skims['WLK_HVY_WLK_BOARDS']-1).clip(0),-0.13950000703334808,-0.13950000703334808
+@c_wacc * df.origin_walk_time # (4),-0.371628,-0.371628
+@c_wegr * df.destination_walk_time # (4),-0.371628,-0.371628
+@c_waux * odt_skims['WLK_HVY_WLK_WAUX']/100,-0.30131998658180237,-0.36827999353408813
+@df.c_cost * odt_skims['WLK_HVY_WLK_FAR'],-0.24182558149196481,-0.5527441862673481
+@c_density_index * df.density_index # (5),0.011342120574693575,0.011342120574693575
+@c_topology_trn * df.trip_topology # (4),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age <= 10) # (4),0.0,0.0
+walk_commuter_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_COM_WLK_TOTIVT']/100,-0.49530312418937683,-0.5235685706138611
+@(c_ivt_com-c_ivt) * odt_skims['WLK_COM_WLK_KEYIVT']/100,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_COM_WLK_IWAIT']/100).clip(upper=waitThresh),-0.5579999685287476,-0.3417972922325134
+@c_long_i_wait * (odt_skims['WLK_COM_WLK_IWAIT']/100-waitThresh).clip(0),-0.42199864983558655,-0.0
+@c_xwait * odt_skims['WLK_COM_WLK_XWAIT']/100,-0.33480000495910645,-2.0924999713897705
+@c_xfers_wlk * (odt_skims['WLK_COM_WLK_BOARDS']-1).clip(0),-0.13950000703334808,-0.13950000703334808
+@c_wacc * df.origin_walk_time # (5),-0.371628,-0.371628
+@c_wegr * df.destination_walk_time # (5),-0.371628,-0.371628
+@c_waux * odt_skims['WLK_COM_WLK_WAUX']/100,-0.30131998658180237,-0.36827999353408813
+@df.c_cost * odt_skims['WLK_COM_WLK_FAR'],-0.24182558149196481,-0.5527441862673481
+@c_density_index * df.density_index # (6),0.011342120574693575,0.011342120574693575
+@c_topology_trn * df.trip_topology # (5),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age < 10),0.0,0.0
+auto_ownership == 0 # (3),0.0,0.0
+age < 16 # (3),0.0,0.0
+@c_density_index * df.density_index # (7),0.011342120574693575,0.011342120574693575
+@c_topology_trn * df.trip_topology # (6),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age < 10) # (2),0.0,0.0
+outbound & ~drive_local_available_outbound,0.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_LOC_WLK_TOTIVT']/100,-0.5640040854492188,-0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_LOC_WLK_IWAIT']/100).clip(upper=waitThresh),-0.558,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_LOC_WLK_IWAIT']/100-waitThresh).clip(0),-0.5650001174926758,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_LOC_WLK_XWAIT']/100,-0.33480000000000004,-0.0
+@df.outbound * c_xfers_wlk * (odt_skims['DRV_LOC_WLK_BOARDS']-1).clip(0),-0.1395,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_LOC_WLK_DTIM']/100,-0.6729480000000001,-0.0
+@df.outbound * c_wegr * df.destination_walk_time,-0.371628,-0.0
+@df.outbound * c_waux * odt_skims['DRV_LOC_WLK_WAUX']/100,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_LOC_WLK_FAR'] + costPerMile*odt_skims['DRV_LOC_WLK_DDIST']/100),-0.5784042066179207,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_LOC_WLK_DDIST']/100)/ (od_skims['DIST']),0.0,0.0
+inbound & ~drive_local_available_inbound,0.0,0.0
+@df.inbound * c_ivt * odt_skims['WLK_LOC_DRV_TOTIVT']/100,-0.0,-0.5634460854492187
+@df.inbound * c_short_i_wait * (odt_skims['WLK_LOC_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.34880023498535156
+@df.inbound * c_long_i_wait * (odt_skims['WLK_LOC_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_LOC_DRV_XWAIT']/100,-0.0,-1.6740000000000002
+@df.inbound * c_xfers_wlk * (odt_skims['WLK_LOC_DRV_BOARDS']-1).clip(0),-0.0,-0.1395
+@df.inbound * c_dtim * odt_skims['WLK_LOC_DRV_DTIM']/100,-0.0,-0.6729480000000001
+@df.inbound * c_wacc * df.origin_walk_time,-0.0,-0.371628
+@df.inbound * c_waux * odt_skims['WLK_LOC_DRV_WAUX']/100,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_LOC_DRV_FAR'] + costPerMile*odt_skims['WLK_LOC_DRV_DDIST']/100),-0.0,-0.5784042066179207
+@df.outbound * c_dacc_ratio * (odt_skims['WLK_LOC_DRV_DDIST']/100)/ (od_skims['DIST']),0.0,0.0
+auto_ownership == 0 # (4),0.0,0.0
+age < 16 # (4),0.0,0.0
+@c_density_index * df.density_index # (8),0.011342120574693575,0.011342120574693575
+@c_topology_trn * df.trip_topology # (7),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age < 10) # (3),0.0,0.0
+outbound & ~drive_lrf_available_outbound,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_LRF_WLK_TOTIVT']/100,-0.49530312817382816,-0.0
+@df.outbound * (c_ivt_lrt-c_ivt)*odt_skims['DRV_LRF_WLK_KEYIVT']/100,0.027900000000000008,0.0
+@df.outbound * (c_ivt_ferry-c_ivt_lrt)*odt_skims['DRV_LRF_WLK_FERRYIVT']/100,0.027899999999999973,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_LRF_WLK_IWAIT']/100).clip(upper=waitThresh),-0.558,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_LRF_WLK_IWAIT']/100-waitThresh).clip(0),-0.42199867515563966,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_LRF_WLK_XWAIT']/100,-0.33480000000000004,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_LRF_WLK_BOARDS']-1).clip(0),-0.41850000000000004,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_LRF_WLK_DTIM']/100,-0.165726,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (2),-0.371628,-0.0
+@df.outbound * c_waux * odt_skims['DRV_LRF_WLK_WAUX']/100,-0.35712000000000005,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_LRF_WLK_FAR'] + costPerMile * odt_skims['DRV_LRF_WLK_DDIST']/100),-0.2906890891356771,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_LRF_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0
+inbound & ~drive_lrf_available_inbound,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_LRF_DRV_TOTIVT']/100,-0.0,-0.5634460854492187
+@df.inbound * (c_ivt_lrt-c_ivt)*odt_skims['WLK_LRF_DRV_KEYIVT']/100,0.0,0.0
+@df.inbound * (c_ivt_ferry-c_ivt_lrt)*odt_skims['WLK_LRF_DRV_FERRYIVT']/100,0.0,0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_LRF_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.34880023498535156
+@df.inbound * c_long_i_wait * (odt_skims['WLK_LRF_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_LRF_DRV_XWAIT']/100,-0.0,-1.6740000000000002
+@df.inbound * c_xfers_drv * (odt_skims['WLK_LRF_DRV_BOARDS']-1).clip(0),-0.0,-0.41850000000000004
+@df.inbound * c_dtim * odt_skims['WLK_LRF_DRV_DTIM']/100,-0.0,-0.6729480000000001
+@df.inbound * c_wacc * df.origin_walk_time # (2),-0.0,-0.371628
+@df.inbound * c_waux * odt_skims['WLK_LRF_DRV_WAUX']/100,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_LRF_DRV_FAR'] + costPerMile * odt_skims['WLK_LRF_DRV_DDIST']/100),-0.0,-0.5784042066179207
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_LRF_DRV_DDIST']/100)/ od_skims['DIST'],0.0,0.0
+auto_ownership == 0 # (5),0.0,0.0
+age < 16 # (5),0.0,0.0
+@c_density_index * df.density_index # (9),0.011342120574693575,0.011342120574693575
+@c_topology_trn * df.trip_topology # (8),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age < 10) # (4),0.0,0.0
+outbound & ~drive_express_available_outbound,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_EXP_WLK_TOTIVT']/100,-0.5640040854492188,-0.0
+@df.outbound * (c_ivt_exp-c_ivt) * odt_skims['DRV_EXP_WLK_KEYIVT']/100,0.0,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_EXP_WLK_IWAIT']/100).clip(upper=waitThresh),-0.558,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_EXP_WLK_IWAIT']/100-waitThresh).clip(0),-0.5650001174926758,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_EXP_WLK_XWAIT']/100,-0.33480000000000004,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_EXP_WLK_BOARDS']-1).clip(0),-0.41850000000000004,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_EXP_WLK_DTIM']/100,-0.6729480000000001,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (3),-0.371628,-0.0
+@df.outbound * c_waux * odt_skims['DRV_EXP_WLK_WAUX']/100,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_EXP_WLK_FAR'] + costPerMile * odt_skims['DRV_EXP_WLK_DDIST']/100),-0.5784042066179207,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_EXP_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0
+inbound & ~drive_express_available_inbound,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_EXP_DRV_TOTIVT']/100,-0.0,-0.5634460854492187
+@df.inbound * (c_ivt_exp-c_ivt) * odt_skims['WLK_EXP_DRV_KEYIVT']/100,0.0,0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_EXP_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.34880023498535156
+@df.inbound * c_long_i_wait * (odt_skims['WLK_EXP_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_EXP_DRV_XWAIT']/100,-0.0,-1.6740000000000002
+@df.inbound * c_xfers_drv * (odt_skims['WLK_EXP_DRV_BOARDS']-1).clip(0),-0.0,-0.41850000000000004
+@df.inbound * c_dtim * odt_skims['WLK_EXP_DRV_DTIM']/100,-0.0,-0.6729480000000001
+@df.inbound * c_wacc * df.origin_walk_time # (3),-0.0,-0.371628
+@df.inbound * c_waux * odt_skims['WLK_EXP_DRV_WAUX']/100,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_EXP_DRV_FAR'] + costPerMile * odt_skims['WLK_EXP_DRV_DDIST']/100),-0.0,-0.5784042066179207
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_EXP_DRV_DDIST']/100) / od_skims['DIST'],0.0,0.0
+auto_ownership == 0 # (6),0.0,0.0
+age < 16 # (6),0.0,0.0
+@c_density_index * df.density_index # (10),0.011342120574693575,0.011342120574693575
+@c_topology_trn * df.trip_topology # (9),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age < 10) # (5),0.0,0.0
+outbound & ~drive_heavyrail_available_outbound,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_HVY_WLK_TOTIVT']/100,-0.4645935791015625,-0.0
+@df.outbound * (c_ivt_hvy-c_ivt) * odt_skims['DRV_HVY_WLK_KEYIVT']/100,0.027536741455078118,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_HVY_WLK_IWAIT']/100).clip(upper=waitThresh),-0.15856127672195436,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_HVY_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_HVY_WLK_XWAIT']/100,-0.33480000000000004,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_HVY_WLK_BOARDS']-1).clip(0),-0.41850000000000004,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_HVY_WLK_DTIM']/100,-0.31806,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (4),-0.371628,-0.0
+@df.outbound * c_waux * odt_skims['DRV_HVY_WLK_WAUX']/100,-0.2232,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_HVY_WLK_FAR'] + costPerMile * odt_skims['DRV_HVY_WLK_DDIST']/100),-0.40914907193229355,-0.0
+@df.outbound * df.c_cost * park_ride_cost,-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_HVY_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0
+inbound & ~drive_heavyrail_available_inbound,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_HVY_DRV_TOTIVT']/100,-0.0,-0.46431457910156254
+@df.inbound * (c_ivt_hvy-c_ivt) * odt_skims['WLK_HVY_DRV_KEYIVT']/100,0.0,0.027536741455078118
+@df.inbound * c_short_i_wait * (odt_skims['WLK_HVY_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.3538612767219544
+@df.inbound * c_long_i_wait * (odt_skims['WLK_HVY_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_HVY_DRV_XWAIT']/100,-0.0,-0.1395
+@df.inbound * c_xfers_drv * (odt_skims['WLK_HVY_DRV_BOARDS']-1).clip(0),-0.0,-0.41850000000000004
+@df.outbound * c_dtim * odt_skims['DRV_HVY_WLK_DTIM']/100 # (2),-0.31806,-0.0
+@df.inbound * c_wacc * df.origin_walk_time # (4),-0.0,-0.371628
+@c_waux * odt_skims['WLK_HVY_DRV_WAUX']/100,-0.7588800191879272,-0.2231999933719635
+@df.inbound * df.c_cost * (odt_skims['WLK_HVY_DRV_FAR'] + costPerMile * odt_skims['WLK_HVY_DRV_DDIST']/100),-0.0,-0.7200676767076769
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_HVY_DRV_DDIST']/100)/ od_skims['DIST'],0.0,0.0
+auto_ownership == 0 # (7),0.0,0.0
+age < 16 # (7),0.0,0.0
+@c_density_index * df.density_index # (11),0.011342120574693575,0.011342120574693575
+@c_topology_trn * df.trip_topology # (10),-0.06138000000000001,-0.06138000000000001
+@c_age010_trn * (df.age < 10) # (6),0.0,0.0
+outbound & ~drive_commuter_available_outbound,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_COM_WLK_TOTIVT']/100,-0.49530312817382816,-0.0
+@df.outbound * (c_ivt_com-c_ivt) * odt_skims['DRV_COM_WLK_KEYIVT']/100,0.05579999999999998,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_COM_WLK_IWAIT']/100).clip(upper=waitThresh),-0.558,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_COM_WLK_IWAIT']/100-waitThresh).clip(0),-0.6544056198120117,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_COM_WLK_XWAIT']/100,-0.33480000000000004,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_COM_WLK_BOARDS']-1).clip(0),-0.41850000000000004,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_COM_WLK_DTIM']/100,-0.7142400000000001,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (5),-0.371628,-0.0
+@df.outbound * c_waux * odt_skims['DRV_COM_WLK_WAUX']/100,-0.6696000000000001,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_COM_WLK_FAR'] + costPerMile * odt_skims['DRV_COM_WLK_DDIST']/100),-1.5006464305633638,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_COM_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0
+inbound & ~drive_commuter_available_inbound,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_COM_DRV_TOTIVT']/100,-0.0,-0.9540237436523438
+@df.inbound * (c_ivt_com-c_ivt) * odt_skims['WLK_COM_DRV_KEYIVT']/100,0.0,0.05579999999999998
+@df.inbound * c_short_i_wait * (odt_skims['WLK_COM_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.3452959722518921
+@df.inbound * c_long_i_wait * (odt_skims['WLK_COM_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_COM_DRV_XWAIT']/100,-0.0,-2.0456280000000002
+@df.inbound * c_xfers_drv * (odt_skims['WLK_COM_DRV_BOARDS']-1).clip(0),-0.0,-0.8370000000000001
+@df.inbound * c_dtim * odt_skims['WLK_COM_DRV_DTIM']/100,-0.0,-0.40120200000000006
+@df.inbound * c_wacc * df.origin_walk_time # (5),-0.0,-0.371628
+@df.inbound * c_waux * odt_skims['WLK_COM_DRV_WAUX']/100,-0.0,-0.49104
+@df.inbound * df.c_cost * (odt_skims['WLK_COM_DRV_FAR'] + costPerMile * odt_skims['WLK_COM_DRV_DDIST']/100),-0.0,-1.2976100479460593
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_COM_DRV_DDIST']/100) / od_skims['DIST'],0.0,0.0
+@c_ivt * odt_skims['HOV2TOLL_TIME'] # (2),-0.12722399830818176,-0.12722399830818176
+@c_ivt * 1.5 * df.origTaxiWaitTime,-0.39757500000000007,-0.230175
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'],-0.0,-0.0
+@df.c_cost * odt_skims['HOV2TOLL_BTOLL'],-0.005596535039705464,-0.005596535039705464
+@df.c_cost * (Taxi_baseFare + odt_skims['HOV2TOLL_DIST'] * Taxi_costPerMile + odt_skims['HOV2TOLL_TIME'] * Taxi_costPerMinute)*100,-1.5492958367423715,-1.5492958367423715
+@c_ivt * odt_skims['HOV2TOLL_TIME'] ,-0.12722399830818176,-0.12722399830818176
+@c_ivt * 1.5 * df.origSingleTNCWaitTime,-0.2636549999999999,-0.12555000000000002
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'] # (2),-0.0,-0.0
+@df.c_cost * (odt_skims['HOV2TOLL_BTOLL'] + dot_skims['HOV2TOLL_BTOLL']),-0.011193070079410929,-0.011193070079410929
+"@df.c_cost * np.maximum(TNC_single_baseFare + odt_skims['HOV2TOLL_DIST'] * TNC_single_costPerMile + odt_skims['HOV2TOLL_TIME'] * TNC_single_costPerMinute, TNC_single_costMinimum) * 100",-1.6582325148738832,-1.6582325148738832
+@c_ivt * odt_skims['HOV2TOLL_TIME'] * TNC_shared_IVTFactor,-0.19083599746227264,-0.19083599746227264
+@c_ivt  * 1.5 * df.origSharedTNCWaitTime,-0.33479999999999993,-0.20924999999999996
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'] # (3),-0.0,-0.0
+@df.c_cost * (odt_skims['HOV2TOLL_BTOLL'] + dot_skims['HOV2TOLL_BTOLL']) # (2),-0.011193070079410929,-0.011193070079410929
+"@df.c_cost * np.maximum(TNC_shared_baseFare + odt_skims['HOV2TOLL_DIST'] * TNC_shared_costPerMile + odt_skims['HOV2TOLL_TIME']* TNC_shared_costPerMinute, TNC_shared_costMinimum) * 100",-0.8277574495916897,-0.8277574495916897
+tour_mode_is_auto,1.0,1.0
+tour_mode_is_walk,0.0,0.0
+tour_mode_is_bike,0.0,0.0
+tour_mode_is_walk_transit,0.0,0.0
+tour_mode_is_drive_transit,0.0,0.0
+tour_mode_is_ride_hail,0.0,0.0
+@sov_ASC_sr2 * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),0.0,0.0
+@sov_ASC_sr3p * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),0.0,0.0
+@sov_ASC_walk * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),0.0,0.0
+@sov_ASC_rh * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),0.0,0.0
+@sr2_ASC_sr2 * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),0.0,0.0
+@sr2_ASC_sr3p * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),0.0,0.0
+@sr2_ASC_walk * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),-0.0,-0.0
+@sr2_ASC_rh * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),-0.0,-0.0
+@sr3p_ASC_sr2 * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-0.2682,-0.2682
+@sr3p_ASC_sr3p * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),0.7358,0.7358
+@sr3p_ASC_walk * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-1.0075,-1.0075
+@sr3p_ASC_rh * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-7.0,-7.0
+@walk_ASC_rh * df.is_indiv * (df.i_tour_mode == I_WALK_MODE),-0.0,-0.0
+@bike_ASC_walk * df.is_indiv * (df.i_tour_mode == I_BIKE_MODE),-0.0,-0.0
+@bike_ASC_rh * df.is_indiv * (df.i_tour_mode == I_BIKE_MODE),-0.0,-0.0
+@walk_transit_ASC_lightrail * (df.is_indiv & df.tour_mode_is_walk_transit & ~df.walk_ferry_available),0.0,0.0
+@walk_transit_ASC_ferry * (df.is_indiv & df.tour_mode_is_walk_transit & df.walk_ferry_available),0.0,0.0
+@walk_transit_ASC_express * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0
+@walk_transit_ASC_heavyrail * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0
+@walk_transit_ASC_commuter * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0
+@walk_transit_ASC_sr2 * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0
+@walk_transit_ASC_sr3p * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0
+@walk_transit_ASC_walk * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0
+@walk_transit_ASC_rh * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0
+@drive_transit_ASC_lightrail * (df.is_indiv & df.tour_mode_is_drive_transit & ~df.drive_ferry_available),0.0,0.0
+@drive_transit_ASC_ferry * (df.is_indiv & df.tour_mode_is_drive_transit & df.drive_ferry_available),0.0,0.0
+@drive_transit_ASC_express * (df.is_indiv & df.tour_mode_is_drive_transit),0.0,0.0
+@drive_transit_ASC_heavyrail * (df.is_indiv & df.tour_mode_is_drive_transit),0.0,0.0
+@drive_transit_ASC_commuter * (df.is_indiv & df.tour_mode_is_drive_transit),0.0,0.0
+@drive_transit_ASC_rh * (df.is_indiv & df.tour_mode_is_drive_transit),-0.0,-0.0
+@ride_hail_ASC_sr2 * (df.is_indiv & df.tour_mode_is_ride_hail),-0.0,-0.0
+@ride_hail_ASC_sr3p * (df.is_indiv & df.tour_mode_is_ride_hail),0.0,0.0
+@ride_hail_ASC_walk * (df.is_indiv & df.tour_mode_is_ride_hail),0.0,0.0
+@ride_hail_ASC_walk_transit * (df.is_indiv & df.tour_mode_is_ride_hail),0.0,0.0
+@ride_hail_ASC_taxi * (df.is_indiv & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),-0.0,-0.0
+@ride_hail_ASC_tnc_single * (df.is_indiv & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@ride_hail_ASC_tnc_shared * (df.is_indiv & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@joint_auto_ASC_sr2 * (df.is_joint & df.i_tour_mode.isin(I_AUTO_MODES)),0.0,0.0
+@joint_auto_ASC_sr3p * (df.is_joint & df.i_tour_mode.isin(I_AUTO_MODES)),0.0,0.0
+@joint_auto_ASC_walk * (df.is_joint & df.i_tour_mode.isin(I_AUTO_MODES)),0.0,0.0
+@joint_auto_ASC_rh * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@joint_walk_ASC_rh * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@joint_bike_ASC_walk * df.is_joint * (df.i_tour_mode == I_BIKE_MODE),0.0,0.0
+@joint_bike_ASC_rh * df.is_joint * (df.i_tour_mode == I_BIKE_MODE),0.0,0.0
+@joint_walk_transit_ASC_lightrail * (df.is_joint & df.tour_mode_is_walk_transit & ~df.walk_ferry_available),0.0,0.0
+@joint_walk_transit_ASC_ferry * (df.is_joint & df.tour_mode_is_walk_transit & df.walk_ferry_available),0.0,0.0
+@joint_walk_transit_ASC_express * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_heavyrail * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_commuter * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_sr2 * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_sr3p * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_walk * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_rh * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_drive_transit_ASC_lightrail * (df.is_joint & df.tour_mode_is_drive_transit & ~df.drive_ferry_available),0.0,0.0
+@joint_drive_transit_ASC_ferry * (df.is_joint & df.tour_mode_is_drive_transit & df.drive_ferry_available),0.0,0.0
+@joint_drive_transit_ASC_express * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0
+@joint_drive_transit_ASC_heavyrail * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0
+@joint_drive_transit_ASC_commuter * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0
+@joint_drive_transit_ASC_rh * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0
+@joint_ride_hail_ASC_sr2 * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0
+@joint_ride_hail_ASC_sr3p * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0
+@joint_ride_hail_ASC_walk * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0
+@joint_ride_hail_ASC_walk_transit * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0
+@joint_ride_hail_ASC_taxi * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@joint_ride_hail_ASC_tnc_single * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@joint_ride_hail_ASC_tnc_shared * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@df.tour_mode_is_walk & (od_skims['DISTWALK'] > 3),0.0,0.0
+@df.tour_mode_is_walk & (od_skims['DISTBIKE'] > 8),0.0,0.0
+@(c_origin_density_index*df.origin_density_index).clip(c_origin_density_index_max) if origin_density_applied else 0,0.41850000000000004,0.41850000000000004
+@c_walk_express_penalty * ~(df.first_trip | df.first_trip),-0.0,-0.0
+@adjust_tnc_shared,-0.8370000000000001,-0.8370000000000001
+sov_available == False,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+auto_ownership == 0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+age < 16,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+is_joint == True,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+is_atwork_subtour & ~work_tour_is_SOV,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_ivt*odt_skims['SOV_TIME'],-0.4672040045261383,-0.2658510208129883,-0.44769200682640076,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459
+@c_walktimeshort * df.total_terminal_time,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['SOV_DIST'],-0.5471806852045646,-0.39382287115623066,-0.42694815665061625,-0.04662077488567989,-0.04662077488567989,-0.04662077488567989,-0.04662077488567989
+c_cost * total_parking_cost,-0.0,-0.1461838413870578,-0.10541527021099596,-0.0,-0.10362475079070414,-0.0,-0.12089554258915484
+@df.c_cost * odt_skims['SOV_BTOLL'],-0.03934143441411309,-0.03394163063135551,-0.03833526214048218,-0.003722846928101735,-0.003722846928101735,-0.003722846928101735,-0.003722846928101735
+@c_age1619_da * ((df.age >= 16) & (df.age <= 19)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+sovtoll_available == False,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+auto_ownership == 0 # (2),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+age < 16 # (2),1.0,1.0,1.0,1.0,1.0,1.0,1.0
+is_joint == True # (2),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+is_atwork_subtour & ~work_tour_is_SOV # (2),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_ivt*odt_skims['SOVTOLL_TIME'],-0.4672040045261383,-0.2658510208129883,-0.44769200682640076,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459
+@c_walktimeshort * df.total_terminal_time # (2),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['SOVTOLL_DIST'],-0.5471806852045646,-0.39382287115623066,-0.42694815665061625,-0.04662077488567989,-0.04662077488567989,-0.04662077488567989,-0.04662077488567989
+c_cost * total_parking_cost # (2),-0.0,-0.1461838413870578,-0.10541527021099596,-0.0,-0.10362475079070414,-0.0,-0.12089554258915484
+@df.c_cost * odt_skims['SOVTOLL_BTOLL'],-0.03934143441411309,-0.03394163063135551,-0.03833526214048218,-0.003722846928101735,-0.003722846928101735,-0.003722846928101735,-0.003722846928101735
+@df.c_cost * odt_skims['SOVTOLL_VTOLL'],-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_age1619_da * ((df.age >= 16) & (df.age <= 19)) # (2),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+hov2_available == False,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+is_joint & (number_of_participants > 2),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_ivt * odt_skims['HOV2_TIME'],-0.4672040045261383,-0.2658510208129883,-0.44769200682640076,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459
+@c_walktimeshort * df.total_terminal_time # (3),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV2_DIST'],-0.5471806852045646,-0.39382287115623066,-0.42694815665061625,-0.04662077488567989,-0.04662077488567989,-0.04662077488567989,-0.04662077488567989
+@df.c_cost * df.total_parking_cost / costShareSr2,-0.0,-0.08353362364974733,-0.06023729726342626,-0.0,-0.059214143308973795,-0.0,-0.06908316719380277
+@df.c_cost * odt_skims['HOV2_BTOLL'] / costShareSr2,-0.022480819665207482,-0.01939521750363172,-0.021905864080275533,-0.00212734110177242,-0.00212734110177242,-0.00212734110177242,-0.00212734110177242
+@c_hhsize1_sr * (df.hhsize == 1),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_age16p_sr * (df.age >= 16),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+hov2toll_available == False,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+is_joint & (number_of_participants > 2) # (2),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_ivt * odt_skims['HOV2TOLL_TIME'],-0.4672040045261383,-0.2658510208129883,-0.44769200682640076,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459
+@c_walktimeshort * df.total_terminal_time # (4),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV2TOLL_DIST'],-0.5471806852045646,-0.39382287115623066,-0.42694815665061625,-0.04662077488567989,-0.04662077488567989,-0.04662077488567989,-0.04662077488567989
+@df.c_cost * df.total_parking_cost / costShareSr2 # (2),-0.0,-0.08353362364974733,-0.06023729726342626,-0.0,-0.059214143308973795,-0.0,-0.06908316719380277
+@df.c_cost * odt_skims['HOV2TOLL_BTOLL'] / costShareSr2,-0.022480819665207482,-0.01939521750363172,-0.021905864080275533,-0.00212734110177242,-0.00212734110177242,-0.00212734110177242,-0.00212734110177242
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'] / costShareSr2,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_hhsize1_sr * (df.hhsize == 1) # (2),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2) # (2),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_age16p_sr * (df.age >= 16) # (2),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+hov3_available == False,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_ivt * odt_skims['HOV3_TIME'],-0.4672040045261383,-0.2658510208129883,-0.44769200682640076,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459
+@c_walktimeshort * df.total_terminal_time # (5),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV3_DIST'],-0.5471806852045646,-0.39382287115623066,-0.42694815665061625,-0.04662077488567989,-0.04662077488567989,-0.04662077488567989,-0.04662077488567989
+@df.c_cost *  df.total_parking_cost / costShareSr3,-0.0,-0.058473536554823125,-0.042166108084398385,-0.0,-0.04144990031628166,-0.0,-0.04835821703566194
+@df.c_cost * odt_skims['HOV3_BTOLL'] / costShareSr3,-0.01573657376564524,-0.013576652252542204,-0.015334104856192873,-0.001489138771240694,-0.001489138771240694,-0.001489138771240694,-0.001489138771240694
+@c_hhsize1_sr * (df.hhsize == 1) # (3),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2) # (3),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_age16p_sr * (df.age >= 16) # (3),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+hov3toll_available == False,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+@c_ivt * odt_skims['HOV3TOLL_TIME'],-0.4672040045261383,-0.2658510208129883,-0.44769200682640076,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459
+@c_walktimeshort * df.total_terminal_time # (6),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV3TOLL_DIST'],-0.5471806852045646,-0.39382287115623066,-0.42694815665061625,-0.04662077488567989,-0.04662077488567989,-0.04662077488567989,-0.04662077488567989
+@df.c_cost * df.total_parking_cost / costShareSr3,-0.0,-0.058473536554823125,-0.042166108084398385,-0.0,-0.04144990031628166,-0.0,-0.04835821703566194
+@df.c_cost * odt_skims['HOV3TOLL_BTOLL'] / costShareSr3,-0.01573657376564524,-0.013576652252542204,-0.015334104856192873,-0.001489138771240694,-0.001489138771240694,-0.001489138771240694,-0.001489138771240694
+@df.c_cost * odt_skims['HOV3TOLL_VTOLL'] / costShareSr3,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_hhsize1_sr * (df.hhsize == 1) # (4),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2) # (4),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_age16p_sr * (df.age >= 16) # (4),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_walktimeshort * od_skims['DISTWALK'].clip(upper=walkThresh) * 60/walkSpeed,-1.0839999914169312,-1.0839999914169312,-1.0839999914169312,-0.8238399624824524,-0.8238399624824524,-0.8238399624824524,-0.8238399624824524
+@c_walktimelong * (od_skims['DISTWALK'] - walkThresh).clip(lower=0) * 60/walkSpeed,-38.59040069580078,-27.587799072265625,-32.24899673461914,-0.0,-0.0,-0.0,-0.0
+@c_density_index * df.density_index,0.013859708926912389,0.013859708926912389,0.0053062509138790325,0.008590606362089684,0.008590606362089684,0.008590606362089684,0.008590606362089684
+@c_topology_walk * df.trip_topology,-0.4065,-0.4065,-0.4065,-0.4065,-0.4065,-0.4065,-0.4065
+is_atwork_subtour & ~work_tour_is_bike,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_biketimeshort * od_skims['DISTBIKE'].clip(upper=bikeThresh)*60/bikeSpeed,-3.252000093460083,-3.252000093460083,-3.252000093460083,-0.4119199812412262,-0.4119199812412262,-0.4119199812412262,-0.4119199812412262
+@c_biketimelong * (od_skims['DISTBIKE']-bikeThresh).clip(lower=0)*60/bikeSpeed,-5.745199680328369,-0.24390041828155518,-2.5744996070861816,-0.0,-0.0,-0.0,-0.0
+@c_density_index*df.density_index,0.013859708926912389,0.013859708926912389,0.0053062509138790325,0.008590606362089684,0.008590606362089684,0.008590606362089684,0.008590606362089684
+@c_topology_bike * df.trip_topology,-0.542,-0.542,-0.542,-0.542,-0.542,-0.542,-0.542
+walk_local_available == False,1.0,0.0,1.0,1.0,1.0,1.0,1.0
+@c_ivt * odt_skims['WLK_LOC_WLK_TOTIVT']/100,-0.0,-0.5627802610397339,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_short_i_wait * (odt_skims['WLK_LOC_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.5419999957084656,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_long_i_wait * (odt_skims['WLK_LOC_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.00679937144741416,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_xwait * odt_skims['WLK_LOC_WLK_XWAIT']/100,-0.0,-0.4065000116825104,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_xfers_wlk * (odt_skims['WLK_LOC_WLK_BOARDS']-1).clip(0),-0.0,-0.1354999989271164,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_wacc * df.origin_walk_time,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972
+@c_wegr * df.destination_walk_time,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972
+@c_waux * odt_skims['WLK_LOC_WLK_WAUX']/100,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * odt_skims['WLK_LOC_WLK_FAR'],-0.0,-0.45277867460962457,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_density_index * df.density_index # (2),0.013859708926912389,0.013859708926912389,0.0053062509138790325,0.008590606362089684,0.008590606362089684,0.008590606362089684,0.008590606362089684
+@c_topology_trn * df.trip_topology,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962
+@c_age010_trn * (df.age <= 10),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+walk_lrf_available == False,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+@c_ivt * odt_skims['WLK_LRF_WLK_TOTIVT']/100,-1.2705888748168945,-0.5627802610397339,-0.8178590536117554,-0.0,-0.0,-0.0,-0.0
+@(c_ivt_lrt-c_ivt) * odt_skims['WLK_LRF_WLK_KEYIVT']/100,0.02709999866783619,0.0,0.02709999866783619,0.0,0.0,0.0,0.0
+@(c_ivt_ferry-c_ivt_lrt) * odt_skims['WLK_LRF_WLK_FERRYIVT']/100,0.02709999866783619,0.0,0.02709999866783619,0.0,0.0,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_LRF_WLK_IWAIT']/100).clip(upper=waitThresh),-0.5419999957084656,-0.5419999957084656,-0.4166950285434723,-0.0,-0.0,-0.0,-0.0
+@c_long_i_wait * (odt_skims['WLK_LRF_WLK_IWAIT']/100-waitThresh).clip(0),-0.8231976628303528,-0.00679937144741416,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_xwait * odt_skims['WLK_LRF_WLK_XWAIT']/100,-0.8130000233650208,-0.4065000116825104,-2.439000129699707,-0.0,-0.0,-0.0,-0.0
+@c_xfers_wlk * (odt_skims['WLK_LRF_WLK_BOARDS']-1).clip(0),-0.2709999978542328,-0.1354999989271164,-0.2709999978542328,-0.0,-0.0,-0.0,-0.0
+@c_wacc * df.origin_walk_time # (2),-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972
+@c_wegr * df.destination_walk_time # (2),-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972
+@c_waux * odt_skims['WLK_LRF_WLK_WAUX']/100,-0.5853599905967712,-0.0,-0.5203199982643127,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * odt_skims['WLK_LRF_WLK_FAR'],-0.35216119136304136,-0.45277867460962457,-0.804939865972666,-0.0,-0.0,-0.0,-0.0
+@c_density_index * df.density_index # (3),0.013859708926912389,0.013859708926912389,0.0053062509138790325,0.008590606362089684,0.008590606362089684,0.008590606362089684,0.008590606362089684
+@c_topology_trn * df.trip_topology # (2),-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962
+@c_age010_trn * (df.age <= 10) # (2),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+walk_express_available == False,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+@c_ivt * odt_skims['WLK_EXP_WLK_TOTIVT']/100,-0.7241120338439941,-0.45094943046569824,-1.5655643939971924,-0.0,-0.0,-0.0,-0.0
+@(c_ivt_exp-c_ivt) * odt_skims['WLK_EXP_WLK_KEYIVT']/100,0.1605120152235031,0.07632000744342804,0.36259105801582336,0.0,0.0,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_EXP_WLK_IWAIT']/100).clip(upper=waitThresh),-0.5419999957084656,-0.28459879755973816,-0.4132966697216034,-0.0,-0.0,-0.0,-0.0
+@c_long_i_wait * (odt_skims['WLK_EXP_WLK_IWAIT']/100-waitThresh).clip(0),-0.8130000233650208,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_xwait * odt_skims['WLK_EXP_WLK_XWAIT']/100,-0.2168000042438507,-0.4065000116825104,-0.9289880394935608,-0.0,-0.0,-0.0,-0.0
+@c_xfers_wlk * (odt_skims['WLK_EXP_WLK_BOARDS']-1).clip(0),-0.1354999989271164,-0.1354999989271164,-0.1354999989271164,-0.0,-0.0,-0.0,-0.0
+@c_wacc * df.origin_walk_time # (3),-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972
+@c_wegr * df.destination_walk_time # (3),-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972
+@c_waux * odt_skims['WLK_EXP_WLK_WAUX']/100,-0.5203199982643127,-0.0,-0.682919979095459,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * odt_skims['WLK_EXP_WLK_FAR'],-0.828417278730202,-0.5332726612068912,-2.0794279870960537,-0.0,-0.0,-0.0,-0.0
+@c_density_index * df.density_index # (4),0.013859708926912389,0.013859708926912389,0.0053062509138790325,0.008590606362089684,0.008590606362089684,0.008590606362089684,0.008590606362089684
+@c_topology_trn * df.trip_topology # (3),-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962
+@c_age010_trn * (df.age <= 10) # (3),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+walk_heavyrail_available == False,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+@c_ivt * odt_skims['WLK_HVY_WLK_TOTIVT']/100,-0.7241120338439941,-0.45094943046569824,-1.3069679737091064,-0.0,-0.0,-0.0,-0.0
+@(c_ivt_hvy-c_ivt) * odt_skims['WLK_HVY_WLK_KEYIVT']/100,0.0,0.0,0.0981854647397995,0.0,0.0,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_HVY_WLK_IWAIT']/100).clip(upper=waitThresh),-0.5419999957084656,-0.28459879755973816,-0.4250147342681885,-0.0,-0.0,-0.0,-0.0
+@c_long_i_wait * (odt_skims['WLK_HVY_WLK_IWAIT']/100-waitThresh).clip(0),-0.8130000233650208,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_xwait * odt_skims['WLK_HVY_WLK_XWAIT']/100,-0.2168000042438507,-0.4065000116825104,-1.1322380304336548,-0.0,-0.0,-0.0,-0.0
+@c_xfers_wlk * (odt_skims['WLK_HVY_WLK_BOARDS']-1).clip(0),-0.1354999989271164,-0.1354999989271164,-0.2709999978542328,-0.0,-0.0,-0.0,-0.0
+@c_wacc * df.origin_walk_time # (4),-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972
+@c_wegr * df.destination_walk_time # (4),-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972
+@c_waux * odt_skims['WLK_HVY_WLK_WAUX']/100,-0.5203199982643127,-0.0,-0.7262799739837646,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * odt_skims['WLK_HVY_WLK_FAR'],-0.828417278730202,-0.5332726612068912,-2.4584205073248504,-0.0,-0.0,-0.0,-0.0
+@c_density_index * df.density_index # (5),0.013859708926912389,0.013859708926912389,0.0053062509138790325,0.008590606362089684,0.008590606362089684,0.008590606362089684,0.008590606362089684
+@c_topology_trn * df.trip_topology # (4),-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962
+@c_age010_trn * (df.age <= 10) # (4),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+walk_commuter_available == False,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+@c_ivt * odt_skims['WLK_COM_WLK_TOTIVT']/100,-0.7241120338439941,-0.45094943046569824,-1.3069679737091064,-0.0,-0.0,-0.0,-0.0
+@(c_ivt_com-c_ivt) * odt_skims['WLK_COM_WLK_KEYIVT']/100,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_COM_WLK_IWAIT']/100).clip(upper=waitThresh),-0.5419999957084656,-0.28459879755973816,-0.4250147342681885,-0.0,-0.0,-0.0,-0.0
+@c_long_i_wait * (odt_skims['WLK_COM_WLK_IWAIT']/100-waitThresh).clip(0),-0.8130000233650208,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@c_xwait * odt_skims['WLK_COM_WLK_XWAIT']/100,-0.2168000042438507,-0.4065000116825104,-1.1322380304336548,-0.0,-0.0,-0.0,-0.0
+@c_xfers_wlk * (odt_skims['WLK_COM_WLK_BOARDS']-1).clip(0),-0.1354999989271164,-0.1354999989271164,-0.2709999978542328,-0.0,-0.0,-0.0,-0.0
+@c_wacc * df.origin_walk_time # (5),-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972
+@c_wegr * df.destination_walk_time # (5),-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972,-0.360972
+@c_waux * odt_skims['WLK_COM_WLK_WAUX']/100,-0.5203199982643127,-0.0,-0.7262799739837646,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * odt_skims['WLK_COM_WLK_FAR'],-0.828417278730202,-0.5332726612068912,-2.4584205073248504,-0.0,-0.0,-0.0,-0.0
+@c_density_index * df.density_index # (6),0.013859708926912389,0.013859708926912389,0.0053062509138790325,0.008590606362089684,0.008590606362089684,0.008590606362089684,0.008590606362089684
+@c_topology_trn * df.trip_topology # (5),-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962
+@c_age010_trn * (df.age < 10),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+auto_ownership == 0 # (3),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+age < 16 # (3),1.0,1.0,1.0,1.0,1.0,1.0,1.0
+@c_density_index * df.density_index # (7),0.013859708926912389,0.013859708926912389,0.0053062509138790325,0.008590606362089684,0.008590606362089684,0.008590606362089684,0.008590606362089684
+@c_topology_trn * df.trip_topology # (6),-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962
+@c_age010_trn * (df.age < 10) # (2),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+outbound & ~drive_local_available_outbound,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_LOC_WLK_TOTIVT']/100,-0.8105501494140624,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_LOC_WLK_IWAIT']/100).clip(upper=waitThresh),-0.542,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_LOC_WLK_IWAIT']/100-waitThresh).clip(0),-0.5521977003097533,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_LOC_WLK_XWAIT']/100,-0.813,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_xfers_wlk * (odt_skims['DRV_LOC_WLK_BOARDS']-1).clip(0),-0.271,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_LOC_WLK_DTIM']/100,-0.6877979999999999,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_wegr * df.destination_walk_time,-0.360972,-0.0,-0.0,-0.360972,-0.0,-0.360972,-0.0
+@df.outbound * c_waux * odt_skims['DRV_LOC_WLK_WAUX']/100,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_LOC_WLK_FAR'] + costPerMile*odt_skims['DRV_LOC_WLK_DDIST']/100),-0.8496687098128859,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_LOC_WLK_DDIST']/100)/ (od_skims['DIST']),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+inbound & ~drive_local_available_inbound,0.0,0.0,0.0,0.0,1.0,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_LOC_DRV_TOTIVT']/100,-0.0,-0.5627802614746094,-0.5046074252929688,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_LOC_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.542,-0.42009879455566407,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_long_i_wait * (odt_skims['WLK_LOC_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.006799371433258056,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_LOC_DRV_XWAIT']/100,-0.0,-0.4065,-1.626,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_xfers_wlk * (odt_skims['WLK_LOC_DRV_BOARDS']-1).clip(0),-0.0,-0.1355,-0.1355,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_dtim * odt_skims['WLK_LOC_DRV_DTIM']/100,-0.0,-0.10081199999999998,-0.6812940000000001,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_wacc * df.origin_walk_time,-0.0,-0.360972,-0.360972,-0.0,-0.360972,-0.0,-0.360972
+@df.inbound * c_waux * odt_skims['WLK_LOC_DRV_WAUX']/100,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_LOC_DRV_FAR'] + costPerMile*odt_skims['WLK_LOC_DRV_DDIST']/100),-0.0,-0.4908114056973459,-0.8423075558643071,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['WLK_LOC_DRV_DDIST']/100)/ (od_skims['DIST']),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+auto_ownership == 0 # (4),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+age < 16 # (4),1.0,1.0,1.0,1.0,1.0,1.0,1.0
+@c_density_index * df.density_index # (8),0.013859708926912389,0.013859708926912389,0.0053062509138790325,0.008590606362089684,0.008590606362089684,0.008590606362089684,0.008590606362089684
+@c_topology_trn * df.trip_topology # (7),-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962
+@c_age010_trn * (df.age < 10) # (3),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+outbound & ~drive_lrf_available_outbound,1.0,0.0,0.0,1.0,0.0,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_LRF_WLK_TOTIVT']/100,-0.8105501494140624,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * (c_ivt_lrt-c_ivt)*odt_skims['DRV_LRF_WLK_KEYIVT']/100,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@df.outbound * (c_ivt_ferry-c_ivt_lrt)*odt_skims['DRV_LRF_WLK_FERRYIVT']/100,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_LRF_WLK_IWAIT']/100).clip(upper=waitThresh),-0.542,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_LRF_WLK_IWAIT']/100-waitThresh).clip(0),-0.5521977003097533,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_LRF_WLK_XWAIT']/100,-0.813,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_LRF_WLK_BOARDS']-1).clip(0),-0.813,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_LRF_WLK_DTIM']/100,-0.6877979999999999,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (2),-0.360972,-0.0,-0.0,-0.360972,-0.0,-0.360972,-0.0
+@df.outbound * c_waux * odt_skims['DRV_LRF_WLK_WAUX']/100,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_LRF_WLK_FAR'] + costPerMile * odt_skims['DRV_LRF_WLK_DDIST']/100),-0.8496687098128859,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_LRF_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0,0.0,0.0,0.0,0.0,0.0
+inbound & ~drive_lrf_available_inbound,0.0,1.0,1.0,0.0,1.0,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_LRF_DRV_TOTIVT']/100,-0.0,-0.7648595891113281,-0.11139184231567383,-0.0,-0.0,-0.0,-0.0
+@df.inbound * (c_ivt_lrt-c_ivt)*odt_skims['WLK_LRF_DRV_KEYIVT']/100,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@df.inbound * (c_ivt_ferry-c_ivt_lrt)*odt_skims['WLK_LRF_DRV_FERRYIVT']/100,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_LRF_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.542,-0.42009879455566407,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_long_i_wait * (odt_skims['WLK_LRF_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.010197726154327392,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_LRF_DRV_XWAIT']/100,-0.0,-1.8969999999999998,-1.626,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_xfers_drv * (odt_skims['WLK_LRF_DRV_BOARDS']-1).clip(0),-0.0,-0.813,-0.4065,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_dtim * odt_skims['WLK_LRF_DRV_DTIM']/100,-0.0,-0.19512000000000002,-0.6812940000000001,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_wacc * df.origin_walk_time # (2),-0.0,-0.360972,-0.360972,-0.0,-0.360972,-0.0,-0.360972
+@df.inbound * c_waux * odt_skims['WLK_LRF_DRV_WAUX']/100,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_LRF_DRV_FAR'] + costPerMile * odt_skims['WLK_LRF_DRV_DDIST']/100),-0.0,-0.5564485408572857,-0.8423075558643071,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_LRF_DRV_DDIST']/100)/ od_skims['DIST'],0.0,0.0,0.0,0.0,0.0,0.0,0.0
+auto_ownership == 0 # (5),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+age < 16 # (5),1.0,1.0,1.0,1.0,1.0,1.0,1.0
+@c_density_index * df.density_index # (9),0.013859708926912389,0.013859708926912389,0.0053062509138790325,0.008590606362089684,0.008590606362089684,0.008590606362089684,0.008590606362089684
+@c_topology_trn * df.trip_topology # (8),-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962
+@c_age010_trn * (df.age < 10) # (4),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+outbound & ~drive_express_available_outbound,1.0,0.0,0.0,1.0,0.0,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_EXP_WLK_TOTIVT']/100,-0.43579780603027346,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * (c_ivt_exp-c_ivt) * odt_skims['DRV_EXP_WLK_KEYIVT']/100,0.08015999999999998,0.0,0.0,0.0,0.0,0.0,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_EXP_WLK_IWAIT']/100).clip(upper=waitThresh),-0.542,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_EXP_WLK_IWAIT']/100-waitThresh).clip(0),-0.548799397277832,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_EXP_WLK_XWAIT']/100,-0.2168,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_EXP_WLK_BOARDS']-1).clip(0),-0.4065,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_EXP_WLK_DTIM']/100,-0.6877979999999999,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (3),-0.360972,-0.0,-0.0,-0.360972,-0.0,-0.360972,-0.0
+@df.outbound * c_waux * odt_skims['DRV_EXP_WLK_WAUX']/100,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_EXP_WLK_FAR'] + costPerMile * odt_skims['DRV_EXP_WLK_DDIST']/100),-0.8496687098128859,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_EXP_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0,0.0,0.0,0.0,0.0,0.0
+inbound & ~drive_express_available_inbound,0.0,1.0,1.0,0.0,1.0,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_EXP_DRV_TOTIVT']/100,-0.0,-0.4352558060302734,-0.11139184231567383,-0.0,-0.0,-0.0,-0.0
+@df.inbound * (c_ivt_exp-c_ivt) * odt_skims['WLK_EXP_DRV_KEYIVT']/100,0.0,0.07996799999999998,0.036315840820312494,0.0,0.0,0.0,0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_EXP_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.28459879455566406,-0.42009879455566407,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_long_i_wait * (odt_skims['WLK_EXP_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_EXP_DRV_XWAIT']/100,-0.0,-1.626,-1.626,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_xfers_drv * (odt_skims['WLK_EXP_DRV_BOARDS']-1).clip(0),-0.0,-0.4065,-0.4065,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_dtim * odt_skims['WLK_EXP_DRV_DTIM']/100,-0.0,-0.19512000000000002,-0.6812940000000001,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_wacc * df.origin_walk_time # (3),-0.0,-0.360972,-0.360972,-0.0,-0.360972,-0.0,-0.360972
+@df.inbound * c_waux * odt_skims['WLK_EXP_DRV_WAUX']/100,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_EXP_DRV_FAR'] + costPerMile * odt_skims['WLK_EXP_DRV_DDIST']/100),-0.0,-0.6369425274545523,-0.8657849686218431,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_EXP_DRV_DDIST']/100) / od_skims['DIST'],0.0,0.0,0.0,0.0,0.0,0.0,0.0
+auto_ownership == 0 # (6),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+age < 16 # (6),1.0,1.0,1.0,1.0,1.0,1.0,1.0
+@c_density_index * df.density_index # (10),0.013859708926912389,0.013859708926912389,0.0053062509138790325,0.008590606362089684,0.008590606362089684,0.008590606362089684,0.008590606362089684
+@c_topology_trn * df.trip_topology # (9),-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962
+@c_age010_trn * (df.age < 10) # (5),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+outbound & ~drive_heavyrail_available_outbound,1.0,0.0,0.0,1.0,0.0,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_HVY_WLK_TOTIVT']/100,-0.4623693692626953,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * (c_ivt_hvy-c_ivt) * odt_skims['DRV_HVY_WLK_KEYIVT']/100,0.06889687385253904,0.0,0.0,0.0,0.0,0.0,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_HVY_WLK_IWAIT']/100).clip(upper=waitThresh),-0.15893066492080687,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_HVY_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_HVY_WLK_XWAIT']/100,-0.2168,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_HVY_WLK_BOARDS']-1).clip(0),-0.4065,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_HVY_WLK_DTIM']/100,-0.343628,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (4),-0.360972,-0.0,-0.0,-0.360972,-0.0,-0.360972,-0.0
+@df.outbound * c_waux * odt_skims['DRV_HVY_WLK_WAUX']/100,-0.2168,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_HVY_WLK_FAR'] + costPerMile * odt_skims['DRV_HVY_WLK_DDIST']/100),-1.0962147062675967,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * df.c_cost * park_ride_cost,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_HVY_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0,0.0,0.0,0.0,0.0,0.0
+inbound & ~drive_heavyrail_available_inbound,0.0,1.0,1.0,0.0,1.0,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_HVY_DRV_TOTIVT']/100,-0.0,-0.32971758190917966,-0.4077763994140625,-0.0,-0.0,-0.0,-0.0
+@df.inbound * (c_ivt_hvy-c_ivt) * odt_skims['WLK_HVY_DRV_KEYIVT']/100,0.0,0.04214971307373046,0.026747157470703112,0.0,0.0,0.0,0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_HVY_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.2944306390762329,-0.4250147168159485,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_long_i_wait * (odt_skims['WLK_HVY_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_HVY_DRV_XWAIT']/100,-0.0,-0.13549999999999998,-0.13549999999999998,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_xfers_drv * (odt_skims['WLK_HVY_DRV_BOARDS']-1).clip(0),-0.0,-0.4065,-0.4065,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_HVY_WLK_DTIM']/100 # (2),-0.343628,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_wacc * df.origin_walk_time # (4),-0.0,-0.360972,-0.360972,-0.0,-0.360972,-0.0,-0.360972
+@c_waux * odt_skims['WLK_HVY_DRV_WAUX']/100,-0.7262799739837646,-0.2168000042438507,-0.2168000042438507,-0.0,-0.0,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_HVY_DRV_FAR'] + costPerMile * odt_skims['WLK_HVY_DRV_DDIST']/100),-0.0,-1.0751511960215427,-1.0486065590203844,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_HVY_DRV_DDIST']/100)/ od_skims['DIST'],0.0,0.0,0.0,0.0,0.0,0.0,0.0
+auto_ownership == 0 # (7),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+age < 16 # (7),1.0,1.0,1.0,1.0,1.0,1.0,1.0
+@c_density_index * df.density_index # (11),0.013859708926912389,0.013859708926912389,0.0053062509138790325,0.008590606362089684,0.008590606362089684,0.008590606362089684,0.008590606362089684
+@c_topology_trn * df.trip_topology # (10),-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962,-0.05962
+@c_age010_trn * (df.age < 10) # (6),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+outbound & ~drive_commuter_available_outbound,1.0,0.0,0.0,1.0,0.0,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_COM_WLK_TOTIVT']/100,-0.724112,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * (c_ivt_com-c_ivt) * odt_skims['DRV_COM_WLK_KEYIVT']/100,0.054199999999999984,0.0,0.0,0.0,0.0,0.0,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_COM_WLK_IWAIT']/100).clip(upper=waitThresh),-0.542,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_COM_WLK_IWAIT']/100-waitThresh).clip(0),-0.2896990144729614,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_COM_WLK_XWAIT']/100,-0.2168,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_COM_WLK_BOARDS']-1).clip(0),-0.4065,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_COM_WLK_DTIM']/100,-0.740372,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (5),-0.360972,-0.0,-0.0,-0.360972,-0.0,-0.360972,-0.0
+@df.outbound * c_waux * odt_skims['DRV_COM_WLK_WAUX']/100,-0.87804,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_COM_WLK_FAR'] + costPerMile * odt_skims['DRV_COM_WLK_DDIST']/100),-2.216171511177002,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_COM_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0,0.0,0.0,0.0,0.0,0.0
+inbound & ~drive_commuter_available_inbound,0.0,1.0,1.0,0.0,1.0,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_COM_DRV_TOTIVT']/100,-0.0,-1.0777344482421873,-1.0652034108886719,-0.0,-0.0,-0.0,-0.0
+@df.inbound * (c_ivt_com-c_ivt) * odt_skims['WLK_COM_DRV_KEYIVT']/100,0.0,0.054199999999999984,0.054199999999999984,0.0,0.0,0.0,0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_COM_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.28119501247406004,-0.4132966577529907,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_long_i_wait * (odt_skims['WLK_COM_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_COM_DRV_XWAIT']/100,-0.0,-1.9869719999999997,-1.8064859999999998,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_xfers_drv * (odt_skims['WLK_COM_DRV_BOARDS']-1).clip(0),-0.0,-0.813,-0.4065,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_dtim * odt_skims['WLK_COM_DRV_DTIM']/100,-0.0,-0.5859019999999999,-0.39728600000000003,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_wacc * df.origin_walk_time # (5),-0.0,-0.360972,-0.360972,-0.0,-0.360972,-0.0,-0.360972
+@df.inbound * c_waux * odt_skims['WLK_COM_DRV_WAUX']/100,-0.0,-0.5419999999999999,-0.1084,-0.0,-0.0,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_COM_DRV_FAR'] + costPerMile * odt_skims['WLK_COM_DRV_DDIST']/100),-0.0,-2.1480481608307005,-1.8896590575324275,-0.0,-0.0,-0.0,-0.0
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_COM_DRV_DDIST']/100) / od_skims['DIST'],0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_ivt * odt_skims['HOV2TOLL_TIME'] # (2),-0.4672040045261383,-0.2658510208129883,-0.44769200682640076,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459
+@c_ivt * 1.5 * df.origTaxiWaitTime,-0.38617500000000005,-0.38617500000000005,-0.38617500000000005,-0.38617500000000005,-0.38617500000000005,-0.38617500000000005,-0.38617500000000005
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'],-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * odt_skims['HOV2TOLL_BTOLL'],-0.03934143441411309,-0.03394163063135551,-0.03833526214048218,-0.003722846928101735,-0.003722846928101735,-0.003722846928101735,-0.003722846928101735
+@df.c_cost * (Taxi_baseFare + odt_skims['HOV2TOLL_DIST'] * Taxi_costPerMile + odt_skims['HOV2TOLL_TIME'] * Taxi_costPerMinute)*100,-8.196970507898028,-6.019273408304536,-6.6608775956306046,-1.3915398495946145,-1.3915398495946145,-1.3915398495946145,-1.3915398495946145
+@c_ivt * odt_skims['HOV2TOLL_TIME'] ,-0.4672040045261383,-0.2658510208129883,-0.44769200682640076,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459,-0.05447100102901459
+@c_ivt * 1.5 * df.origSingleTNCWaitTime,-0.25609499999999996,-0.25609499999999996,-0.25609499999999996,-0.25609499999999996,-0.25609499999999996,-0.25609499999999996,-0.25609499999999996
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'] # (2),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * (odt_skims['HOV2TOLL_BTOLL'] + dot_skims['HOV2TOLL_BTOLL']),-0.08123184583812344,-0.06734663519716289,-0.07895118825808756,-0.00744569385620347,-0.00744569385620347,-0.00744569385620347,-0.00744569385620347
+"@df.c_cost * np.maximum(TNC_single_baseFare + odt_skims['HOV2TOLL_DIST'] * TNC_single_costPerMile + odt_skims['HOV2TOLL_TIME'] * TNC_single_costPerMinute, TNC_single_costMinimum) * 100",-6.104529949634271,-4.391282498668801,-5.172275380087498,-2.414819533947125,-2.414819533947125,-2.414819533947125,-2.414819533947125
+@c_ivt * odt_skims['HOV2TOLL_TIME'] * TNC_shared_IVTFactor,-0.7008060216903687,-0.3987765312194824,-0.6715379953384399,-0.08170650154352188,-0.08170650154352188,-0.08170650154352188,-0.08170650154352188
+@c_ivt  * 1.5 * df.origSharedTNCWaitTime,-0.32519999999999993,-0.32519999999999993,-0.32519999999999993,-0.32519999999999993,-0.32519999999999993,-0.32519999999999993,-0.32519999999999993
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'] # (3),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@df.c_cost * (odt_skims['HOV2TOLL_BTOLL'] + dot_skims['HOV2TOLL_BTOLL']) # (2),-0.08123184583812344,-0.06734663519716289,-0.07895118825808756,-0.00744569385620347,-0.00744569385620347,-0.00744569385620347,-0.00744569385620347
+"@df.c_cost * np.maximum(TNC_shared_baseFare + odt_skims['HOV2TOLL_DIST'] * TNC_shared_costPerMile + odt_skims['HOV2TOLL_TIME']* TNC_shared_costPerMinute, TNC_shared_costMinimum) * 100",-2.901674021292841,-2.208084223848594,-2.5291209306884865,-1.0061748324658324,-1.0061748324658324,-1.0061748324658324,-1.0061748324658324
+tour_mode_is_auto,1.0,1.0,1.0,1.0,1.0,0.0,0.0
+tour_mode_is_walk,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+tour_mode_is_bike,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+tour_mode_is_walk_transit,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+tour_mode_is_drive_transit,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+tour_mode_is_ride_hail,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@sov_ASC_sr2 * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@sov_ASC_sr3p * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@sov_ASC_walk * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@sov_ASC_rh * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@sr2_ASC_sr2 * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@sr2_ASC_sr3p * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@sr2_ASC_walk * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@sr2_ASC_rh * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@sr3p_ASC_sr2 * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-2.7407,-2.7407,-2.7407,-2.7407,-2.7407,-0.0,-0.0
+@sr3p_ASC_sr3p * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-1.7718,-1.7718,-1.7718,-1.7718,-1.7718,-0.0,-0.0
+@sr3p_ASC_walk * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-1.2127,-1.2127,-1.2127,-1.2127,-1.2127,-0.0,-0.0
+@sr3p_ASC_rh * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-6.6714,-6.6714,-6.6714,-6.6714,-6.6714,-0.0,-0.0
+@walk_ASC_rh * df.is_indiv * (df.i_tour_mode == I_WALK_MODE),-0.0,-0.0,-0.0,-0.0,-0.0,-7.0,-7.0
+@bike_ASC_walk * df.is_indiv * (df.i_tour_mode == I_BIKE_MODE),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@bike_ASC_rh * df.is_indiv * (df.i_tour_mode == I_BIKE_MODE),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@walk_transit_ASC_lightrail * (df.is_indiv & df.tour_mode_is_walk_transit & ~df.walk_ferry_available),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@walk_transit_ASC_ferry * (df.is_indiv & df.tour_mode_is_walk_transit & df.walk_ferry_available),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@walk_transit_ASC_express * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@walk_transit_ASC_heavyrail * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@walk_transit_ASC_commuter * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@walk_transit_ASC_sr2 * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@walk_transit_ASC_sr3p * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@walk_transit_ASC_walk * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@walk_transit_ASC_rh * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@drive_transit_ASC_lightrail * (df.is_indiv & df.tour_mode_is_drive_transit & ~df.drive_ferry_available),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@drive_transit_ASC_ferry * (df.is_indiv & df.tour_mode_is_drive_transit & df.drive_ferry_available),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@drive_transit_ASC_express * (df.is_indiv & df.tour_mode_is_drive_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@drive_transit_ASC_heavyrail * (df.is_indiv & df.tour_mode_is_drive_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@drive_transit_ASC_commuter * (df.is_indiv & df.tour_mode_is_drive_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@drive_transit_ASC_rh * (df.is_indiv & df.tour_mode_is_drive_transit),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@ride_hail_ASC_sr2 * (df.is_indiv & df.tour_mode_is_ride_hail),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@ride_hail_ASC_sr3p * (df.is_indiv & df.tour_mode_is_ride_hail),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@ride_hail_ASC_walk * (df.is_indiv & df.tour_mode_is_ride_hail),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@ride_hail_ASC_walk_transit * (df.is_indiv & df.tour_mode_is_ride_hail),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@ride_hail_ASC_taxi * (df.is_indiv & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),-0.0,-0.0,-0.0,-0.0,-0.0,-0.0,-0.0
+@ride_hail_ASC_tnc_single * (df.is_indiv & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@ride_hail_ASC_tnc_shared * (df.is_indiv & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_auto_ASC_sr2 * (df.is_joint & df.i_tour_mode.isin(I_AUTO_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_auto_ASC_sr3p * (df.is_joint & df.i_tour_mode.isin(I_AUTO_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_auto_ASC_walk * (df.is_joint & df.i_tour_mode.isin(I_AUTO_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_auto_ASC_rh * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_walk_ASC_rh * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_bike_ASC_walk * df.is_joint * (df.i_tour_mode == I_BIKE_MODE),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_bike_ASC_rh * df.is_joint * (df.i_tour_mode == I_BIKE_MODE),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_walk_transit_ASC_lightrail * (df.is_joint & df.tour_mode_is_walk_transit & ~df.walk_ferry_available),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_walk_transit_ASC_ferry * (df.is_joint & df.tour_mode_is_walk_transit & df.walk_ferry_available),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_walk_transit_ASC_express * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_walk_transit_ASC_heavyrail * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_walk_transit_ASC_commuter * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_walk_transit_ASC_sr2 * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_walk_transit_ASC_sr3p * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_walk_transit_ASC_walk * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_walk_transit_ASC_rh * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_drive_transit_ASC_lightrail * (df.is_joint & df.tour_mode_is_drive_transit & ~df.drive_ferry_available),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_drive_transit_ASC_ferry * (df.is_joint & df.tour_mode_is_drive_transit & df.drive_ferry_available),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_drive_transit_ASC_express * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_drive_transit_ASC_heavyrail * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_drive_transit_ASC_commuter * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_drive_transit_ASC_rh * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_ride_hail_ASC_sr2 * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_ride_hail_ASC_sr3p * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_ride_hail_ASC_walk * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_ride_hail_ASC_walk_transit * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_ride_hail_ASC_taxi * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_ride_hail_ASC_tnc_single * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@joint_ride_hail_ASC_tnc_shared * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@df.tour_mode_is_walk & (od_skims['DISTWALK'] > 3),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@df.tour_mode_is_walk & (od_skims['DISTBIKE'] > 8),0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@(c_origin_density_index*df.origin_density_index).clip(c_origin_density_index_max) if origin_density_applied else 0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+@c_walk_express_penalty * ~(df.first_trip | df.first_trip),-0.0,-0.0,-0.271,-0.0,-0.0,-0.0,-0.0
+@adjust_tnc_shared,-0.813,-0.813,-0.813,-0.813,-0.813,-0.813,-0.813
+sov_available == False,0.0,0.0
+auto_ownership == 0,0.0,0.0
+age < 16,0.0,0.0
+is_joint == True,0.0,0.0
+is_atwork_subtour & ~work_tour_is_SOV,0.0,0.0
+@c_ivt*odt_skims['SOV_TIME'],-0.9924200177192688,-0.6313999891281128
+@c_walktimeshort * df.total_terminal_time,-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['SOV_DIST'],-0.4029080361758319,-0.3892895504549175
+c_cost * total_parking_cost,-0.0,-0.0
+@df.c_cost * odt_skims['SOV_BTOLL'],-0.8086756564180334,-0.028203490954739015
+@c_age1619_da * ((df.age >= 16) & (df.age <= 19)),0.0,0.0
+sovtoll_available == False,1.0,1.0
+auto_ownership == 0 # (2),0.0,0.0
+age < 16 # (2),0.0,0.0
+is_joint == True # (2),0.0,0.0
+is_atwork_subtour & ~work_tour_is_SOV # (2),0.0,0.0
+@c_ivt*odt_skims['SOVTOLL_TIME'],-0.9924200177192688,-0.6313999891281128
+@c_walktimeshort * df.total_terminal_time # (2),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['SOVTOLL_DIST'],-0.4029080361758319,-0.3892895504549175
+c_cost * total_parking_cost # (2),-0.0,-0.0
+@df.c_cost * odt_skims['SOVTOLL_BTOLL'],-0.8086756564180334,-0.028203490954739015
+@df.c_cost * odt_skims['SOVTOLL_VTOLL'],-0.0,-0.0
+@c_age1619_da * ((df.age >= 16) & (df.age <= 19)) # (2),0.0,0.0
+hov2_available == False,0.0,0.0
+is_joint & (number_of_participants > 2),0.0,0.0
+@c_ivt * odt_skims['HOV2_TIME'],-0.9924200177192688,-0.6313999891281128
+@c_walktimeshort * df.total_terminal_time # (3),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV2_DIST'],-0.4029080361758319,-0.3892895504549175
+@df.c_cost * df.total_parking_cost / costShareSr2,-0.0,-0.0
+@df.c_cost * odt_skims['HOV2_BTOLL'] / costShareSr2,-0.4621003750960191,-0.016116280545565152
+@c_hhsize1_sr * (df.hhsize == 1),-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2),0.0,0.0
+@c_age16p_sr * (df.age >= 16),0.0,0.0
+hov2toll_available == False,1.0,1.0
+is_joint & (number_of_participants > 2) # (2),0.0,0.0
+@c_ivt * odt_skims['HOV2TOLL_TIME'],-0.9924200177192688,-0.6313999891281128
+@c_walktimeshort * df.total_terminal_time # (4),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV2TOLL_DIST'],-0.4029080361758319,-0.3892895504549175
+@df.c_cost * df.total_parking_cost / costShareSr2 # (2),-0.0,-0.0
+@df.c_cost * odt_skims['HOV2TOLL_BTOLL'] / costShareSr2,-0.4621003750960191,-0.016116280545565152
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'] / costShareSr2,-0.0,-0.0
+@c_hhsize1_sr * (df.hhsize == 1) # (2),-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2) # (2),0.0,0.0
+@c_age16p_sr * (df.age >= 16) # (2),0.0,0.0
+hov3_available == False,0.0,0.0
+@c_ivt * odt_skims['HOV3_TIME'],-0.6624200344085693,-0.6162199974060059
+@c_walktimeshort * df.total_terminal_time # (5),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV3_DIST'],-0.40124723828075043,-0.38264639055167693
+@df.c_cost *  df.total_parking_cost / costShareSr3,-0.0,-0.0
+@df.c_cost * odt_skims['HOV3_BTOLL'] / costShareSr3,-0.14152232862452385,-0.011085261708301215
+@c_hhsize1_sr * (df.hhsize == 1) # (3),-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2) # (3),0.0,0.0
+@c_age16p_sr * (df.age >= 16) # (3),0.0,0.0
+hov3toll_available == False,1.0,1.0
+@c_ivt * odt_skims['HOV3TOLL_TIME'],-0.6624200344085693,-0.6162199974060059
+@c_walktimeshort * df.total_terminal_time # (6),-0.0,-0.0
+@df.c_cost * costPerMile * odt_skims['HOV3TOLL_DIST'],-0.40124723828075043,-0.38264639055167693
+@df.c_cost * df.total_parking_cost / costShareSr3,-0.0,-0.0
+@df.c_cost * odt_skims['HOV3TOLL_BTOLL'] / costShareSr3,-0.14152232862452385,-0.011085261708301215
+@df.c_cost * odt_skims['HOV3TOLL_VTOLL'] / costShareSr3,-0.0,-0.0
+@c_hhsize1_sr * (df.hhsize == 1) # (4),-0.0,-0.0
+@c_hhsize2_sr * (df.hhsize == 2) # (4),0.0,0.0
+@c_age16p_sr * (df.age >= 16) # (4),0.0,0.0
+@c_walktimeshort * od_skims['DISTWALK'].clip(upper=walkThresh) * 60/walkSpeed,-0.8799999356269836,-0.8799999356269836
+@c_walktimelong * (od_skims['DISTWALK'] - walkThresh).clip(lower=0) * 60/walkSpeed,-363.5280456542969,-363.0880126953125
+@c_density_index * df.density_index,0.07714488052238169,0.07714488052238169
+@c_topology_walk * df.trip_topology,-0.32999999999999996,-0.32999999999999996
+is_atwork_subtour & ~work_tour_is_bike,0.0,0.0
+@c_biketimeshort * od_skims['DISTBIKE'].clip(upper=bikeThresh)*60/bikeSpeed,-2.640000104904175,-2.640000104904175
+@c_biketimelong * (od_skims['DISTBIKE']-bikeThresh).clip(lower=0)*60/bikeSpeed,-170.7639923095703,-170.5439910888672
+@c_density_index*df.density_index,0.07714488052238169,0.07714488052238169
+@c_topology_bike * df.trip_topology,-0.43999999999999995,-0.43999999999999995
+walk_local_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_LOC_WLK_TOTIVT']/100,-0.0,-0.0
+@c_short_i_wait * (odt_skims['WLK_LOC_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@c_long_i_wait * (odt_skims['WLK_LOC_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@c_xwait * odt_skims['WLK_LOC_WLK_XWAIT']/100,-0.0,-0.0
+@c_xfers_wlk * (odt_skims['WLK_LOC_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@c_wacc * df.origin_walk_time,-0.29303999999999997,-0.29303999999999997
+@c_wegr * df.destination_walk_time,-0.29303999999999997,-0.29303999999999997
+@c_waux * odt_skims['WLK_LOC_WLK_WAUX']/100,-0.0,-0.0
+@df.c_cost * odt_skims['WLK_LOC_WLK_FAR'],-0.0,-0.0
+@c_density_index * df.density_index # (2),0.07714488052238169,0.07714488052238169
+@c_topology_trn * df.trip_topology,-0.0484,-0.0484
+@c_age010_trn * (df.age <= 10),0.0,0.0
+walk_lrf_available == False,0.0,0.0
+@c_ivt * odt_skims['WLK_LRF_WLK_TOTIVT']/100,-0.5051794052124023,-0.5051794052124023
+@(c_ivt_lrt-c_ivt) * odt_skims['WLK_LRF_WLK_KEYIVT']/100,0.050517939031124115,0.050517939031124115
+@(c_ivt_ferry-c_ivt_lrt) * odt_skims['WLK_LRF_WLK_FERRYIVT']/100,0.04399999976158142,0.04399999976158142
+@c_short_i_wait * (odt_skims['WLK_LRF_WLK_IWAIT']/100).clip(upper=waitThresh),-0.4399999976158142,-0.08832119405269623
+@c_long_i_wait * (odt_skims['WLK_LRF_WLK_IWAIT']/100-waitThresh).clip(0),-0.3110206127166748,-0.0
+@c_xwait * odt_skims['WLK_LRF_WLK_XWAIT']/100,-0.0822799950838089,-0.7541599869728088
+@c_xfers_wlk * (odt_skims['WLK_LRF_WLK_BOARDS']-1).clip(0),-0.10999999940395355,-0.10999999940395355
+@c_wacc * df.origin_walk_time # (2),-0.29303999999999997,-0.29303999999999997
+@c_wegr * df.destination_walk_time # (2),-0.29303999999999997,-0.29303999999999997
+@c_waux * odt_skims['WLK_LRF_WLK_WAUX']/100,-0.4311999976634979,-0.4311999976634979
+@df.c_cost * odt_skims['WLK_LRF_WLK_FAR'],-0.610197883047825,-0.8862397825218411
+@c_density_index * df.density_index # (3),0.07714488052238169,0.07714488052238169
+@c_topology_trn * df.trip_topology # (2),-0.0484,-0.0484
+@c_age010_trn * (df.age <= 10) # (2),0.0,0.0
+walk_express_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_EXP_WLK_TOTIVT']/100,-0.5051794052124023,-0.5051794052124023
+@(c_ivt_exp-c_ivt) * odt_skims['WLK_EXP_WLK_KEYIVT']/100,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_EXP_WLK_IWAIT']/100).clip(upper=waitThresh),-0.4399999976158142,-0.08832119405269623
+@c_long_i_wait * (odt_skims['WLK_EXP_WLK_IWAIT']/100-waitThresh).clip(0),-0.3110206127166748,-0.0
+@c_xwait * odt_skims['WLK_EXP_WLK_XWAIT']/100,-0.0822799950838089,-0.7541599869728088
+@c_xfers_wlk * (odt_skims['WLK_EXP_WLK_BOARDS']-1).clip(0),-0.10999999940395355,-0.10999999940395355
+@c_wacc * df.origin_walk_time # (3),-0.29303999999999997,-0.29303999999999997
+@c_wegr * df.destination_walk_time # (3),-0.29303999999999997,-0.29303999999999997
+@c_waux * odt_skims['WLK_EXP_WLK_WAUX']/100,-0.4311999976634979,-0.4311999976634979
+@df.c_cost * odt_skims['WLK_EXP_WLK_FAR'],-0.610197883047825,-0.8862397825218411
+@c_density_index * df.density_index # (4),0.07714488052238169,0.07714488052238169
+@c_topology_trn * df.trip_topology # (3),-0.0484,-0.0484
+@c_age010_trn * (df.age <= 10) # (3),0.0,0.0
+walk_heavyrail_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_HVY_WLK_TOTIVT']/100,-0.5051794052124023,-0.5051794052124023
+@(c_ivt_hvy-c_ivt) * odt_skims['WLK_HVY_WLK_KEYIVT']/100,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_HVY_WLK_IWAIT']/100).clip(upper=waitThresh),-0.4399999976158142,-0.08832119405269623
+@c_long_i_wait * (odt_skims['WLK_HVY_WLK_IWAIT']/100-waitThresh).clip(0),-0.3110206127166748,-0.0
+@c_xwait * odt_skims['WLK_HVY_WLK_XWAIT']/100,-0.0822799950838089,-0.7541599869728088
+@c_xfers_wlk * (odt_skims['WLK_HVY_WLK_BOARDS']-1).clip(0),-0.10999999940395355,-0.10999999940395355
+@c_wacc * df.origin_walk_time # (4),-0.29303999999999997,-0.29303999999999997
+@c_wegr * df.destination_walk_time # (4),-0.29303999999999997,-0.29303999999999997
+@c_waux * odt_skims['WLK_HVY_WLK_WAUX']/100,-0.4311999976634979,-0.4311999976634979
+@df.c_cost * odt_skims['WLK_HVY_WLK_FAR'],-0.610197883047825,-0.8862397825218411
+@c_density_index * df.density_index # (5),0.07714488052238169,0.07714488052238169
+@c_topology_trn * df.trip_topology # (4),-0.0484,-0.0484
+@c_age010_trn * (df.age <= 10) # (4),0.0,0.0
+walk_commuter_available == False,1.0,1.0
+@c_ivt * odt_skims['WLK_COM_WLK_TOTIVT']/100,-0.5051794052124023,-0.5051794052124023
+@(c_ivt_com-c_ivt) * odt_skims['WLK_COM_WLK_KEYIVT']/100,0.0,0.0
+@c_short_i_wait * (odt_skims['WLK_COM_WLK_IWAIT']/100).clip(upper=waitThresh),-0.4399999976158142,-0.08832119405269623
+@c_long_i_wait * (odt_skims['WLK_COM_WLK_IWAIT']/100-waitThresh).clip(0),-0.3110206127166748,-0.0
+@c_xwait * odt_skims['WLK_COM_WLK_XWAIT']/100,-0.0822799950838089,-0.7541599869728088
+@c_xfers_wlk * (odt_skims['WLK_COM_WLK_BOARDS']-1).clip(0),-0.10999999940395355,-0.10999999940395355
+@c_wacc * df.origin_walk_time # (5),-0.29303999999999997,-0.29303999999999997
+@c_wegr * df.destination_walk_time # (5),-0.29303999999999997,-0.29303999999999997
+@c_waux * odt_skims['WLK_COM_WLK_WAUX']/100,-0.4311999976634979,-0.4311999976634979
+@df.c_cost * odt_skims['WLK_COM_WLK_FAR'],-0.610197883047825,-0.8862397825218411
+@c_density_index * df.density_index # (6),0.07714488052238169,0.07714488052238169
+@c_topology_trn * df.trip_topology # (5),-0.0484,-0.0484
+@c_age010_trn * (df.age < 10),0.0,0.0
+auto_ownership == 0 # (3),0.0,0.0
+age < 16 # (3),0.0,0.0
+@c_density_index * df.density_index # (7),0.07714488052238169,0.07714488052238169
+@c_topology_trn * df.trip_topology # (6),-0.0484,-0.0484
+@c_age010_trn * (df.age < 10) # (2),0.0,0.0
+outbound & ~drive_local_available_outbound,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_LOC_WLK_TOTIVT']/100,-0.0,-0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_LOC_WLK_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_LOC_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_LOC_WLK_XWAIT']/100,-0.0,-0.0
+@df.outbound * c_xfers_wlk * (odt_skims['DRV_LOC_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_LOC_WLK_DTIM']/100,-0.0,-0.0
+@df.outbound * c_wegr * df.destination_walk_time,-0.29303999999999997,-0.0
+@df.outbound * c_waux * odt_skims['DRV_LOC_WLK_WAUX']/100,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_LOC_WLK_FAR'] + costPerMile*odt_skims['DRV_LOC_WLK_DDIST']/100),-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_LOC_WLK_DDIST']/100)/ (od_skims['DIST']),0.0,0.0
+inbound & ~drive_local_available_inbound,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_LOC_DRV_TOTIVT']/100,-0.0,-0.0
+@df.inbound * c_short_i_wait * (odt_skims['WLK_LOC_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.0
+@df.inbound * c_long_i_wait * (odt_skims['WLK_LOC_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_LOC_DRV_XWAIT']/100,-0.0,-0.0
+@df.inbound * c_xfers_wlk * (odt_skims['WLK_LOC_DRV_BOARDS']-1).clip(0),-0.0,-0.0
+@df.inbound * c_dtim * odt_skims['WLK_LOC_DRV_DTIM']/100,-0.0,-0.0
+@df.inbound * c_wacc * df.origin_walk_time,-0.0,-0.29303999999999997
+@df.inbound * c_waux * odt_skims['WLK_LOC_DRV_WAUX']/100,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_LOC_DRV_FAR'] + costPerMile*odt_skims['WLK_LOC_DRV_DDIST']/100),-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['WLK_LOC_DRV_DDIST']/100)/ (od_skims['DIST']),0.0,0.0
+auto_ownership == 0 # (4),0.0,0.0
+age < 16 # (4),0.0,0.0
+@c_density_index * df.density_index # (8),0.07714488052238169,0.07714488052238169
+@c_topology_trn * df.trip_topology # (7),-0.0484,-0.0484
+@c_age010_trn * (df.age < 10) # (3),0.0,0.0
+outbound & ~drive_lrf_available_outbound,0.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_LRF_WLK_TOTIVT']/100,-0.505179404296875,-0.0
+@df.outbound * (c_ivt_lrt-c_ivt)*odt_skims['DRV_LRF_WLK_KEYIVT']/100,0.05051794042968751,0.0
+@df.outbound * (c_ivt_ferry-c_ivt_lrt)*odt_skims['DRV_LRF_WLK_FERRYIVT']/100,0.04399999999999994,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_LRF_WLK_IWAIT']/100).clip(upper=waitThresh),-0.43999999999999995,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_LRF_WLK_IWAIT']/100-waitThresh).clip(0),-0.31102061080932614,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_LRF_WLK_XWAIT']/100,-0.08227999999999999,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_LRF_WLK_BOARDS']-1).clip(0),-0.32999999999999996,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_LRF_WLK_DTIM']/100,-0.13068,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (2),-0.29303999999999997,-0.0
+@df.outbound * c_waux * odt_skims['DRV_LRF_WLK_WAUX']/100,-0.47519999999999996,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_LRF_WLK_FAR'] + costPerMile * odt_skims['DRV_LRF_WLK_DDIST']/100),-0.6487282474980641,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_LRF_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0
+inbound & ~drive_lrf_available_inbound,0.0,0.0
+@df.inbound * c_ivt * odt_skims['WLK_LRF_DRV_TOTIVT']/100,-0.0,-0.505179404296875
+@df.inbound * (c_ivt_lrt-c_ivt)*odt_skims['WLK_LRF_DRV_KEYIVT']/100,0.0,0.05051794042968751
+@df.inbound * (c_ivt_ferry-c_ivt_lrt)*odt_skims['WLK_LRF_DRV_FERRYIVT']/100,0.0,0.04399999999999994
+@df.inbound * c_short_i_wait * (odt_skims['WLK_LRF_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.08832119560241698
+@df.inbound * c_long_i_wait * (odt_skims['WLK_LRF_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_LRF_DRV_XWAIT']/100,-0.0,-0.7541599999999999
+@df.inbound * c_xfers_drv * (odt_skims['WLK_LRF_DRV_BOARDS']-1).clip(0),-0.0,-0.32999999999999996
+@df.inbound * c_dtim * odt_skims['WLK_LRF_DRV_DTIM']/100,-0.0,-0.13068
+@df.inbound * c_wacc * df.origin_walk_time # (2),-0.0,-0.29303999999999997
+@df.inbound * c_waux * odt_skims['WLK_LRF_DRV_WAUX']/100,-0.0,-0.47519999999999996
+@df.inbound * df.c_cost * (odt_skims['WLK_LRF_DRV_FAR'] + costPerMile * odt_skims['WLK_LRF_DRV_DDIST']/100),-0.0,-0.9247701469720802
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_LRF_DRV_DDIST']/100)/ od_skims['DIST'],0.0,0.0
+auto_ownership == 0 # (5),0.0,0.0
+age < 16 # (5),0.0,0.0
+@c_density_index * df.density_index # (9),0.07714488052238169,0.07714488052238169
+@c_topology_trn * df.trip_topology # (8),-0.0484,-0.0484
+@c_age010_trn * (df.age < 10) # (4),0.0,0.0
+outbound & ~drive_express_available_outbound,0.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_EXP_WLK_TOTIVT']/100,-0.881599404296875,-0.0
+@df.outbound * (c_ivt_exp-c_ivt) * odt_skims['DRV_EXP_WLK_KEYIVT']/100,0.1803271508789061,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_EXP_WLK_IWAIT']/100).clip(upper=waitThresh),-0.43999999999999995,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_EXP_WLK_IWAIT']/100-waitThresh).clip(0),-0.11275881195068359,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_EXP_WLK_XWAIT']/100,-0.0,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_EXP_WLK_BOARDS']-1).clip(0),-0.0,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_EXP_WLK_DTIM']/100,-0.99616,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (3),-0.29303999999999997,-0.0
+@df.outbound * c_waux * odt_skims['DRV_EXP_WLK_WAUX']/100,-0.0,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_EXP_WLK_FAR'] + costPerMile * odt_skims['DRV_EXP_WLK_DDIST']/100),-1.1123188306470153,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_EXP_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0
+inbound & ~drive_express_available_inbound,0.0,0.0
+@df.inbound * c_ivt * odt_skims['WLK_EXP_DRV_TOTIVT']/100,-0.0,-0.55968
+@df.inbound * (c_ivt_exp-c_ivt) * odt_skims['WLK_EXP_DRV_KEYIVT']/100,0.0,0.11447999999999993
+@df.inbound * c_short_i_wait * (odt_skims['WLK_EXP_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.43999999999999995
+@df.inbound * c_long_i_wait * (odt_skims['WLK_EXP_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.044
+@df.inbound * c_xwait * odt_skims['WLK_EXP_DRV_XWAIT']/100,-0.0,-0.0
+@df.inbound * c_xfers_drv * (odt_skims['WLK_EXP_DRV_BOARDS']-1).clip(0),-0.0,-0.0
+@df.inbound * c_dtim * odt_skims['WLK_EXP_DRV_DTIM']/100,-0.0,-0.55308
+@df.inbound * c_wacc * df.origin_walk_time # (3),-0.0,-0.29303999999999997
+@df.inbound * c_waux * odt_skims['WLK_EXP_DRV_WAUX']/100,-0.0,-0.0
+@df.inbound * df.c_cost * (odt_skims['WLK_EXP_DRV_FAR'] + costPerMile * odt_skims['WLK_EXP_DRV_DDIST']/100),-0.0,-0.21092053240028683
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_EXP_DRV_DDIST']/100) / od_skims['DIST'],0.0,0.0
+auto_ownership == 0 # (6),0.0,0.0
+age < 16 # (6),0.0,0.0
+@c_density_index * df.density_index # (10),0.07714488052238169,0.07714488052238169
+@c_topology_trn * df.trip_topology # (9),-0.0484,-0.0484
+@c_age010_trn * (df.age < 10) # (5),0.0,0.0
+outbound & ~drive_heavyrail_available_outbound,0.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_HVY_WLK_TOTIVT']/100,-0.3819969946289062,-0.0
+@df.outbound * (c_ivt_hvy-c_ivt) * odt_skims['DRV_HVY_WLK_KEYIVT']/100,0.03483216064453123,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_HVY_WLK_IWAIT']/100).clip(upper=waitThresh),-0.08331400394439696,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_HVY_WLK_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_HVY_WLK_XWAIT']/100,-0.08227999999999999,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_HVY_WLK_BOARDS']-1).clip(0),-0.32999999999999996,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_HVY_WLK_DTIM']/100,-0.40171999999999997,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (4),-0.29303999999999997,-0.0
+@df.outbound * c_waux * odt_skims['DRV_HVY_WLK_WAUX']/100,-0.132,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_HVY_WLK_FAR'] + costPerMile * odt_skims['DRV_HVY_WLK_DDIST']/100),-0.7380788402359877,-0.0
+@df.outbound * df.c_cost * park_ride_cost,-0.0,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_HVY_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0
+inbound & ~drive_heavyrail_available_inbound,0.0,0.0
+@df.inbound * c_ivt * odt_skims['WLK_HVY_DRV_TOTIVT']/100,-0.0,-0.3819969946289062
+@df.inbound * (c_ivt_hvy-c_ivt) * odt_skims['WLK_HVY_DRV_KEYIVT']/100,0.0,0.03483216064453123
+@df.inbound * c_short_i_wait * (odt_skims['WLK_HVY_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.09783400058746337
+@df.inbound * c_long_i_wait * (odt_skims['WLK_HVY_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_HVY_DRV_XWAIT']/100,-0.0,-0.06776
+@df.inbound * c_xfers_drv * (odt_skims['WLK_HVY_DRV_BOARDS']-1).clip(0),-0.0,-0.32999999999999996
+@df.outbound * c_dtim * odt_skims['DRV_HVY_WLK_DTIM']/100 # (2),-0.40171999999999997,-0.0
+@df.inbound * c_wacc * df.origin_walk_time # (4),-0.0,-0.29303999999999997
+@c_waux * odt_skims['WLK_HVY_DRV_WAUX']/100,-0.8095999956130981,-0.13199999928474426
+@df.inbound * df.c_cost * (odt_skims['WLK_HVY_DRV_FAR'] + costPerMile * odt_skims['WLK_HVY_DRV_DDIST']/100),-0.0,-0.7940231011597866
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_HVY_DRV_DDIST']/100)/ od_skims['DIST'],0.0,0.0
+auto_ownership == 0 # (7),0.0,0.0
+age < 16 # (7),0.0,0.0
+@c_density_index * df.density_index # (11),0.07714488052238169,0.07714488052238169
+@c_topology_trn * df.trip_topology # (10),-0.0484,-0.0484
+@c_age010_trn * (df.age < 10) # (6),0.0,0.0
+outbound & ~drive_commuter_available_outbound,1.0,0.0
+@df.outbound * c_ivt * odt_skims['DRV_COM_WLK_TOTIVT']/100,-0.7156314257812499,-0.0
+@df.outbound * (c_ivt_com-c_ivt) * odt_skims['DRV_COM_WLK_KEYIVT']/100,0.04399999999999998,0.0
+@df.outbound * c_short_i_wait * (odt_skims['DRV_COM_WLK_IWAIT']/100).clip(upper=waitThresh),-0.43999999999999995,-0.0
+@df.outbound * c_long_i_wait * (odt_skims['DRV_COM_WLK_IWAIT']/100-waitThresh).clip(0),-0.3327588119506836,-0.0
+@df.outbound * c_xwait * odt_skims['DRV_COM_WLK_XWAIT']/100,-0.4061199999999999,-0.0
+@df.outbound * c_xfers_drv * (odt_skims['DRV_COM_WLK_BOARDS']-1).clip(0),-0.32999999999999996,-0.0
+@df.outbound * c_dtim * odt_skims['DRV_COM_WLK_DTIM']/100,-0.34363999999999995,-0.0
+@df.outbound * c_wegr * df.destination_walk_time # (5),-0.29303999999999997,-0.0
+@df.outbound * c_waux * odt_skims['DRV_COM_WLK_WAUX']/100,-0.088,-0.0
+@df.outbound * df.c_cost * (odt_skims['DRV_COM_WLK_FAR'] + costPerMile * odt_skims['DRV_COM_WLK_DDIST']/100),-1.2977847035437575,-0.0
+@df.outbound * c_dacc_ratio * (odt_skims['DRV_COM_WLK_DDIST']/100) / od_skims['DIST'],0.0,0.0
+inbound & ~drive_commuter_available_inbound,0.0,1.0
+@df.inbound * c_ivt * odt_skims['WLK_COM_DRV_TOTIVT']/100,-0.0,-0.743985
+@df.inbound * (c_ivt_com-c_ivt) * odt_skims['WLK_COM_DRV_KEYIVT']/100,0.0,0.04399999999999998
+@df.inbound * c_short_i_wait * (odt_skims['WLK_COM_DRV_IWAIT']/100).clip(upper=waitThresh),-0.0,-0.36103757858276364
+@df.inbound * c_long_i_wait * (odt_skims['WLK_COM_DRV_IWAIT']/100-waitThresh).clip(0),-0.0,-0.0
+@df.inbound * c_xwait * odt_skims['WLK_COM_DRV_XWAIT']/100,-0.0,-1.4665199999999998
+@df.inbound * c_xfers_drv * (odt_skims['WLK_COM_DRV_BOARDS']-1).clip(0),-0.0,-0.32999999999999996
+@df.inbound * c_dtim * odt_skims['WLK_COM_DRV_DTIM']/100,-0.0,-0.32252
+@df.inbound * c_wacc * df.origin_walk_time # (5),-0.0,-0.29303999999999997
+@df.inbound * c_waux * odt_skims['WLK_COM_DRV_WAUX']/100,-0.0,-0.088
+@df.inbound * df.c_cost * (odt_skims['WLK_COM_DRV_FAR'] + costPerMile * odt_skims['WLK_COM_DRV_DDIST']/100),-0.0,-1.0359175116249049
+@df.inbound * c_dacc_ratio * (odt_skims['WLK_COM_DRV_DDIST']/100) / od_skims['DIST'],0.0,0.0
+@c_ivt * odt_skims['HOV2TOLL_TIME'] # (2),-0.9924200177192688,-0.6313999891281128
+@c_ivt * 1.5 * df.origTaxiWaitTime,-0.31350000000000006,-0.1815
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'],-0.0,-0.0
+@df.c_cost * odt_skims['HOV2TOLL_BTOLL'],-0.8086756564180334,-0.028203490954739015
+@df.c_cost * (Taxi_baseFare + odt_skims['HOV2TOLL_DIST'] * Taxi_costPerMile + odt_skims['HOV2TOLL_TIME'] * Taxi_costPerMinute)*100,-6.285401519262041,-5.816130356662504
+@c_ivt * odt_skims['HOV2TOLL_TIME'] ,-0.9924200177192688,-0.6313999891281128
+@c_ivt * 1.5 * df.origSingleTNCWaitTime,-0.20789999999999997,-0.09900000000000002
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'] # (2),-0.0,-0.0
+@df.c_cost * (odt_skims['HOV2TOLL_BTOLL'] + dot_skims['HOV2TOLL_BTOLL']),-0.8363888280081332,-0.8368791456408378
+"@df.c_cost * np.maximum(TNC_single_baseFare + odt_skims['HOV2TOLL_DIST'] * TNC_single_costPerMile + odt_skims['HOV2TOLL_TIME'] * TNC_single_costPerMinute, TNC_single_costMinimum) * 100",-5.295519108264854,-4.48125002334881
+@c_ivt * odt_skims['HOV2TOLL_TIME'] * TNC_shared_IVTFactor,-1.4886300563812256,-0.9470999836921692
+@c_ivt  * 1.5 * df.origSharedTNCWaitTime,-0.26399999999999996,-0.16499999999999998
+@df.c_cost * odt_skims['HOV2TOLL_VTOLL'] # (3),-0.0,-0.0
+@df.c_cost * (odt_skims['HOV2TOLL_BTOLL'] + dot_skims['HOV2TOLL_BTOLL']) # (2),-0.8363888280081332,-0.8368791456408378
+"@df.c_cost * np.maximum(TNC_shared_baseFare + odt_skims['HOV2TOLL_DIST'] * TNC_shared_costPerMile + odt_skims['HOV2TOLL_TIME']* TNC_shared_costPerMinute, TNC_shared_costMinimum) * 100",-2.386291455383361,-2.0488120346610876
+tour_mode_is_auto,0.0,0.0
+tour_mode_is_walk,0.0,0.0
+tour_mode_is_bike,0.0,0.0
+tour_mode_is_walk_transit,0.0,0.0
+tour_mode_is_drive_transit,1.0,1.0
+tour_mode_is_ride_hail,0.0,0.0
+@sov_ASC_sr2 * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),0.0,0.0
+@sov_ASC_sr3p * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),0.0,0.0
+@sov_ASC_walk * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),-0.0,-0.0
+@sov_ASC_rh * (df.is_indiv & df.i_tour_mode.isin(I_SOV_MODES)),-0.0,-0.0
+@sr2_ASC_sr2 * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),0.0,0.0
+@sr2_ASC_sr3p * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),0.0,0.0
+@sr2_ASC_walk * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),0.0,0.0
+@sr2_ASC_rh * (df.is_indiv & df.i_tour_mode.isin(I_SR2_MODES)),-0.0,-0.0
+@sr3p_ASC_sr2 * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-0.0,-0.0
+@sr3p_ASC_sr3p * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-0.0,-0.0
+@sr3p_ASC_walk * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),0.0,0.0
+@sr3p_ASC_rh * (df.is_indiv & df.i_tour_mode.isin(I_SR3P_MODES)),-0.0,-0.0
+@walk_ASC_rh * df.is_indiv * (df.i_tour_mode == I_WALK_MODE),-0.0,-0.0
+@bike_ASC_walk * df.is_indiv * (df.i_tour_mode == I_BIKE_MODE),-0.0,-0.0
+@bike_ASC_rh * df.is_indiv * (df.i_tour_mode == I_BIKE_MODE),-0.0,-0.0
+@walk_transit_ASC_lightrail * (df.is_indiv & df.tour_mode_is_walk_transit & ~df.walk_ferry_available),0.0,0.0
+@walk_transit_ASC_ferry * (df.is_indiv & df.tour_mode_is_walk_transit & df.walk_ferry_available),0.0,0.0
+@walk_transit_ASC_express * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0
+@walk_transit_ASC_heavyrail * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0
+@walk_transit_ASC_commuter * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0
+@walk_transit_ASC_sr2 * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0
+@walk_transit_ASC_sr3p * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0
+@walk_transit_ASC_walk * (df.is_indiv & df.tour_mode_is_walk_transit),0.0,0.0
+@walk_transit_ASC_rh * (df.is_indiv & df.tour_mode_is_walk_transit),-0.0,-0.0
+@drive_transit_ASC_lightrail * (df.is_indiv & df.tour_mode_is_drive_transit & ~df.drive_ferry_available),0.0,0.0
+@drive_transit_ASC_ferry * (df.is_indiv & df.tour_mode_is_drive_transit & df.drive_ferry_available),0.5277,0.5277
+@drive_transit_ASC_express * (df.is_indiv & df.tour_mode_is_drive_transit),-0.3554,-0.3554
+@drive_transit_ASC_heavyrail * (df.is_indiv & df.tour_mode_is_drive_transit),0.3538,0.3538
+@drive_transit_ASC_commuter * (df.is_indiv & df.tour_mode_is_drive_transit),0.4012,0.4012
+@drive_transit_ASC_rh * (df.is_indiv & df.tour_mode_is_drive_transit),-4.25,-4.25
+@ride_hail_ASC_sr2 * (df.is_indiv & df.tour_mode_is_ride_hail),-0.0,-0.0
+@ride_hail_ASC_sr3p * (df.is_indiv & df.tour_mode_is_ride_hail),0.0,0.0
+@ride_hail_ASC_walk * (df.is_indiv & df.tour_mode_is_ride_hail),0.0,0.0
+@ride_hail_ASC_walk_transit * (df.is_indiv & df.tour_mode_is_ride_hail),0.0,0.0
+@ride_hail_ASC_taxi * (df.is_indiv & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),-0.0,-0.0
+@ride_hail_ASC_tnc_single * (df.is_indiv & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@ride_hail_ASC_tnc_shared * (df.is_indiv & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@joint_auto_ASC_sr2 * (df.is_joint & df.i_tour_mode.isin(I_AUTO_MODES)),0.0,0.0
+@joint_auto_ASC_sr3p * (df.is_joint & df.i_tour_mode.isin(I_AUTO_MODES)),0.0,0.0
+@joint_auto_ASC_walk * (df.is_joint & df.i_tour_mode.isin(I_AUTO_MODES)),0.0,0.0
+@joint_auto_ASC_rh * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@joint_walk_ASC_rh * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@joint_bike_ASC_walk * df.is_joint * (df.i_tour_mode == I_BIKE_MODE),0.0,0.0
+@joint_bike_ASC_rh * df.is_joint * (df.i_tour_mode == I_BIKE_MODE),0.0,0.0
+@joint_walk_transit_ASC_lightrail * (df.is_joint & df.tour_mode_is_walk_transit & ~df.walk_ferry_available),0.0,0.0
+@joint_walk_transit_ASC_ferry * (df.is_joint & df.tour_mode_is_walk_transit & df.walk_ferry_available),0.0,0.0
+@joint_walk_transit_ASC_express * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_heavyrail * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_commuter * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_sr2 * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_sr3p * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_walk * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_walk_transit_ASC_rh * (df.is_joint & df.tour_mode_is_walk_transit),0.0,0.0
+@joint_drive_transit_ASC_lightrail * (df.is_joint & df.tour_mode_is_drive_transit & ~df.drive_ferry_available),0.0,0.0
+@joint_drive_transit_ASC_ferry * (df.is_joint & df.tour_mode_is_drive_transit & df.drive_ferry_available),0.0,0.0
+@joint_drive_transit_ASC_express * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0
+@joint_drive_transit_ASC_heavyrail * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0
+@joint_drive_transit_ASC_commuter * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0
+@joint_drive_transit_ASC_rh * (df.is_joint & df.tour_mode_is_drive_transit),0.0,0.0
+@joint_ride_hail_ASC_sr2 * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0
+@joint_ride_hail_ASC_sr3p * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0
+@joint_ride_hail_ASC_walk * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0
+@joint_ride_hail_ASC_walk_transit * (df.is_joint & df.tour_mode_is_ride_hail),0.0,0.0
+@joint_ride_hail_ASC_taxi * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@joint_ride_hail_ASC_tnc_single * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@joint_ride_hail_ASC_tnc_shared * (df.is_joint & df.i_tour_mode.isin(I_RIDE_HAIL_MODES)),0.0,0.0
+@df.tour_mode_is_walk & (od_skims['DISTWALK'] > 3),0.0,0.0
+@df.tour_mode_is_walk & (od_skims['DISTBIKE'] > 8),0.0,0.0
+@(c_origin_density_index*df.origin_density_index).clip(c_origin_density_index_max) if origin_density_applied else 0,0.0,0.0
+@c_walk_express_penalty * ~(df.first_trip | df.first_trip),-0.0,-0.0
+@adjust_tnc_shared,-0.6599999999999999,-0.6599999999999999

@@ -1,0 +1,19 @@
+,0
+_PTYPE_CDAP_PATTERN_COUNT,<function <lambda> at 0x7f85b9884f80>
+_PEMPLOY_CDAP_PATTERN_COUNT,<function <lambda> at 0x7f85b9884b90>
+_2_PTYPE_CDAP_PATTERN_COUNT,<function <lambda> at 0x7f85b9884a70>
+_HH_OVERLAPS,"p2p_type      aa  ac  cc
+household_id            
+2726359        5   0   0
+535223         3   0   0
+799627         4   7   0
+634444         4   0   0
+2659640        6   0   0
+...           ..  ..  ..
+499697        19   0   0
+207464        14   0   0
+1235236       19   0   0
+2039409       19  19  19
+1219999       19  10   9
+
+[324 rows x 3 columns]"
