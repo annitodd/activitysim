@@ -13,10 +13,11 @@ RUN apt-get --allow-releaseinfo-change update \
 	&& apt-get install -y build-essential zip unzip
 RUN conda update conda --yes
 
-RUN git clone https://github.com/ual/activitysim.git
+RUN git clone -b carb https://github.com/ual/activitysim.git
 
 RUN conda env create --quiet -p $FULL_CONDA_PATH --file activitysim/environment.yml
 RUN cd activitysim && $FULL_CONDA_PATH/bin/python setup.py install
+RUN git checkout carb
 
 ENV PATH $FULL_CONDA_PATH/bin:$PATH
 ENV CONDA_DEFAULT_ENV $CONDA_ENV
