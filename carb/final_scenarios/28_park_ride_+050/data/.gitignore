@@ -1,0 +1,6 @@
+#Ignore CSV Files
+*.csv
+
+*.omx
+
+!.gitignore
