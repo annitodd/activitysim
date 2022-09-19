@@ -3,6 +3,7 @@
 #####################
 
 inherit_settings: True
+scenario: 01_base_000
 
 # input tables
 input_table_list:

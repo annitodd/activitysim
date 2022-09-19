@@ -3,6 +3,7 @@
 #####################
 
 inherit_settings: True
+scenario: 27_cordon_pricing_-050
 
 # input tables
 input_table_list:

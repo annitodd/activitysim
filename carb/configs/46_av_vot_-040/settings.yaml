@@ -3,6 +3,7 @@
 #####################
 
 inherit_settings: True
+scenario: 46_av_vot_-040
 
 # input tables
 input_table_list:

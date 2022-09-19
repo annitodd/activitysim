@@ -3,6 +3,7 @@
 #####################
 
 inherit_settings: True
+scenario: 38_telecommute_frequency_+200
 
 # input tables
 input_table_list:

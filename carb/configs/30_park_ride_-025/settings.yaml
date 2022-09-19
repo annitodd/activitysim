@@ -3,6 +3,7 @@
 #####################
 
 inherit_settings: True
+scenario: 30_park_ride_-025
 
 # input tables
 input_table_list:

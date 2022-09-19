@@ -47,7 +47,7 @@ def run(run_list, injectables=None, warm_start=False):
             logger.info("run multiprocess warm start simulation")
         else:
             logger.info("run multiprocess simulation")
-#         print(run_list) 
+#         print(run_list)
 #         print(injectables)
         mp_tasks.run_multiprocess(run_list, injectables)
 #         mp_tasks.run_multiprocess(run_list)
@@ -75,6 +75,7 @@ def log_settings():
         'multiprocess',
         'num_processes',
         'resume_after',
+        'scenario'
     ]
 
     for k in settings:
@@ -103,11 +104,11 @@ if __name__ == '__main__':
         "-k", "--skim_cache", action="store_true",
         help="use skim cache. default is False.")
 #     parser.add_argument(
-#         "-y", "--year", action="store", 
-#         help="year of simulation. default is 2010") 
+#         "-y", "--year", action="store",
+#         help="year of simulation. default is 2010")
 #     parser.add_argument(
-#         "-s", "--scenario", action="store", 
-#         help="scenario. One of 'conservative', 'core', or 'aggressive'. Default is 'core' ") 
+#         "-s", "--scenario", action="store",
+#         help="scenario. One of 'conservative', 'core', or 'aggressive'. Default is 'core' ")
 
     args = parser.parse_args()
 
@@ -136,7 +137,7 @@ if __name__ == '__main__':
     injectables = ['data_dir', 'configs_dir', 'output_dir']
     inject.add_injectable('data_dir', 'data')
     inject.add_injectable('configs_dir', ['configs', 'configs/configs'])
-    
+
     #Adding scenario arguments CARB
 #     year = args.year if args.year else 2010
 #     scenario = args.scenario if args.scenario else 'core'

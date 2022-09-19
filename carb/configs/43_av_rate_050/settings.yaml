@@ -3,6 +3,7 @@
 #####################
 
 inherit_settings: True
+scenario: 43_av_rate_050
 
 # input tables
 input_table_list:

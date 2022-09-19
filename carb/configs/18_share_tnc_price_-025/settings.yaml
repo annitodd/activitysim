@@ -3,6 +3,7 @@
 #####################
 
 inherit_settings: True
+scenario: 18_share_tnc_price_-025
 
 # input tables
 input_table_list:
