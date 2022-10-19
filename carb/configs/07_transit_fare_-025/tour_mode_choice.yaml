@@ -62,6 +62,8 @@ CONSTANTS:
     #valueOfTime: 8.00
     congestion_pricing: 650
     park_ride_cost: 300
+    vot_reduction: 0.0
+    transit_fare_multiplier: 7.5 #10 is no modification
     costPerMile: 18.29
     costShareSr2: 1.75
     costShareSr3: 2.50
@@ -186,6 +188,7 @@ LOGSUM_CHOOSER_COLUMNS:
   - num_workers
   - value_of_time
   - free_parking_at_work
+  - av
 
 
 MODE_CHOICE_LOGSUM_COLUMN_NAME: mode_choice_logsum
