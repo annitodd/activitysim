@@ -41,6 +41,8 @@ def telework(
     # telework_option_anotate = pd.read_csv('annotate_telework_option.csv', comment = "#" )
     telework_frequency_rates = pd.read_csv(frequency_rates_path, comment='#')
     telework_daily_rates = pd.read_csv(day_rates_path, comment='#')
+    telework_frequency_rates.drop(columns = 'Unnamed: 0', inplace = True)
+    telework_daily_rates.drop(columns = 'Unnamed: 0', inplace = True)
 
     #Choosers
     persons_merged = persons_merged.to_frame()
@@ -66,6 +68,12 @@ def telework(
 
     pipeline.replace_table("persons", persons)
     tracing.print_summary('telework', persons.telework, value_counts=True)
+    
+    n_workers = len(persons[persons.worker == 1])
+    n_telecommute = choices.sum()
+    pct_telecommute = (n_telecommute/n_workers)*100
+    
+    logger.info('Telecommute rate: {:.2f}%'.format(pct_telecommute))
 
     if trace_hh_id:
         tracing.trace_df(persons,
